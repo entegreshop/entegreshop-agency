@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entegre Shop | Ajans Yönetim & Sipariş Paneli</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#060913',
+              card: '#0c1222',
+              violet: '#6366f1',
+              cyan: '#06b6d4',
+              emerald: '#10b981'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-[#060913] text-slate-100 min-h-screen antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-[#080d1a]/90 backdrop-blur-xl sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-xs text-white">
+            ES
+          </div>
+          <span class="font-bold text-white font-heading">Entegre Shop Control Center</span>
+        </a>
+        <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          Canlı
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="/" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white transition-colors">
+          ← Web Sitesine Dön
+        </a>
+        <button onclick="refreshData()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-mono text-white font-bold transition-colors flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Yenile</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- KPI Summary Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="text-xs font-mono text-slate-400">Toplam Sipariş / Sepet</div>
+        <div id="kpi-orders-count" class="text-3xl font-extrabold text-white font-mono mt-1">0</div>
+        <div class="text-[11px] text-indigo-400 mt-1">Web üzerinden gelen talepler</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="text-xs font-mono text-slate-400">Toplam Sipariş Hacmi</div>
+        <div id="kpi-orders-revenue" class="text-3xl font-extrabold text-cyan-400 font-mono mt-1">0 ₺</div>
+        <div class="text-[11px] text-slate-400 mt-1">KDV dahil brüt tutar</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="text-xs font-mono text-slate-400">Ücretsiz Check-Up Talepleri</div>
+        <div id="kpi-leads-count" class="text-3xl font-extrabold text-emerald-400 font-mono mt-1">0</div>
+        <div class="text-[11px] text-emerald-400/80 mt-1">Potansiyel büyüme müşterileri</div>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="text-xs font-mono text-slate-400">Medusa & Docker Durumu</div>
+        <div class="text-lg font-bold text-white font-mono mt-2 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Online / Aktif</span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-1">Zero-downtime mimari</div>
+      </div>
+    </div>
+
+    <!-- TABS: SİPARİŞLER vs LEADS -->
+    <div class="border-b border-slate-800 flex gap-6 text-sm font-mono">
+      <button id="tab-orders-btn" onclick="switchTab('orders')" class="pb-3 border-b-2 border-indigo-500 text-white font-bold flex items-center gap-2">
+        <span>Gelen Paket Siparişleri</span>
+        <span id="badge-orders-num" class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs">0</span>
+      </button>
+      <button id="tab-leads-btn" onclick="switchTab('leads')" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+        <span>Ücretsiz Büyüme Analizi Talepleri</span>
+        <span id="badge-leads-num" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-xs">0</span>
+      </button>
+    </div>
+
+    <!-- TAB CONTENT: SİPARİŞLER -->
+    <div id="tab-orders-section" class="space-y-4">
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-slate-950/80 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-4">Sipariş No & Tarih</th>
+                <th class="p-4">Müşteri / Firma</th>
+                <th class="p-4">İletişim</th>
+                <th class="p-4">Seçilen Paketler</th>
+                <th class="p-4">Tutar</th>
+                <th class="p-4">Durum</th>
+                <th class="p-4 text-right">İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body" class="divide-y divide-slate-800/80">
+              <tr>
+                <td colspan="7" class="p-8 text-center text-slate-500">Yükleniyor...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB CONTENT: LEADS -->
+    <div id="tab-leads-section" class="space-y-4 hidden">
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs font-mono">
+            <thead class="bg-slate-950/80 text-slate-400 uppercase text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-4">Talep No & Tarih</th>
+                <th class="p-4">İsim & Firma</th>
+                <th class="p-4">Telefon</th>
+                <th class="p-4">Web Sitesi</th>
+                <th class="p-4">Aylık Bütçe</th>
+                <th class="p-4">İlgi Alanı</th>
+                <th class="p-4">Durum</th>
+                <th class="p-4 text-right">İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="leads-table-body" class="divide-y divide-slate-800/80">
+              <tr>
+                <td colspan="8" class="p-8 text-center text-slate-500">Yükleniyor...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let globalOrders = [];
+    let globalLeads = [];
+
+    async function loadData() {
+      try {
+        const [resOrders, resLeads] = await Promise.all([
+          fetch('/api/admin/orders'),
+          fetch('/api/admin/leads')
+        ]);
+
+        if (resOrders.ok) {
+          const data = await resOrders.json();
+          globalOrders = data.orders || [];
+          renderOrders();
+        }
+
+        if (resLeads.ok) {
+          const data = await resLeads.json();
+          globalLeads = data.leads || [];
+          renderLeads();
+        }
+
+        updateKPIs();
+      } catch (e) {
+        console.error('Fetch error:', e);
+      }
+    }
+
+    function updateKPIs() {
+      document.getElementById('kpi-orders-count').textContent = globalOrders.length;
+      document.getElementById('badge-orders-num').textContent = globalOrders.length;
+      
+      const revenue = globalOrders.reduce((sum, o) => sum + (o.total || 0), 0);
+      document.getElementById('kpi-orders-revenue').textContent = `${revenue.toLocaleString('tr-TR')} ₺`;
+
+      document.getElementById('kpi-leads-count').textContent = globalLeads.length;
+      document.getElementById('badge-leads-num').textContent = globalLeads.length;
+    }
+
+    function renderOrders() {
+      const tbody = document.getElementById('orders-table-body');
+      if (!tbody) return;
+
+      if (globalOrders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="p-8 text-center text-slate-500">Henüz sipariş kaydı yok.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = globalOrders.map(o => {
+        const dateStr = new Date(o.createdAt).toLocaleString('tr-TR');
+        const itemsSummary = (o.items || []).map(i => `<span class="block text-slate-300">• ${i.title} (${i.qty}x)</span>`).join('');
+        const waMsg = encodeURIComponent(`Merhaba ${o.customer?.name || ''}, Entegre Shop üzerinden oluşturduğunuz ${o.id} referans numaralı siparişiniz hakkında görüşmek üzere yazıyorum.`);
+        const cleanPhone = (o.customer?.phone || '').replace(/\D/g, '');
+        const waLink = `https://wa.me/90${cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone}?text=${waMsg}`;
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <td class="p-4">
+              <span class="text-cyan-400 font-bold">${o.id}</span>
+              <span class="block text-[11px] text-slate-500 mt-0.5">${dateStr}</span>
+            </td>
+            <td class="p-4">
+              <span class="text-white font-bold">${o.customer?.name || '-'}</span>
+              <span class="block text-[11px] text-slate-400">${o.customer?.company || '-'}</span>
+            </td>
+            <td class="p-4">
+              <span class="text-slate-300">${o.customer?.phone || '-'}</span>
+              <span class="block text-[11px] text-slate-400">${o.customer?.email || '-'}</span>
+            </td>
+            <td class="p-4 max-w-xs">
+              <div class="space-y-0.5 text-[11px]">${itemsSummary}</div>
+            </td>
+            <td class="p-4 font-bold text-white">
+              ${(o.total || 0).toLocaleString('tr-TR')} ₺
+            </td>
+            <td class="p-4">
+              <select onchange="updateStatus('order', '${o.id}', this.value)" class="px-2 py-1 rounded bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <option value="Yeni Sipariş" ${o.status === 'Yeni Sipariş' ? 'selected' : ''}>Yeni Sipariş</option>
+                <option value="İletişime Geçildi" ${o.status === 'İletişime Geçildi' ? 'selected' : ''}>İletişime Geçildi</option>
+                <option value="Ödeme Alındı / Aktif" ${o.status === 'Ödeme Alındı / Aktif' ? 'selected' : ''}>Ödeme Alındı / Aktif</option>
+                <option value="Tamamlandı" ${o.status === 'Tamamlandı' ? 'selected' : ''}>Tamamlandı</option>
+                <option value="İptal" ${o.status === 'İptal' ? 'selected' : ''}>İptal</option>
+              </select>
+            </td>
+            <td class="p-4 text-right">
+              <a href="${waLink}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 font-bold transition-all text-xs">
+                WhatsApp İle Ulaş
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderLeads() {
+      const tbody = document.getElementById('leads-table-body');
+      if (!tbody) return;
+
+      if (globalLeads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="p-8 text-center text-slate-500">Henüz analiz talebi yok.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = globalLeads.map(l => {
+        const dateStr = new Date(l.createdAt).toLocaleString('tr-TR');
+        const cleanPhone = (l.phone || '').replace(/\D/g, '');
+        const waMsg = encodeURIComponent(`Merhaba ${l.name || ''}, Entegre Shop üzerinden talep ettiğiniz ücretsiz dijital check-up ve reklam analiz raporunuzu hazırladık.`);
+        const waLink = `https://wa.me/90${cleanPhone.startsWith('0') ? cleanPhone.slice(1) : cleanPhone}?text=${waMsg}`;
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition-colors">
+            <td class="p-4">
+              <span class="text-emerald-400 font-bold">${l.id}</span>
+              <span class="block text-[11px] text-slate-500 mt-0.5">${dateStr}</span>
+            </td>
+            <td class="p-4">
+              <span class="text-white font-bold">${l.name}</span>
+              <span class="block text-[11px] text-slate-400">${l.company || '-'}</span>
+            </td>
+            <td class="p-4 text-slate-300">
+              ${l.phone}
+            </td>
+            <td class="p-4 text-cyan-400">
+              ${l.website ? `<a href="${l.website}" target="_blank" class="underline">${l.website}</a>` : '-'}
+            </td>
+            <td class="p-4 text-slate-300">
+              ${l.budget || '-'}
+            </td>
+            <td class="p-4 text-indigo-300">
+              ${l.interest || '-'}
+            </td>
+            <td class="p-4">
+              <select onchange="updateStatus('lead', '${l.id}', this.value)" class="px-2 py-1 rounded bg-slate-950 border border-slate-700 text-xs text-slate-300">
+                <option value="İnceleniyor" ${l.status === 'İnceleniyor' ? 'selected' : ''}>İnceleniyor</option>
+                <option value="Analiz Gönderildi" ${l.status === 'Analiz Gönderildi' ? 'selected' : ''}>Analiz Gönderildi</option>
+                <option value="Teklif Sunuldu" ${l.status === 'Teklif Sunuldu' ? 'selected' : ''}>Teklif Sunuldu</option>
+                <option value="Kazanıldı" ${l.status === 'Kazanıldı' ? 'selected' : ''}>Kazanıldı</option>
+                <option value="Olumsuz" ${l.status === 'Olumsuz' ? 'selected' : ''}>Olumsuz</option>
+              </select>
+            </td>
+            <td class="p-4 text-right">
+              <a href="${waLink}" target="_blank" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500 hover:text-slate-950 font-bold transition-all text-xs">
+                Rapor İlet (WhatsApp)
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function updateStatus(type, id, status) {
+      try {
+        await fetch('/api/admin/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, id, status })
+        });
+        loadData();
+      } catch (e) {
+        alert('Durum güncellenirken hata oluştu.');
+      }
+    }
+
+    function switchTab(tab) {
+      const ordersSec = document.getElementById('tab-orders-section');
+      const leadsSec = document.getElementById('tab-leads-section');
+      const ordersBtn = document.getElementById('tab-orders-btn');
+      const leadsBtn = document.getElementById('tab-leads-btn');
+
+      if (tab === 'orders') {
+        ordersSec.classList.remove('hidden');
+        leadsSec.classList.add('hidden');
+        ordersBtn.classList.add('border-indigo-500', 'text-white');
+        ordersBtn.classList.remove('border-transparent', 'text-slate-400');
+        leadsBtn.classList.remove('border-indigo-500', 'text-white');
+        leadsBtn.classList.add('border-transparent', 'text-slate-400');
+      } else {
+        leadsSec.classList.remove('hidden');
+        ordersSec.classList.add('hidden');
+        leadsBtn.classList.add('border-indigo-500', 'text-white');
+        leadsBtn.classList.remove('border-transparent', 'text-slate-400');
+        ordersBtn.classList.remove('border-indigo-500', 'text-white');
+        ordersBtn.classList.add('border-transparent', 'text-slate-400');
+      }
+    }
+
+    function refreshData() {
+      loadData();
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+
+</body>
+</html>

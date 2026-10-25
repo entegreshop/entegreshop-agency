@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --primary-blue: #0066ff;
+  --primary-indigo: #4f46e5;
+  --primary-cyan: #06b6d4;
+  --primary-emerald: #10b981;
+  --dark-navy: #090d20;
+  --dark-hero: #0a0f29;
+  --dark-card: #0f1738;
+  --light-bg: #f8fafc;
+  --light-card: #ffffff;
+  --border-light: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0066ff;
+}
+
+/* Qukasoft Top Announcement Counter Bar */
+.top-counter-bar {
+  background: #080d1a !important;
+  color: #ffffff !important;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.counter-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px;
+  min-width: 38px;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+.counter-unit .val {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 13px;
+  color: #38bdf8 !important;
+}
+
+.counter-unit .lbl {
+  font-size: 9px;
+  color: #cbd5e1 !important;
+  margin-top: 1px;
+}
+
+/* Qukasoft Hero Dark Container */
+.quka-hero-container {
+  background-color: #090d20 !important;
+  background: radial-gradient(120% 120% at 50% 10%, #172554 0%, #0a0f29 45%, #050814 100%) !important;
+  color: #ffffff !important;
+  border-radius: 32px;
+  box-shadow: 0 30px 60px -15px rgba(5, 8, 20, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.quka-hero-container h1,
+.quka-hero-container h2,
+.quka-hero-container p,
+.quka-hero-container span {
+  /* Ensure text inside hero respects high-contrast dark container */
+}
+
+.quka-hero-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), rgba(99, 102, 241, 0.9), transparent);
+}
+
+/* Floating Badges & Animations */
+.float-card {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.float-card-delay {
+  animation: floatSlow 7s ease-in-out infinite 1.5s;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Qukasoft Light Cards */
+.qk-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.qk-card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: 0 20px 35px -10px rgba(0, 102, 255, 0.12);
+}
+
+/* Pricing Tab Filtering & Buttons */
+.pricing-tab-btn {
+  cursor: pointer;
+  user-select: none;
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing-tab-btn:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.pricing-tab-btn.active {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 4px 14px -2px rgba(37, 99, 235, 0.45) !important;
+}
+
+.pricing-card-item {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pricing-card-item.hidden {
+  display: none !important;
+}
+
+/* Package Price Typography (High Contrast) */
+.ad-pkg-price {
+  min-height: 52px;
+}
+.ad-pkg-price .pkg-amount,
+.pricing-card-item .text-3xl {
+  color: #0f172a !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-weight: 800 !important;
+}
+
+/* Qukasoft 3-Column Info Banners */
+.qk-info-banner {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+}
+
+.qk-info-banner:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 12px 30px -5px rgba(59, 130, 246, 0.15);
+  transform: translateY(-3px);
+}
+
+/* All in Quka Alternating Section */
+.all-in-row {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 72px;
+}
+
+.all-in-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Interactive Accordion FAQ (Qukasoft Style) */
+.faq-accordion-item {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  transition: all 0.25s ease;
+  overflow: hidden;
+}
+
+.faq-accordion-item.active {
+  border-color: #3b82f6;
+  box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.08);
+}
+
+.faq-header {
+  cursor: pointer;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+  padding: 0 22px;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.faq-accordion-item.active .faq-body {
+  max-height: 500px;
+  padding: 0 22px 20px 22px;
+}
+
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0284c7;
+  transition: transform 0.3s ease, background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-accordion-item.active .faq-icon {
+  transform: rotate(45deg);
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+/* Partner Logo Pill */
+.partner-pill {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+}
+
+.partner-pill:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+}
+
+/* Featured Glowing Card */
+.featured-pricing-card {
+  position: relative;
+  background: #ffffff;
+  border: 2px solid #4f46e5;
+  box-shadow: 0 25px 50px -12px rgba(79, 70, 229, 0.25);
+}
+
+.featured-pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 3px;
+  background: linear-gradient(90deg, #38bdf8, #6366f1);
+  border-radius: 9999px;
+}
+
+/* Cart Drawer (Smooth slide-in) */
+.cart-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cart-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: #090d20;
+  color: #ffffff;
+  z-index: 51;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.cart-drawer.open {
+  transform: translateX(0);
+}
+
+/* Checkout Modal */
+.checkout-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.checkout-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.checkout-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.checkout-modal-content {
+  position: relative;
+  background: #0a0f29;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+  transform: scale(0.96);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.checkout-modal.active .checkout-modal-content {
+  transform: scale(1);
+}
+
+/* Shimmer Sweep */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shimmerSweep 3.5s infinite;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    left: -60%;
+  }
+  30% {
+    left: 140%;
+  }
+  100% {
+    left: 140%;
+  }
+}

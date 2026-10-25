@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entegre Shop | Gelişmiş E-Ticaret, Medusa v2 & Dijital Reklam Altyapısı</title>
+  <meta name="description" content="Entegre Shop ile Meta, Google Ads, TikTok ve OpenAI reklam yönetimi; anahtar teslim Medusa v2 e-ticaret ve kurumsal web altyapıları ile işinizi milyonlara ulaştırın.">
+  <link rel="canonical" href="https://entegreshop.com/">
+  
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://entegreshop.com/">
+  <meta property="og:title" content="Entegre Shop | Gelişmiş E-Ticaret, Medusa v2 & Dijital Reklam Altyapısı">
+  <meta property="og:description" content="Meta, Google Ads, TikTok ve OpenAI reklam yönetimi; anahtar teslim Medusa v2 e-ticaret ve kurumsal web altyapıları ile işinizi büyütün.">
+  <meta property="og:site_name" content="Entegre Shop">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://entegreshop.com/">
+  <meta name="twitter:title" content="Entegre Shop | Gelişmiş E-Ticaret, Medusa v2 & Dijital Reklam Altyapısı">
+  <meta name="twitter:description" content="Meta, Google Ads, TikTok ve OpenAI reklam yönetimi; anahtar teslim Medusa v2 e-ticaret ve kurumsal web altyapıları.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              blue: '#0066ff',
+              indigo: '#4f46e5',
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              dark: '#080d1a',
+              card: '#0c142c',
+              light: '#f8fafc'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            heading: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles (Qukasoft Aesthetic) -->
+  <link rel="stylesheet" href="/css/style.css?v=2.4.0">
+</head>
+<body class="bg-[#f8fafc] text-slate-800 antialiased selection:bg-blue-600 selection:text-white relative">
+
+  <!-- =========================================================
+       1. TOP CAMPAIGN ANNOUNCEMENT BAR (QUKASOFT SIGNATURE COUNTDOWN)
+       ========================================================= -->
+  <div class="top-counter-bar bg-[#080d1a] text-white py-2.5 px-4 sticky top-0 z-50 border-b border-slate-800 shadow-md" style="background-color: #080d1a !important; color: #ffffff !important;">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+      
+      <!-- Promo Text & Call to Action -->
+      <div class="flex items-center gap-3">
+        <span class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white font-bold text-[11px] font-mono border border-blue-400">
+          ÖZEL KAMPANYA
+        </span>
+        <span class="text-slate-200 font-medium hidden sm:inline" style="color: #e2e8f0 !important;">
+          Ekim ayına özel tüm E-Ticaret ve Dijital Reklam Paketlerinde <strong class="text-white" style="color: #ffffff !important;">%30'a varan indirim!</strong>
+        </span>
+        <span class="text-slate-200 font-medium sm:hidden" style="color: #e2e8f0 !important;">
+          Tüm paketlerde <strong class="text-white" style="color: #ffffff !important;">%30 indirim!</strong>
+        </span>
+        <button class="btn-trigger-callback px-3 py-1 rounded-full bg-white text-slate-900 font-bold hover:bg-slate-200 transition-colors text-[11px] font-mono shadow">
+          Sizi Arayalım
+        </button>
+      </div>
+
+      <!-- Live Countdown Units -->
+      <div class="flex items-center gap-1.5">
+        <div class="counter-unit" style="background: rgba(255,255,255,0.12) !important; border: 1px solid rgba(255,255,255,0.25) !important;">
+          <span id="timer-days" class="val" style="color: #38bdf8 !important;">06</span>
+          <span class="lbl" style="color: #cbd5e1 !important;">Gün</span>
+        </div>
+        <span class="text-slate-400 font-bold">:</span>
+        <div class="counter-unit" style="background: rgba(255,255,255,0.12) !important; border: 1px solid rgba(255,255,255,0.25) !important;">
+          <span id="timer-hours" class="val" style="color: #38bdf8 !important;">18</span>
+          <span class="lbl" style="color: #cbd5e1 !important;">Saat</span>
+        </div>
+        <span class="text-slate-400 font-bold">:</span>
+        <div class="counter-unit" style="background: rgba(255,255,255,0.12) !important; border: 1px solid rgba(255,255,255,0.25) !important;">
+          <span id="timer-minutes" class="val" style="color: #38bdf8 !important;">45</span>
+          <span class="lbl" style="color: #cbd5e1 !important;">Dakika</span>
+        </div>
+        <span class="text-slate-400 font-bold">:</span>
+        <div class="counter-unit" style="background: rgba(255,255,255,0.12) !important; border: 1px solid rgba(255,255,255,0.25) !important;">
+          <span id="timer-seconds" class="val" style="color: #38bdf8 !important;">20</span>
+          <span class="lbl" style="color: #cbd5e1 !important;">Saniye</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. MAIN HEADER NAVIGATION (QUKASOFT CLEAN STYLE)
+       ========================================================= -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-[45px] z-40 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 p-[2px] shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+          <div class="w-full h-full bg-[#080d1a] rounded-[14px] flex items-center justify-center">
+            <svg class="w-6 h-6 text-cyan-400 group-hover:rotate-12 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="text-2xl font-black tracking-tight font-heading text-slate-900">ENTEGRE</span>
+            <span class="text-2xl font-black tracking-tight font-heading text-blue-600">SHOP</span>
+          </div>
+          <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase font-semibold">Gelişmiş E-Ticaret &amp; Reklam</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600">
+        
+        <!-- Özellikler / Çözümler Dropdown Trigger -->
+        <a href="#ozellikler" class="hover:text-blue-600 transition-colors flex items-center gap-1">
+          <span>Özellikler</span>
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+
+        <!-- Fiyatlar -->
+        <a href="#paketler-fiyatlar" class="hover:text-blue-600 transition-colors">Fiyatlar &amp; Paketler</a>
+
+        <!-- Pazaryeri & Entegrasyonlar -->
+        <a href="#entegrasyonlar" class="hover:text-blue-600 transition-colors flex items-center gap-1.5">
+          <span>Entegrasyonlar</span>
+          <span class="px-1.5 py-0.5 text-[10px] font-mono bg-blue-50 text-blue-600 rounded border border-blue-200 font-bold">+50</span>
+        </a>
+
+        <!-- Referanslar -->
+        <a href="#referanslar" class="hover:text-blue-600 transition-colors">Referanslar</a>
+
+        <!-- Kurumsal Web -->
+        <a href="#kurumsal-web" class="hover:text-blue-600 transition-colors">Kurumsal Web</a>
+
+        <!-- SSS -->
+        <a href="#sss" class="hover:text-blue-600 transition-colors">SSS</a>
+      </nav>
+
+      <!-- Right Action Area: Phone, Cart & Free Try Button -->
+      <div class="flex items-center gap-3">
+        
+        <!-- Phone Support -->
+        <a href="tel:08505320000" class="hidden xl:flex items-center gap-2 text-xs font-mono font-bold text-slate-700 hover:text-blue-600 transition-colors px-3 py-1.5 rounded-xl bg-slate-100 border border-slate-200">
+          <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          <span>0850 532 00 00</span>
+        </a>
+
+        <!-- Cart Button -->
+        <button id="cart-open-btn" class="relative px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 transition-all flex items-center gap-2 group shadow-sm">
+          <svg class="w-5 h-5 text-blue-600 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="hidden sm:inline text-xs font-bold">Sepet</span>
+          <span class="cart-count-badge hidden px-2 py-0.5 text-[11px] font-mono font-bold bg-blue-600 text-white rounded-full leading-none">0</span>
+        </button>
+
+        <!-- Primary CTA: Ücretsiz Deneyin (Qukasoft Signature Button) -->
+        <button class="btn-trigger-callback px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/25 transition-all hover:scale-[1.02] flex items-center gap-2">
+          <span>Ücretsiz Deneyin</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================
+       3. HERO SECTION (QUKASOFT SIGNATURE CENTRAL DARK CONTAINER)
+       ========================================================= -->
+  <section class="pt-8 pb-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Central Deep-Navy Rounded Card (Guaranteed Dark Background & High Contrast) -->
+      <div class="quka-hero-container p-8 sm:p-12 lg:p-16 text-white rounded-[32px] border border-slate-800 shadow-2xl relative overflow-hidden" style="background-color: #090d20 !important; background: radial-gradient(120% 120% at 50% 10%, #172554 0%, #0a0f29 45%, #050814 100%) !important; color: #ffffff !important;">
+        
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Hero Text -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            
+            <!-- Breadcrumb / Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-900/60 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-bold">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span>ENTEGRE SHOP İLE</span>
+            </div>
+
+            <!-- Main Title (High Contrast Guaranteed) -->
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading leading-[1.15] text-white" style="color: #ffffff !important;">
+              Ürününüzü ve Hizmetinizi <br class="hidden sm:inline">
+              <span class="text-cyan-400 font-black" style="color: #38bdf8 !important;">
+                Kolayca Milyonlara Ulaştırın.
+              </span>
+            </h1>
+
+            <!-- Subtitle (High Contrast Guaranteed) -->
+            <p class="text-base sm:text-lg text-slate-200 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal" style="color: #e2e8f0 !important;">
+              Tek panelden hem <strong class="text-white font-bold" style="color: #ffffff !important;">Medusa v2 e-ticaret sitenizi</strong> hem <strong class="text-white font-bold" style="color: #ffffff !important;">Meta, Google Ads ve TikTok reklamlarınızı</strong> yönetin. Pazaryeri, muhasebe ve kargo entegrasyonlarıyla e-ticaret süreçlerinizi otomatikleştirin.
+            </p>
+
+            <!-- Dual Action Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <button class="btn-trigger-callback w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-slate-950 hover:bg-slate-100 font-extrabold text-sm shadow-xl transition-all hover:scale-105 flex items-center justify-center gap-2">
+                <span>Ücretsiz Deneyin</span>
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+              <a href="#paketler-fiyatlar" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-sm transition-all flex items-center justify-center gap-2">
+                <span>E-Ticaret &amp; Reklam Paketleri</span>
+              </a>
+            </div>
+
+            <!-- Customer Trust Proof -->
+            <div class="pt-4 flex items-center justify-center lg:justify-start gap-3">
+              <div class="flex -space-x-2 overflow-hidden">
+                <span class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-900 bg-gradient-to-tr from-blue-500 to-indigo-600 text-[10px] font-bold text-center leading-8 text-white">MK</span>
+                <span class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-900 bg-gradient-to-tr from-emerald-500 to-teal-600 text-[10px] font-bold text-center leading-8 text-white">AY</span>
+                <span class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-900 bg-gradient-to-tr from-purple-500 to-pink-600 text-[10px] font-bold text-center leading-8 text-white">ZB</span>
+                <span class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-900 bg-gradient-to-tr from-amber-500 to-orange-600 text-[10px] font-bold text-center leading-8 text-white">NB</span>
+              </div>
+              <div class="text-xs font-mono text-slate-300" style="color: #cbd5e1 !important;">
+                <strong class="text-white font-bold" style="color: #ffffff !important;">1.200'den fazla</strong> markanın büyüme tercihi
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Visual with Floating Widgets -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md lg:max-w-none">
+              
+              <!-- Ambient Glow Rim -->
+              <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 rounded-3xl blur-xl opacity-40 animate-pulse"></div>
+
+              <!-- Main Dashboard Card -->
+              <div class="relative rounded-3xl bg-slate-950/95 border border-slate-700 p-3 shadow-2xl overflow-hidden">
+                <img src="/assets/images/hero-growth.jpg" alt="Entegre Shop Büyüme & Reklam Hub Görseli" class="w-full h-auto rounded-2xl object-cover shadow-inner hover:scale-[1.02] transition-transform duration-500">
+                
+                <!-- Floating Widget 1: Live ROAS -->
+                <div class="float-card absolute top-6 right-6 px-3.5 py-2 rounded-2xl bg-[#080d1a]/95 border border-cyan-500/40 backdrop-blur-xl shadow-xl flex items-center gap-3">
+                  <div class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></div>
+                  <div>
+                    <div class="text-[10px] text-slate-400 uppercase font-mono">Canlı Ciro Akışı</div>
+                    <div class="text-sm font-bold font-mono text-white">4.82x ROAS</div>
+                  </div>
+                </div>
+
+                <!-- Floating Widget 2: Currency & Language Switcher Pill -->
+                <div class="float-card-delay absolute bottom-6 left-6 px-3.5 py-2 rounded-2xl bg-[#080d1a]/95 border border-blue-500/40 backdrop-blur-xl shadow-xl flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-blue-500/30 text-cyan-300 text-[10px] font-mono font-bold">TR / TRY</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">EN / USD</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-mono">DE / EUR</span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Marketplace & Advertising Channel Logobar (Qukasoft Signature Bottom Bar) -->
+        <div class="mt-12 pt-8 border-t border-slate-800" style="border-top: 1px solid rgba(255, 255, 255, 0.15) !important;">
+          <div class="text-[11px] font-mono text-center uppercase tracking-widest mb-4 font-bold" style="color: #94a3b8 !important;">
+            Tek Merkezden Entegre Reklam Kanalları &amp; Pazaryerleri
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-mono font-bold">
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-blue-400 shadow-sm">
+              ⚡ Meta Ads (Instagram/FB)
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-red-400 shadow-sm">
+              🔍 Google Ads &amp; Shopping
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-pink-400 shadow-sm">
+              🎵 TikTok Ads
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 shadow-sm">
+              🤖 OpenAI GPT-4o
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-amber-400 shadow-sm">
+              Trendyol
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-orange-400 shadow-sm">
+              Hepsiburada
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-yellow-400 shadow-sm">
+              Amazon
+            </span>
+            <span class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-cyan-400 shadow-sm">
+              PayTR / iyzico
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       4. MUTLU MÜŞTERİLER & REFERANSLAR (QUKASOFT STYLE SHOWCASE)
+       ========================================================= -->
+  <section id="referanslar" class="py-14 border-b border-slate-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="text-2xl font-bold font-heading text-slate-900">
+            Entegre Shop’u Tercih Eden Mutlu Müşteriler
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            Müşteri odaklı çalışma prensibimiz sayesinde e-ticaret ve dijital reklamda markaların cirosunu katlıyoruz.
+          </p>
+        </div>
+        <button class="btn-trigger-callback px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs font-mono transition-colors">
+          Tüm Referansları Gör →
+        </button>
+      </div>
+
+      <!-- References Logo Grid (12 Brands) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Nevermore
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Kırmızı Online
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Bekoburada
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Docca
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Zoom Butik
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Notebookdepo
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Nona Butik
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Bi'aldım
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Bueno Shoes
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Sokak Butik
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Halı Modeli
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white hover:shadow-md transition-all flex items-center justify-center text-center font-bold font-heading text-sm text-slate-700">
+          Ayaz Mühendislik
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       5. 3-KOLONLU VİTRİN BÖLÜMÜ (QUKASOFT SIGNATURE "TEK PANELDE KOLAY KULLANIM")
+       ========================================================= -->
+  <section id="ozellikler" class="py-20 lg:py-24 bg-[#f8fafc]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading tracking-tight">
+          E-Ticaret ve Reklam Masası Tek Panelde Kolay Kullanım
+        </h2>
+        <p class="text-slate-600 text-base">
+          Güçlü Medusa v2 altyapısı, yapay zeka reklam entegrasyonları ve müşteri memnuniyeti ile e-ticaretteki en büyük destekçiniz.
+        </p>
+      </div>
+
+      <!-- 3-Column Grid -->
+      <div class="grid lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Column: 3 Cards -->
+        <div class="lg:col-span-4 space-y-4">
+          
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-blue-600">🌍</span> Sınırsız E-İhracat
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Yapay Zeka ile içeriklerinizi saniyeler içinde istediğiniz dile çevirin, dilediğiniz para birimiyle (USD, EUR, GBP) sıfır komisyonla ödeme alın.
+            </p>
+          </div>
+
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-emerald-600">💬</span> 7/24 Teknik &amp; Reklam Desteği
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Entegre Shop 7/24 sizinle iletişimde. WhatsApp, bilet veya telefon ile dedike büyüme uzmanınıza doğrudan ulaşın.
+            </p>
+          </div>
+
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-indigo-600">🔄</span> Kolay Altyapı Geçişi
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Shopify, Ticimax, IdeaSoft veya WooCommerce'den Medusa'ya müşteri bilgilerinizi, siparişlerinizi ve linklerinizi sıfır kayıpla ücretsiz taşıyoruz.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Middle Column: Large Visual Mockup -->
+        <div class="lg:col-span-4">
+          <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-white p-3 group">
+            <img src="/assets/images/ecommerce-medusa.jpg" alt="Medusa v2 E-Ticaret ve Reklam Paneli" class="w-full h-auto rounded-2xl object-cover group-hover:scale-[1.02] transition-transform duration-500">
+            <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-slate-900/90 backdrop-blur-md text-white border border-slate-800 text-center">
+              <div class="text-xs font-mono uppercase text-cyan-400 font-bold">Medusa v2 Headless Architecture</div>
+              <div class="text-sm font-bold mt-0.5">Sıfır Komisyon • &lt; 0.8s Açılış</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: 3 Cards -->
+        <div class="lg:col-span-4 space-y-4">
+          
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-orange-500">🛒</span> Pazaryeri Entegrasyonları
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Trendyol, Hepsiburada, Amazon ve ÇiçekSepeti ile tam entegre olun; ürünlerinizi, stoklarınızı ve siparişlerinizi tek ekrandan yönetin.
+            </p>
+          </div>
+
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-cyan-600">💳</span> Ödeme Entegrasyonları
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Sınır yok! PayTR, iyzico ve tüm banka sanal posları ile kolayca entegre olun, taksitli satış yapın ve hemen ödeme almaya başlayın.
+            </p>
+          </div>
+
+          <div class="qk-info-banner">
+            <h3 class="text-lg font-bold text-slate-900 font-heading flex items-center gap-2">
+              <span class="text-purple-600">📊</span> Muhasebe &amp; ERP Entegrasyonu
+            </h3>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">
+              Logo, Mikro, Nebim, Paraşüt ve BirFatura gibi 30+ muhasebe programı ile tam otomasyon. E-fatura ve stoklar anında güncellenir.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       6. "ALL IN ENTEGRE" 4-LÜ ÇAPRAZ BLOKLAR (QUKASOFT SIGNATURE "ALL IN QUKA")
+       ========================================================= -->
+  <section class="py-20 lg:py-28 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Row 1: Left Image, Right Text (Daha Fazla Satış) -->
+      <div class="all-in-row flex-col lg:flex-row">
+        <div class="w-full lg:w-1/2">
+          <div class="rounded-3xl bg-slate-100 border border-slate-200 p-4 shadow-xl overflow-hidden">
+            <img src="/assets/images/hero-growth.jpg" alt="Daha Fazla Satış & Otomasyon" class="w-full h-auto rounded-2xl object-cover">
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 space-y-4">
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-blue-100 text-blue-700 font-bold uppercase">
+            All in Entegre
+          </span>
+          <h3 class="text-3xl font-extrabold text-slate-900 font-heading">
+            Daha Fazla Satış &amp; Huni Otomasyonu
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            • <strong>Terk Edilmiş Sepet Otomasyonu:</strong> Sepette ürün bırakan müşterilere otomatik WhatsApp ve SMS kuponları gönderin.<br>
+            • <strong>100+ Kampanya Modeli:</strong> 2 al 1 öde, sepette ek %10 indirim, çapraz satış ve hediye çekleri.<br>
+            • <strong>Express Checkout:</strong> Tek tıkla ödeme ve kapıda ödeme seçeneği ile dönüşüm oranını <strong>%38 artırın</strong>.<br>
+            • Gelişmiş Meta ve Google piksel hunileri sayesinde boşa reklam bütçesi harcamayın.
+          </p>
+          <div class="pt-2">
+            <button class="btn-trigger-callback px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+              Ücretsiz Deneyin →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Right Image, Left Text (Yapay Zeka) -->
+      <div class="all-in-row flex-col lg:flex-row-reverse">
+        <div class="w-full lg:w-1/2">
+          <div class="rounded-3xl bg-slate-900 border border-slate-800 p-4 shadow-xl overflow-hidden">
+            <img src="/assets/images/ai-advertising.jpg" alt="Yapay Zeka ile Rakiplerinizin Önüne Geçin" class="w-full h-auto rounded-2xl object-cover">
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 space-y-4">
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold uppercase">
+            OpenAI Destekli Büyüme
+          </span>
+          <h3 class="text-3xl font-extrabold text-slate-900 font-heading">
+            Yapay Zeka ile Rakiplerinizin Önüne Geçin
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Yapay zeka, içerik oluşturma sürecini daha hızlı, daha verimli ve etkileyici hale getirerek işletmenizin rekabet avantajını artırıyor.<br><br>
+            • <strong>Akıllı Reklam Metni &amp; Kanca Robotu:</strong> Meta ve TikTok için en çok tıklanan reklam varyasyonlarını GPT-4o ile üretin.<br>
+            • <strong>Akıllı Bütçe Dağıtımı:</strong> Kazandıran kampanyalara otomatik bütçe aktaran optimizasyon motoru.<br>
+            • <strong>Çok Dilli Çeviri:</strong> Ürün açıklamalarınızı tek tıkla 15+ yabancı dile dönüştürerek global satışa başlayın.
+          </p>
+          <div class="pt-2">
+            <a href="#paketler-fiyatlar" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-md transition-all">
+              <span>OpenAI Reklam Paketini İncele</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Left Image, Right Text (Bildirimler) -->
+      <div class="all-in-row flex-col lg:flex-row">
+        <div class="w-full lg:w-1/2">
+          <div class="rounded-3xl bg-slate-100 border border-slate-200 p-6 shadow-xl flex items-center justify-center">
+            <div class="space-y-3 w-full max-w-sm">
+              <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-3">
+                <span class="text-xl">💬</span>
+                <div>
+                  <div class="text-xs font-bold text-slate-900">WhatsApp Sipariş Bildirimi</div>
+                  <div class="text-[11px] text-slate-500">"Siparişiniz kargoya verildi: #ENT-9481"</div>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-3">
+                <span class="text-xl">📱</span>
+                <div>
+                  <div class="text-xs font-bold text-slate-900">SMS Terk Edilmiş Sepet</div>
+                  <div class="text-[11px] text-slate-500">"Sepetinizdeki ürünlere %10 indirim tanımlandı!"</div>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-3">
+                <span class="text-xl">✉️</span>
+                <div>
+                  <div class="text-xs font-bold text-slate-900">E-Posta E-Fatura Otomasyonu</div>
+                  <div class="text-[11px] text-slate-500">"E-Faturanız hazırlanıp müşteriye iletildi."</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-1/2 space-y-4">
+          <span class="text-xs font-mono px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 font-bold uppercase">
+            Çok Kanallı İletişim
+          </span>
+          <h3 class="text-3xl font-extrabold text-slate-900 font-heading">
+            SMS, E-Posta ve WhatsApp Akıllı Bildirimleri
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Pazarlama mesajları ve sipariş güncellemeleri için müşterilerinize otomatik bildirimler gönderin. Müşterileriniz kargo takip numarasını aramak zorunda kalmasın, doğrudan cebine WhatsApp mesajı düşsün.
+          </p>
+          <div class="pt-2">
+            <button class="btn-trigger-callback px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+              Daha Fazla Bilgi Al
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       7. PAKETLER VE FİYATLANDIRMA (SEKMELİ GEÇİŞ & MEDUSA SEPETİ)
+       ========================================================= -->
+  <section id="paketler-fiyatlar" class="py-20 lg:py-28 bg-[#f1f5f9] border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+        <span class="text-xs font-mono px-3.5 py-1 rounded-full bg-blue-100 text-blue-700 font-bold uppercase">
+          FİYATLAR VE PAKETLER
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 font-heading tracking-tight">
+          İhtiyacınıza Uygun Büyüme Paketini Seçin
+        </h2>
+        <p class="text-slate-600 text-sm">
+          Sıfır gizli komisyon, 24 saatte hızlı teslimat. Paketleri inceleyip doğrudan sepetinize ekleyebilir veya WhatsApp üzerinden teklif alabilirsiniz.
+        </p>
+
+        <!-- Category Tabs -->
+        <div class="pt-6 flex flex-wrap items-center justify-center gap-2">
+          <button id="tab-btn-all" data-tab="all" onclick="setPricingTab('all')" class="pricing-tab-btn active px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
+            Tüm Paketler
+          </button>
+          <button id="tab-btn-ads" data-tab="ads" onclick="setPricingTab('ads')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
+            Dijital Reklam Danışmanlığı
+          </button>
+          <button id="tab-btn-ecom" data-tab="ecom" onclick="setPricingTab('ecom')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
+            E-Ticaret Paketleri
+          </button>
+          <button id="tab-btn-web" data-tab="web" onclick="setPricingTab('web')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
+            Kurumsal Web
+          </button>
+        </div>
+
+        <!-- Monthly vs. 3-Monthly Discount Toggler for Ads -->
+        <div id="ad-billing-toggle-wrapper" class="pt-4 flex items-center justify-center">
+          <div class="inline-flex items-center p-1.5 rounded-2xl bg-slate-200 border border-slate-300">
+            <button id="btn-billing-monthly" class="px-5 py-2 rounded-xl text-xs font-bold font-mono transition-all bg-blue-600 text-white shadow">
+              Aylık Düzenli
+            </button>
+            <button id="btn-billing-quarterly" class="px-5 py-2 rounded-xl text-xs font-bold font-mono transition-all bg-white text-slate-700 hover:text-slate-900 flex items-center gap-1.5">
+              <span>3 Aylık Peşin</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 text-[10px] font-bold">%15 İndirim</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Packages Grid -->
+      <div id="pricing-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+
+        <!-- 1. Meta Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-mono font-bold">
+                Meta Ads
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">CAPI &amp; Advantage+</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Meta Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Instagram ve Facebook üzerinden doğrudan satış odaklı reklam yönetimi.</p>
+            
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-meta">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ Meta Conversions API (CAPI) Server-Side</li>
+              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Satışları</li>
+              <li class="flex items-center gap-2">✓ Haftalık Kreatif &amp; Kitle A/B Testleri</li>
+              <li class="flex items-center gap-2">✓ Retargeting &amp; Lookalike Kitleler</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ad-meta" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ad-meta" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Google Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-mono font-bold">
+                Google Ads
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">Performance Max</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Google Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Google Shopping, Search ve YouTube ile yüksek ROAS hedefli reklam masası.</p>
+            
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-google">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ Merchant Center &amp; Alışveriş Feed Kurulumu</li>
+              <li class="flex items-center gap-2">✓ Performance Max (PMax) Kampanyaları</li>
+              <li class="flex items-center gap-2">✓ Negatif Anahtar Kelime &amp; Bütçe Filtresi</li>
+              <li class="flex items-center gap-2">✓ GA4 Gelişmiş E-Ticaret Dönüşüm Kurulumu</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ad-google" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ad-google" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. TikTok Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-pink-100 text-pink-700 text-xs font-mono font-bold">
+                TikTok Ads
+              </span>
+              <span class="text-[11px] font-mono text-pink-600 font-bold">Spark &amp; Viral</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">TikTok Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Gen-Z ve dinamik video kurguları ile doğrudan sipariş odaklı reklam masası.</p>
+            
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-tiktok">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">10.000 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ TikTok Pixel &amp; Events API Entegrasyonu</li>
+              <li class="flex items-center gap-2">✓ Spark Ads &amp; Trend Kurgu Rehberliği</li>
+              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Reklamları (DSA)</li>
+              <li class="flex items-center gap-2">✓ Haftalık Performans &amp; ROAS Raporlaması</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ad-tiktok" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ad-tiktok" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. OpenAI Destekli Çok Kanallı Reklam (Full-Stack) -->
+        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ads">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-mono font-bold">
+                OpenAI Full-Stack 🤖
+              </span>
+              <span class="text-[11px] font-mono text-emerald-700 font-bold">Öne Çıkan</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">OpenAI Çok Kanallı Reklam</h3>
+            <p class="text-xs text-slate-500">Meta + Google + TikTok reklamlarının tek merkezden AI robot ile yönetimi.</p>
+            
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-openai-full">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">24.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-700 font-medium">
+              <li class="flex items-center gap-2">✓ 3 Kanal Entegre (Meta + Google + TikTok)</li>
+              <li class="flex items-center gap-2">✓ OpenAI GPT-4o Dinamik Metin &amp; Kanca Robotu</li>
+              <li class="flex items-center gap-2">✓ Haftalık Bütçe Dağıtım Algoritması</li>
+              <li class="flex items-center gap-2">✓ 7/24 WhatsApp Acil Hattı &amp; Büyüme Uzmanı</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ad-openai-full" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle (Önerilen)</span>
+            </button>
+            <button data-pkg="ad-openai-full" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. OnePage Kurumsal Web Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="web">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-mono font-bold">
+                Kurumsal Web
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">&lt; 0.8s Hız</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">OnePage Kurumsal Web</h3>
+            <p class="text-xs text-slate-500">Firmanızın prestijini artıran tek sayfa modern ve akışkan vitrin.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Tek Seferlik Kurulum</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">8.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ 72 Saatte Yayına Hazır Altyapı</li>
+              <li class="flex items-center gap-2">✓ %100 Mobil ve Tablet Uyum</li>
+              <li class="flex items-center gap-2">✓ WhatsApp &amp; İletişim Formu Entegre</li>
+              <li class="flex items-center gap-2">✓ 1 Yıl Cloud Hosting &amp; SSL Sertifikası Dahil</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="web-corporate-onepage" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="web-corporate-onepage" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Çok Sayfalı & Dinamik Kurumsal Web Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="web">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-mono font-bold">
+                Kurumsal Pro
+              </span>
+              <span class="text-[11px] font-mono text-indigo-600 font-bold">Çok Sayfalı &amp; CMS</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Çok Sayfalı Kurumsal Web</h3>
+            <p class="text-xs text-slate-500">Gelişmiş kurumsal kimlik, dinamik blog ve çoklu sayfa mimarisi.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Tek Seferlik Kurulum</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">18.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ 5+ Özel Sayfa (Hakkımızda, Hizmetler, İletişim vb.)</li>
+              <li class="flex items-center gap-2">✓ Dinamik Blog &amp; Haber Yönetim Paneli</li>
+              <li class="flex items-center gap-2">✓ Kurumsal E-Posta &amp; Gelişmiş Formlar</li>
+              <li class="flex items-center gap-2">✓ SEO Optimizasyonu &amp; Google Haritalar</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="web-corporate-pro" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="web-corporate-pro" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. OnePage E-Ticaret Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-cyan-100 text-cyan-800 text-xs font-mono font-bold">
+                Tek Ürün E-Ticaret
+              </span>
+              <span class="text-[11px] font-mono text-cyan-700 font-bold">Express Checkout</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">OnePage E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">Tek bir ürünü veya viral koleksiyonu patlatmak için tek tıkla sipariş hunisi.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Tek Seferlik Kurulum</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">14.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Sıfır Komisyon)</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ Tek Tıkla Ödeme (Express Checkout)</li>
+              <li class="flex items-center gap-2">✓ PayTR / iyzico &amp; Kapıda Ödeme</li>
+              <li class="flex items-center gap-2">✓ Meta Piksel &amp; TikTok Huni Entegre</li>
+              <li class="flex items-center gap-2">✓ Medusa v2 Süper Hızlı Altyapı</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ecom-onepage" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ecom-onepage" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Standart Çoklu Ürün E-Ticaret -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800 text-xs font-mono font-bold">
+                Standart E-Ticaret
+              </span>
+              <span class="text-[11px] font-mono text-slate-500">Medusa v2</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Standart E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">1.000 ürüne kadar varyantlı stok yönetimi ve sanal pos entegrasyonu.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">24.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ Medusa v2 Çekirdek Altyapı</li>
+              <li class="flex items-center gap-2">✓ 1.000 Ürün Varyant &amp; Stok Yönetimi</li>
+              <li class="flex items-center gap-2">✓ PayTR / iyzico Sanal POS Entegrasyonu</li>
+              <li class="flex items-center gap-2">✓ Yurtiçi / MNG Kargo Takip Modülü</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ecom-standard" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ecom-standard" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 7. Profesyonel E-Ticaret Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-mono font-bold">
+                Profesyonel
+              </span>
+              <span class="text-[11px] font-mono text-indigo-700 font-bold">Next.js 14</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Profesyonel E-Ticaret</h3>
+            <p class="text-xs text-slate-500">Next.js 14 hızında, yüksek reklam trafiğini kaldıran modern headless mağaza.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">38.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-600">
+              <li class="flex items-center gap-2">✓ Next.js 14 App Router + Medusa v2</li>
+              <li class="flex items-center gap-2">✓ Terk Edilmiş Sepet WhatsApp/SMS Botu</li>
+              <li class="flex items-center gap-2">✓ Meta CAPI + Google Data Layer Entegre</li>
+              <li class="flex items-center gap-2">✓ 3 Ay Ücretsiz Sunucu Yönetimi &amp; Destek</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ecom-professional" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle</span>
+            </button>
+            <button data-pkg="ecom-professional" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+        <!-- 8. Premium E-Ticaret Paketi (QUKASOFT SIGNATURE POPULAR) -->
+        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ecom">
+          
+          <div class="space-y-4 pt-1">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-xs font-mono font-bold">
+                Global &amp; B2B Entegre
+              </span>
+              <span class="text-[11px] font-mono text-amber-700 font-extrabold">🌟 EN POPÜLER / ÖNERİLEN</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Premium E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">Özel Medusa v2 modülleri, B2B bayi ağı ve yapay zeka tavsiye motoru.</p>
+            
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">58.500 ₺</div>
+              <span class="text-[11px] text-blue-600 font-mono font-bold">+ KDV (Sıfır Komisyon)</span>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-slate-700 font-medium">
+              <li class="flex items-center gap-2">✓ Çoklu Para Birimi (EUR, USD, TRY) &amp; Dil</li>
+              <li class="flex items-center gap-2">✓ B2B Bayi İskontosu &amp; Cari Yönetim</li>
+              <li class="flex items-center gap-2">✓ OpenAI Ürün Öneri ve Arama Motoru</li>
+              <li class="flex items-center gap-2">✓ 7/24 VIP Destek &amp; 6 Ay Sunucu Bakımı Dahil</li>
+            </ul>
+          </div>
+
+          <div class="pt-8 space-y-2">
+            <button data-pkg="ecom-premium" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+              <span>Sepete Ekle (Önerilen)</span>
+            </button>
+            <button data-pkg="ecom-premium" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+              Hemen Satın Al
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       8. ÇÖZÜM ORTAKLARI (QUKASOFT SIGNATURE "İŞ ORTAKLARIMIZ")
+       ========================================================= -->
+  <section id="entegrasyonlar" class="py-20 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-14">
+        <h2 class="text-3xl font-extrabold text-slate-900 font-heading">
+          İş Ortaklarımız Gücünüze Güç Katacak
+        </h2>
+        <p class="text-slate-500 text-sm">
+          Alanında lider çözüm ortaklarımız ve entegrasyonlarımız, artık sizin de gücünüz.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">ERP &amp; Muhasebe Çözümleri</div>
+            <div class="text-xs text-slate-500 mt-1">Logo, Mikro, Nebim, Paraşüt, Akınsoft...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 font-mono font-bold text-xs">+33</span>
+        </div>
+
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">Pazaryerleri Entegrasyonu</div>
+            <div class="text-xs text-slate-500 mt-1">Trendyol, Hepsiburada, Amazon, ÇiçekSepeti...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-orange-50 text-orange-700 font-mono font-bold text-xs">+9</span>
+        </div>
+
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">Kargo ve Lojistik</div>
+            <div class="text-xs text-slate-500 mt-1">Yurtiçi, MNG, Aras, Sürat, HepsiJet, PTT...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-700 font-mono font-bold text-xs">+14</span>
+        </div>
+
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">Ödeme &amp; Sanal POS</div>
+            <div class="text-xs text-slate-500 mt-1">PayTR, iyzico, Param, Sipay, Garanti, Akbank...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-mono font-bold text-xs">+20</span>
+        </div>
+
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">Reklam &amp; Veri Ağları</div>
+            <div class="text-xs text-slate-500 mt-1">Meta CAPI, Google Ads, TikTok Pixel, GA4...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-purple-50 text-purple-700 font-mono font-bold text-xs">+8</span>
+        </div>
+
+        <div class="partner-pill">
+          <div>
+            <div class="text-sm font-bold text-slate-900 font-heading">Bankalar &amp; Fintek</div>
+            <div class="text-xs text-slate-500 mt-1">İş Bankası, Yapı Kredi, TEB, QNB, Ziraat...</div>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-cyan-50 text-cyan-700 font-mono font-bold text-xs">+10</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       9. SIKÇA SORULAN SORULAR (QUKASOFT 2-COLUMN ACCORDION FAQ)
+       ========================================================= -->
+  <section id="sss" class="py-20 lg:py-24 bg-[#f8fafc] border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2 mb-14">
+        <h2 class="text-3xl font-extrabold text-slate-900 font-heading">
+          Sıkça Sorulan Sorular
+        </h2>
+        <p class="text-slate-500 text-sm">
+          Aklınıza takılan soruların yanıtlarını burada bulabilirsiniz.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- Left Column FAQ -->
+        <div class="faq-col space-y-3">
+          
+          <div class="faq-accordion-item active">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Entegre Shop Altyapısı Satıştan Komisyon Alır mı?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Hayır! Web siteniz veya pazaryerleri üzerinden yapılan hiçbir satıştan Entegre Shop ek bir yüzde veya işlem komisyonu almaz. Kazancınız tamamen size aittir.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">E-Ticaret Paketi Kurulum Süresi Kaç Gün?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Temel mağazanız 24 saat içinde kurulur. Özel tasarım talepleri, muhasebe/ERP entegrasyonu ve reklam CAPI kurulumları ise 3 ila 7 gün içinde eksiksiz teslim edilir.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Mevcut Altyapımı Entegre Shop'a Taşıyabilir Miyim?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Evet! Shopify, Ticimax, IdeaSoft veya WooCommerce sitenizdeki ürünleri, kategorileri, müşteri bilgilerini ve SEO linklerinizi sıfır kayıpla ve ücretsiz olarak taşıyoruz.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Hosting ve Sunucu Maliyeti Var Mı?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Paketlerimize 1 yıllık ultra hızlı bulut sunucu (Docker/Coolify) ve SSL sertifikası dahildir. Ekstra gizli bir sunucu masrafı ödemezsiniz.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column FAQ -->
+        <div class="faq-col space-y-3">
+          
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Hangi Ödeme ve Sanal POS Altyapıları Destekleniyor?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              PayTR, iyzico, Param, Sipay, EsnekPos ve tüm Türk bankalarının sanal posları (Garanti, Akbank, İş Bankası, Yapı Kredi vb.) ile global ödemeler için Stripe tam uyumlu çalışır.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Dijital Reklam Danışmanlığı Nasıl İşliyor?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              İlk olarak Meta CAPI ve Google GA4 Server-Side piksel kurulumlarını yapıyoruz. Ardından kreatif görseller, hedef kitle testleri ve OpenAI bütçe optimizasyonuyla haftalık düzenli rapor sunuyoruz.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Paketler Arasında Geçiş Sağlanıyor mu?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Evet, dilediğiniz zaman paket yükseltme yapabilirsiniz. Sadece iki paket arasındaki farkı ödeyerek daha üst kademe özelliklere anında geçiş yapabilirsiniz.
+            </div>
+          </div>
+
+          <div class="faq-accordion-item">
+            <div class="faq-header">
+              <h3 class="text-sm font-bold text-slate-900 font-heading">Müşteri Desteği Nasıl Sağlanıyor?</h3>
+              <div class="faq-icon">+</div>
+            </div>
+            <div class="faq-body">
+              Tüm müşterilerimiz WhatsApp acil destek hattı, e-posta bilet sistemi veya telefon üzerinden dedike uzmanlarımızla hızlı ve 7/24 iletişim kurabilir.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       10. ÜCRETSİZ DİJİTAL CHECK-UP & BÜYÜME ANALİZİ LEAD FORMU
+       ========================================================= -->
+  <section id="ucretsiz-analiz" class="py-20 bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="rounded-3xl p-8 sm:p-12 bg-slate-950 border border-slate-800 shadow-2xl">
+        
+        <div class="text-center space-y-3 mb-10">
+          <span class="px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-mono font-bold">
+            SİZİ ARAYALIM • HEDİYE RAPOR
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white font-heading tracking-tight" style="color: #ffffff !important;">
+            Ücretsiz Dijital Check-Up ve Büyüme Analizi
+          </h2>
+          <p class="text-slate-200 text-sm max-w-lg mx-auto" style="color: #e2e8f0 !important;">
+            Web sitenizi ve reklam hesaplarınızı inceleyelim; 24 saat içinde 3 kritik büyüme fırsatı içeren analizinizi ücretsiz paylaşalım.
+          </p>
+        </div>
+
+        <!-- Success Box -->
+        <div id="lead-success-box" class="hidden p-8 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-center space-y-4">
+          <div class="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-2xl font-bold">
+            ✓
+          </div>
+          <h3 class="text-xl font-bold text-white font-heading">Talebiniz Alındı!</h3>
+          <p class="text-xs text-slate-300 max-w-md mx-auto">
+            Büyüme danışmanımız en kısa sürede telefon numaranız üzerinden iletişime geçecektir.
+          </p>
+          <button id="lead-reset-btn" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white">
+            Yeni Talep Oluştur
+          </button>
+        </div>
+
+        <!-- Lead Form -->
+        <form id="lead-analysis-form" class="space-y-4">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">Adınız Soyadınız *</label>
+              <input type="text" id="lead-name" required placeholder="Ahmet Yılmaz" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">Firma / Marka Adı</label>
+              <input type="text" id="lead-company" placeholder="Örn: Butik / Mühendislik" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">Telefon / WhatsApp *</label>
+              <input type="tel" id="lead-phone" required placeholder="0532 000 00 00" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">Web Siteniz (Varsa)</label>
+              <input type="url" id="lead-website" placeholder="https://siteniz.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-400 text-xs focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">Hedef Bütçe</label>
+              <select id="lead-budget" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500">
+                <option value="10.000 - 30.000 TL">10.000 - 30.000 TL / Ay</option>
+                <option value="30.000 - 75.000 TL">30.000 - 75.000 TL / Ay</option>
+                <option value="75.000 - 200.000 TL">75.000 - 200.000 TL / Ay</option>
+                <option value="Sadece E-Ticaret">Henüz Reklam Yok (Sadece E-Ticaret)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-200 font-bold mb-1" style="color: #e2e8f0 !important;">İlgi Alanı</label>
+              <select id="lead-interest" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500">
+                <option value="Medusa v2 E-Ticaret">Medusa v2 E-Ticaret Kurulumu</option>
+                <option value="Meta Ads Yönetimi">Meta Ads (Instagram) Reklamları</option>
+                <option value="Google Ads & Shopping">Google Ads &amp; Performance Max</option>
+                <option value="Full-Stack Hepsi">Full-Stack (Yazılım + Reklam Hepsi)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-xl transition-all flex items-center justify-center gap-2">
+              <span>Hemen Sizi Arayalım &amp; Ücretsiz Analiz Gönderin</span>
+            </button>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       11. FOOTER (QUKASOFT CLEAN STYLE)
+       ========================================================= -->
+  <footer class="bg-white border-t border-slate-200 pt-16 pb-12 text-slate-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-200">
+        
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center font-black text-white text-xs">
+              ES
+            </div>
+            <span class="text-lg font-bold text-slate-900 font-heading">ENTEGRE SHOP</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed font-normal">
+            Gelişmiş e-ticaret altyapısı, Medusa v2 headless mimari ve yapay zeka destekli çok kanallı reklam masası ajansı.
+          </p>
+          <div class="font-mono text-emerald-600 font-bold">
+            ● Sistemler Aktif &amp; Siparişe Açık
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-bold uppercase tracking-wider text-slate-900 font-mono">Çözümler</h4>
+          <ul class="space-y-2 text-slate-600">
+            <li><a href="#paketler-fiyatlar" class="hover:text-blue-600 transition-colors">Medusa v2 E-Ticaret</a></li>
+            <li><a href="#paketler-fiyatlar" class="hover:text-blue-600 transition-colors">Meta Ads Danışmanlığı</a></li>
+            <li><a href="#paketler-fiyatlar" class="hover:text-blue-600 transition-colors">Google Ads &amp; PMax</a></li>
+            <li><a href="#paketler-fiyatlar" class="hover:text-blue-600 transition-colors">TikTok Viral Satış</a></li>
+            <li><a href="#kurumsal-web" class="hover:text-blue-600 transition-colors">OnePage Kurumsal Web</a></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-bold uppercase tracking-wider text-slate-900 font-mono">Entegrasyonlar</h4>
+          <ul class="space-y-2 text-slate-600">
+            <li><span>Trendyol, Hepsiburada, Amazon</span></li>
+            <li><span>PayTR &amp; iyzico Sanal POS</span></li>
+            <li><span>Logo, Mikro, Nebim ERP</span></li>
+            <li><span>Yurtiçi, MNG, Aras Kargo</span></li>
+            <li><span>OpenAI GPT-4o Robotu</span></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-bold uppercase tracking-wider text-slate-900 font-mono">İletişim &amp; Panel</h4>
+          <div class="space-y-2 text-slate-600">
+            <p>Müşteri Hizmetleri: <strong class="text-slate-900 font-mono">0850 532 00 00</strong></p>
+            <p>E-Posta: <a href="mailto:info@entegreshop.com" class="text-blue-600 hover:underline">info@entegreshop.com</a></p>
+            <div class="pt-2">
+              <a href="/admin" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 text-xs font-mono transition-colors">
+                <span>Ajans Yönetim Paneli</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-slate-500 font-mono gap-4">
+        <div>
+          © 2026 Entegre Shop Yazılım ve Dijital Reklam Ajansı A.Ş. Tüm Hakları Saklıdır.
+        </div>
+        <div>
+          Powered by <strong class="text-slate-700">Medusa v2 &amp; Entegre Engine</strong>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       CART DRAWER (SIDE PANEL)
+       ========================================================= -->
+  <div id="cart-backdrop" class="cart-backdrop"></div>
+  <aside id="cart-drawer" class="cart-drawer flex flex-col justify-between" aria-label="Alışveriş Sepeti">
+    
+    <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+        </svg>
+        <h3 class="text-base font-bold text-white font-heading">Hizmet Sepetiniz</h3>
+      </div>
+      <button id="cart-close-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors" title="Kapat">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-6 space-y-4">
+      
+      <div id="cart-empty-state" class="text-center py-16 space-y-4">
+        <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-slate-500">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white font-heading">Sepetiniz Boş</h4>
+          <p class="text-xs text-slate-400 mt-1">İhtiyacınıza uygun dijital reklam veya e-ticaret paketini ekleyerek başlayabilirsiniz.</p>
+        </div>
+      </div>
+
+      <div id="cart-items-list" class="space-y-3"></div>
+
+      <div class="pt-4 border-t border-slate-800">
+        <label class="block text-xs font-mono text-slate-400 mb-1.5">Kupon / İndirim Kodu (Örn: ENTEGRE10)</label>
+        <div class="flex gap-2">
+          <input type="text" id="promo-code-input" placeholder="ENTEGRE10" class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white uppercase font-mono focus:outline-none focus:border-blue-500">
+          <button id="apply-promo-btn" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-semibold transition-colors">
+            Uygula
+          </button>
+        </div>
+        <span id="promo-msg" class="hidden"></span>
+      </div>
+
+    </div>
+
+    <div id="cart-drawer-footer" class="p-6 border-t border-slate-800 bg-slate-950 space-y-4 hidden">
+      
+      <div class="space-y-1.5 text-xs font-mono">
+        <div class="flex justify-between text-slate-400">
+          <span>Ara Toplam:</span>
+          <span id="cart-subtotal" class="text-slate-200">0 ₺</span>
+        </div>
+        <div id="cart-discount-row" class="flex justify-between text-emerald-400 hidden">
+          <span>Özel İndirim:</span>
+          <span id="cart-discount-val">0 ₺</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>KDV (%20):</span>
+          <span id="cart-vat" class="text-slate-200">0 ₺</span>
+        </div>
+        <div class="flex justify-between text-base font-bold text-white pt-2 border-t border-slate-800">
+          <span>Genel Toplam:</span>
+          <span id="cart-total" class="text-cyan-400 font-mono">0 ₺</span>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <button id="cart-proceed-checkout-btn" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2">
+          <span>Siparişi Onayla &amp; Fatura Bilgileri</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+        <a id="cart-wa-checkout-btn" href="#" target="_blank" class="w-full py-2.5 rounded-xl bg-slate-900 border border-emerald-500/40 hover:bg-emerald-950/30 text-emerald-400 hover:text-emerald-300 font-bold text-xs transition-all flex items-center justify-center gap-2">
+          <span>WhatsApp ile Anında Satın Al</span>
+        </a>
+      </div>
+
+    </div>
+
+  </aside>
+
+  <!-- =========================================================
+       CHECKOUT MODAL
+       ========================================================= -->
+  <div id="checkout-modal" class="checkout-modal">
+    <div id="checkout-modal-backdrop" class="checkout-modal-backdrop"></div>
+    <div class="checkout-modal-content">
+      
+      <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-white font-heading">Sipariş &amp; Fatura Bilgileri</h3>
+          <p class="text-xs text-slate-400 font-mono">Entegre Shop Hizmet Başlangıç Adımı</p>
+        </div>
+        <button id="checkout-modal-close" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-6">
+        
+        <div id="checkout-success-box" class="hidden text-center py-8 space-y-4">
+          <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-2xl font-bold">
+            ✓
+          </div>
+          <h4 class="text-2xl font-bold text-white font-heading">Siparişiniz Başarıyla Oluşturuldu!</h4>
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 font-mono text-xs text-slate-300 max-w-sm mx-auto">
+            Sipariş Referans No: <strong id="checkout-order-ref" class="text-cyan-400">ENT-ORD-000000</strong>
+          </div>
+          <p class="text-xs text-slate-400 max-w-md mx-auto">
+            Danışman ekibimiz hesabınızı ve kurulumunuzu başlatmak üzere telefon numaranızdan iletişime geçecektir.
+          </p>
+          <div class="pt-2">
+            <a id="checkout-wa-complete-btn" href="#" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg transition-all">
+              <span>WhatsApp Danışmanına Siparişimi İlet</span>
+            </a>
+          </div>
+        </div>
+
+        <form id="checkout-order-form" class="space-y-4">
+          
+          <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+            <div class="text-[11px] font-mono text-slate-400 uppercase">Seçilen Paketler:</div>
+            <div id="checkout-items-summary" class="space-y-1"></div>
+            <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs font-mono">
+              <span class="text-slate-300">Ödenecek Tutar:</span>
+              <span id="checkout-grand-total" class="text-cyan-400 font-bold text-sm">0 ₺</span>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Ad Soyad *</label>
+              <input type="text" id="order-name" required placeholder="Ahmet Yılmaz" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Firma / Ünvan</label>
+              <input type="text" id="order-company" placeholder="Entegre Butik / Mühendislik" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Telefon / WhatsApp *</label>
+              <input type="tel" id="order-phone" required placeholder="0532 000 00 00" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">E-Posta (Fatura İçin) *</label>
+              <input type="email" id="order-email" required placeholder="ahmet@firma.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Vergi No / TC Kimlik No</label>
+              <input type="text" id="order-tax" placeholder="Fatura için" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Fatura Adresi</label>
+              <input type="text" id="order-address" placeholder="İl, İlçe ve Adres" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">Özel İstek veya Web Siteniz</label>
+            <textarea id="order-notes" rows="2" placeholder="Varsa mevcut reklam hesaplarınız veya özel istekleriniz..." class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-blue-500 resize-none"></textarea>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-xl transition-all flex items-center justify-center gap-2">
+              <span>Siparişi Onayla &amp; Fatura Oluştur</span>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/app.js?v=2.4.0"></script>
+
+</body>
+</html>

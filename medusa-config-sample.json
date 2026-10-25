@@ -1,0 +1,180 @@
+{
+  "project": "Entegre Shop - Digital Agency & E-Commerce Platform",
+  "version": "2.0.0",
+  "medusa_version": "2.x",
+  "currency_code": "try",
+  "tax_rate": 0.20,
+  "categories": [
+    {
+      "id": "cat_digital_ads",
+      "name": "Dijital Reklam Danışmanlığı",
+      "handle": "dijital-reklam",
+      "description": "Meta, Google, TikTok ve OpenAI çok kanallı reklam yönetimi paketleri."
+    },
+    {
+      "id": "cat_corporate_web",
+      "name": "Kurumsal Web",
+      "handle": "kurumsal-web",
+      "description": "OnePage ultra hızlı kurumsal web sitesi ve dijital vitrin çözümleri."
+    },
+    {
+      "id": "cat_ecommerce",
+      "name": "E-Ticaret Paketleri",
+      "handle": "e-ticaret",
+      "description": "Medusa v2 headless e-ticaret, tek ürün satış hunisi ve çoklu ürün paketleri."
+    }
+  ],
+  "products": [
+    {
+      "id": "prod_ad_meta",
+      "title": "Meta Ads (Instagram & Facebook) Danışmanlığı",
+      "handle": "meta-ads-danismanligi",
+      "category_id": "cat_digital_ads",
+      "variants": [
+        {
+          "title": "Aylık Düzenli",
+          "sku": "ENT-AD-META-M",
+          "price": 1250000,
+          "interval": "monthly"
+        },
+        {
+          "title": "3 Aylık Peşin (-%15)",
+          "sku": "ENT-AD-META-3M",
+          "price": 3187500,
+          "interval": "quarterly"
+        }
+      ]
+    },
+    {
+      "id": "prod_ad_google",
+      "title": "Google Ads (Performance Max & Search) Danışmanlığı",
+      "handle": "google-ads-danismanligi",
+      "category_id": "cat_digital_ads",
+      "variants": [
+        {
+          "title": "Aylık Düzenli",
+          "sku": "ENT-AD-GOOG-M",
+          "price": 1250000,
+          "interval": "monthly"
+        },
+        {
+          "title": "3 Aylık Peşin (-%15)",
+          "sku": "ENT-AD-GOOG-3M",
+          "price": 3187500,
+          "interval": "quarterly"
+        }
+      ]
+    },
+    {
+      "id": "prod_ad_tiktok",
+      "title": "TikTok Ads & Viral Video Danışmanlığı",
+      "handle": "tiktok-ads-danismanligi",
+      "category_id": "cat_digital_ads",
+      "variants": [
+        {
+          "title": "Aylık Düzenli",
+          "sku": "ENT-AD-TIK-M",
+          "price": 1000000,
+          "interval": "monthly"
+        },
+        {
+          "title": "3 Aylık Peşin (-%15)",
+          "sku": "ENT-AD-TIK-3M",
+          "price": 2550000,
+          "interval": "quarterly"
+        }
+      ]
+    },
+    {
+      "id": "prod_ad_openai",
+      "title": "OpenAI Destekli Çok Kanallı Reklam Masası (Full-Stack)",
+      "handle": "openai-cok-kanalli-reklam",
+      "category_id": "cat_digital_ads",
+      "variants": [
+        {
+          "title": "Aylık Düzenli",
+          "sku": "ENT-AD-AI-M",
+          "price": 2450000,
+          "interval": "monthly"
+        },
+        {
+          "title": "3 Aylık Peşin (-%15)",
+          "sku": "ENT-AD-AI-3M",
+          "price": 6247500,
+          "interval": "quarterly"
+        }
+      ]
+    },
+    {
+      "id": "prod_web_corporate",
+      "title": "OnePage Modern Kurumsal Web Sitesi Paketi",
+      "handle": "onepage-kurumsal-web",
+      "category_id": "cat_corporate_web",
+      "variants": [
+        {
+          "title": "Tek Seferlik Kurulum",
+          "sku": "ENT-WEB-CORP-1P",
+          "price": 850000,
+          "interval": "one_time"
+        }
+      ]
+    },
+    {
+      "id": "prod_ecom_onepage",
+      "title": "OnePage E-Ticaret Paketi (Tek Ürün / Viral Satış)",
+      "handle": "onepage-eticaret-paketi",
+      "category_id": "cat_ecommerce",
+      "variants": [
+        {
+          "title": "Tek Seferlik Kurulum",
+          "sku": "ENT-ECOM-1P",
+          "price": 1450000,
+          "interval": "one_time"
+        }
+      ]
+    },
+    {
+      "id": "prod_ecom_standard",
+      "title": "Standart Çoklu Ürün E-Ticaret Paketi",
+      "handle": "standart-eticaret-paketi",
+      "category_id": "cat_ecommerce",
+      "variants": [
+        {
+          "title": "Tek Seferlik Kurulum",
+          "sku": "ENT-ECOM-STD",
+          "price": 2450000,
+          "interval": "one_time"
+        }
+      ]
+    },
+    {
+      "id": "prod_ecom_professional",
+      "title": "Profesyonel Çoklu Ürün E-Ticaret Paketi",
+      "handle": "profesyonel-eticaret-paketi",
+      "category_id": "cat_ecommerce",
+      "variants": [
+        {
+          "title": "Tek Seferlik Kurulum",
+          "sku": "ENT-ECOM-PRO",
+          "price": 3850000,
+          "interval": "one_time"
+        }
+      ]
+    },
+    {
+      "id": "prod_ecom_premium",
+      "title": "Premium E-Ticaret Paketi (Global & B2B Entegre)",
+      "handle": "premium-eticaret-paketi",
+      "category_id": "cat_ecommerce",
+      "is_featured": true,
+      "variants": [
+        {
+          "title": "Tek Seferlik Kurulum",
+          "sku": "ENT-ECOM-PREM",
+          "price": 5850000,
+          "interval": "one_time"
+        }
+      ]
+    }
+  ]
+}

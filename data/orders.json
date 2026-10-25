@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ENT-ORD-849201",
+    "createdAt": "2026-10-24T20:55:46.572Z",
+    "customer": {
+      "name": "Merve Kaya",
+      "company": "Kaya Moda Butik",
+      "phone": "0532 999 88 77",
+      "email": "merve@kayamoda.com",
+      "taxId": "3849201948",
+      "address": "Nişantaşı, İstanbul",
+      "notes": "Instagram reklamları için acil CAPI kurulumu ve 3 aylık Meta danışmanlığı istiyoruz."
+    },
+    "items": [
+      {
+        "id": "ad-meta",
+        "title": "Meta Ads (Instagram & Facebook) Danışmanlığı",
+        "category": "Dijital Reklam",
+        "price": 31875,
+        "billingText": "3 Aylık Peşin (-%15 İndirimli)",
+        "qty": 1
+      },
+      {
+        "id": "ecom-onepage",
+        "title": "OnePage E-Ticaret Paketi (Tek Ürün / Viral Satış)",
+        "category": "E-Ticaret",
+        "price": 14500,
+        "billingText": "Tek Seferlik Kurulum",
+        "qty": 1
+      }
+    ],
+    "discountPercent": 10,
+    "total": 49545,
+    "status": "İletişime Geçildi"
+  }
+]

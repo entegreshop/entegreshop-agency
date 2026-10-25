@@ -1,0 +1,21 @@
+{
+  "name": "entegreshop-agency",
+  "version": "2.0.0",
+  "description": "Entegre Shop Yazılım ve Dijital Reklam Ajansı - Medusa v2 Headless Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "entegreshop",
+    "medusa",
+    "headless-ecommerce",
+    "digital-marketing",
+    "meta-ads",
+    "google-ads",
+    "coolify"
+  ],
+  "author": "Entegre Shop",
+  "license": "UNLICENSED"
+}
