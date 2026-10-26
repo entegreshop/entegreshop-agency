@@ -93,8 +93,8 @@
       </div>
     </div>
 
-    <!-- TABS: SİPARİŞLER vs LEADS -->
-    <div class="border-b border-slate-800 flex gap-6 text-sm font-mono">
+    <!-- TABS: SİPARİŞLER vs LEADS vs TRACKING -->
+    <div class="border-b border-slate-800 flex flex-wrap gap-4 sm:gap-6 text-sm font-mono">
       <button id="tab-orders-btn" onclick="switchTab('orders')" class="pb-3 border-b-2 border-indigo-500 text-white font-bold flex items-center gap-2">
         <span>Gelen Paket Siparişleri</span>
         <span id="badge-orders-num" class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs">0</span>
@@ -102,6 +102,11 @@
       <button id="tab-leads-btn" onclick="switchTab('leads')" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
         <span>Ücretsiz Büyüme Analizi Talepleri</span>
         <span id="badge-leads-num" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-xs">0</span>
+      </button>
+      <button id="tab-tracking-btn" onclick="switchTab('tracking')" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2">
+        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>🎯 Piksel &amp; Dönüşüm API Ayarları</span>
+        <span id="badge-tracking-status" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-xs">Hazır</span>
       </button>
     </div>
 
@@ -156,6 +161,197 @@
           </table>
         </div>
       </div>
+    </div>
+
+    <!-- TAB CONTENT: TRACKING SETTINGS -->
+    <div id="tab-tracking-section" class="space-y-6 hidden">
+      
+      <!-- Top Alert Banner -->
+      <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-900/40 via-indigo-900/40 to-slate-900/60 border border-blue-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2 text-white font-bold font-mono text-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>Çift Katmanlı Takip Motoru (Browser Pixel + Server-Side CAPI)</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed max-w-2xl">
+            Buraya eklediğiniz kimlikler ve tokenlar, <strong>entegreshop.com</strong> genelinde otomatik olarak çalışır.
+            Sepete Ekle, Form Gönderimi ve Sipariş olayları hem tarayıcıdan hem sunucudan çift katmanlı (Deduplication / event_id destekli) iletilerek iOS 14+ engelini aşar.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="saveTrackingSettings()" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs font-mono shadow-lg shadow-blue-500/30 transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Ayarları Kaydet</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Toast Feedback -->
+      <div id="tracking-toast" class="hidden p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono flex items-center justify-between">
+        <span id="tracking-toast-msg">Ayarlar başarıyla kaydedildi!</span>
+        <button onclick="document.getElementById('tracking-toast').classList.add('hidden')" class="text-emerald-400 hover:text-white">&times;</button>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+
+        <!-- 1. META ADS & CONVERSIONS API (CAPI) -->
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">
+                f
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Meta Ads &amp; Conversions API</h3>
+                <p class="text-[11px] text-slate-400">Instagram &amp; Facebook Piksel + Sunucu CAPI</p>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="track-meta-enabled" class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Meta Pixel ID (Piksel Kimliği)</label>
+              <input type="text" id="track-meta-pixel-id" placeholder="Örn: 109283746501928" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-blue-500">
+              <span class="text-[10px] text-slate-500 mt-1 block">Events Manager sayfanızdaki Piksel / Veri Kümesi ID numarası.</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Conversions API (CAPI) Access Token</label>
+              <div class="relative">
+                <input type="password" id="track-meta-capi-token" placeholder="EAA..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-blue-500 pr-10">
+                <button type="button" onclick="togglePasswordVisibility('track-meta-capi-token')" class="absolute right-3 top-2.5 text-slate-500 hover:text-white text-xs">👁</button>
+              </div>
+              <span class="text-[10px] text-slate-500 mt-1 block">Meta Olay Yöneticisi > Ayarlar > Doğrudan Entegrasyon > Erişim Belirteci Oluştur.</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Test Olay Kodu (Opsiyonel / Test Event Code)</label>
+              <input type="text" id="track-meta-test-code" placeholder="Örn: TEST12345" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-blue-500">
+              <span class="text-[10px] text-slate-500 mt-1 block">Meta 'Olayları Test Et' sekmesindeki geçici test kodu. Canlıda boş bırakabilirsiniz.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. GOOGLE ADS, GTM & GA4 -->
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-red-600/20 border border-red-500/30 flex items-center justify-center text-red-400 font-bold text-sm">
+                G
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-sm">Google Tag Manager, GA4 &amp; Ads</h3>
+                <p class="text-[11px] text-slate-400">GTM, Google Analytics 4 ve Dönüşüm Etiketi</p>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="track-google-enabled" class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+            </label>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Google Tag Manager (GTM) Container ID</label>
+              <input type="text" id="track-google-gtm-id" placeholder="Örn: GTM-XXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-red-500">
+              <span class="text-[10px] text-slate-500 mt-1 block">Girildiğinde GTM script ve noscript etiketleri otomatik olarak enjekte edilir.</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Google Analytics 4 (GA4) Ölçüm Kimliği</label>
+              <input type="text" id="track-google-ga4-id" placeholder="Örn: G-XXXXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-red-500">
+              <span class="text-[10px] text-slate-500 mt-1 block">Doğrudan GA4 takibi için gtag.js ile sayfa görüntüleme ve e-ticaret olayları iletilir.</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1">Ads Dönüşüm ID</label>
+                <input type="text" id="track-google-ads-id" placeholder="AW-XXXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-red-500">
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-slate-300 mb-1">Dönüşüm Etiketi</label>
+                <input type="text" id="track-google-ads-label" placeholder="AbCdEfGhIjKlMn" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-red-500">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. TIKTOK ADS & EVENTS API -->
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-pink-600/20 border border-pink-500/30 flex items-center justify-center text-pink-400 font-bold text-sm">
+                TT
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-sm">TikTok Ads &amp; Events API</h3>
+                <p class="text-[11px] text-slate-400">TikTok Pikseli ve Dönüşüm Takibi</p>
+              </div>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="track-tiktok-enabled" class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+            </label>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">TikTok Pixel ID</label>
+              <input type="text" id="track-tiktok-pixel-id" placeholder="Örn: CXXXXXXXXXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-pink-500">
+              <span class="text-[10px] text-slate-500 mt-1 block">TikTok Ads Manager > Assets > Events > Web Events altında oluşturulan ID.</span>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">TikTok Events API Access Token (Opsiyonel)</label>
+              <div class="relative">
+                <input type="password" id="track-tiktok-events-token" placeholder="TikTok Access Token" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-pink-500 pr-10">
+                <button type="button" onclick="togglePasswordVisibility('track-tiktok-events-token')" class="absolute right-3 top-2.5 text-slate-500 hover:text-white text-xs">👁</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. ÖZEL KOD ENJEKSİYONU (HEADER & FOOTER) -->
+        <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-5">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-800">
+            <div class="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-sm">
+              &lt;/&gt;
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-sm">Özel Kod Enjeksiyonu</h3>
+              <p class="text-[11px] text-slate-400">OpenAI / Hotjar / Clarity / Meta Domain Doğrulama</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Header Script (&lt;head&gt; içine eklenir)</label>
+              <textarea id="track-header-scripts" rows="3" placeholder="<!-- Meta Domain Doğrulama veya Özel Script -->" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">Footer Script (&lt;body&gt; sonuna eklenir)</label>
+              <textarea id="track-footer-scripts" rows="3" placeholder="<!-- Canlı Destek Widgetı veya Analitik Kodu -->" class="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center justify-end gap-3 pt-4">
+        <button type="button" onclick="testTrackingSettings()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-mono text-xs transition-all flex items-center gap-2">
+          <span>🔍 Yapılandırmayı Doğrula</span>
+        </button>
+        <button type="button" onclick="saveTrackingSettings()" class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold font-mono text-xs shadow-lg shadow-blue-500/30 transition-all flex items-center gap-2">
+          <span>💾 Ayarları Kaydet ve Canlıya Al</span>
+        </button>
+      </div>
+
     </div>
 
   </main>
@@ -327,31 +523,161 @@
     function switchTab(tab) {
       const ordersSec = document.getElementById('tab-orders-section');
       const leadsSec = document.getElementById('tab-leads-section');
+      const trackingSec = document.getElementById('tab-tracking-section');
       const ordersBtn = document.getElementById('tab-orders-btn');
       const leadsBtn = document.getElementById('tab-leads-btn');
+      const trackingBtn = document.getElementById('tab-tracking-btn');
+
+      // Hide all
+      ordersSec.classList.add('hidden');
+      leadsSec.classList.add('hidden');
+      trackingSec.classList.add('hidden');
+
+      ordersBtn.classList.remove('border-indigo-500', 'text-white');
+      ordersBtn.classList.add('border-transparent', 'text-slate-400');
+      leadsBtn.classList.remove('border-indigo-500', 'text-white');
+      leadsBtn.classList.add('border-transparent', 'text-slate-400');
+      trackingBtn.classList.remove('border-indigo-500', 'text-white');
+      trackingBtn.classList.add('border-transparent', 'text-slate-400');
 
       if (tab === 'orders') {
         ordersSec.classList.remove('hidden');
-        leadsSec.classList.add('hidden');
         ordersBtn.classList.add('border-indigo-500', 'text-white');
         ordersBtn.classList.remove('border-transparent', 'text-slate-400');
-        leadsBtn.classList.remove('border-indigo-500', 'text-white');
-        leadsBtn.classList.add('border-transparent', 'text-slate-400');
-      } else {
+      } else if (tab === 'leads') {
         leadsSec.classList.remove('hidden');
-        ordersSec.classList.add('hidden');
         leadsBtn.classList.add('border-indigo-500', 'text-white');
         leadsBtn.classList.remove('border-transparent', 'text-slate-400');
-        ordersBtn.classList.remove('border-indigo-500', 'text-white');
-        ordersBtn.classList.add('border-transparent', 'text-slate-400');
+      } else if (tab === 'tracking') {
+        trackingSec.classList.remove('hidden');
+        trackingBtn.classList.add('border-indigo-500', 'text-white');
+        trackingBtn.classList.remove('border-transparent', 'text-slate-400');
+        loadTrackingSettings();
+      }
+    }
+
+    async function loadTrackingSettings() {
+      try {
+        const res = await fetch('/api/settings/tracking');
+        const data = await res.json();
+        if (data.success && data.settings) {
+          const s = data.settings;
+          document.getElementById('track-meta-enabled').checked = Boolean(s.meta?.enabled);
+          document.getElementById('track-meta-pixel-id').value = s.meta?.pixelId || '';
+          document.getElementById('track-meta-capi-token').value = s.meta?.capiToken || '';
+          document.getElementById('track-meta-test-code').value = s.meta?.testEventCode || '';
+
+          document.getElementById('track-google-enabled').checked = Boolean(s.google?.enabled);
+          document.getElementById('track-google-gtm-id').value = s.google?.gtmId || '';
+          document.getElementById('track-google-ga4-id').value = s.google?.ga4Id || '';
+          document.getElementById('track-google-ads-id').value = s.google?.adsConversionId || '';
+          document.getElementById('track-google-ads-label').value = s.google?.adsConversionLabel || '';
+
+          document.getElementById('track-tiktok-enabled').checked = Boolean(s.tiktok?.enabled);
+          document.getElementById('track-tiktok-pixel-id').value = s.tiktok?.pixelId || '';
+          document.getElementById('track-tiktok-events-token').value = s.tiktok?.eventsApiToken || '';
+
+          document.getElementById('track-header-scripts').value = s.customScripts?.headerScripts || '';
+          document.getElementById('track-footer-scripts').value = s.customScripts?.footerScripts || '';
+
+          const hasAny = (s.meta?.enabled && s.meta?.pixelId) || (s.google?.enabled && (s.google?.gtmId || s.google?.ga4Id)) || (s.tiktok?.enabled && s.tiktok?.pixelId);
+          const badge = document.getElementById('badge-tracking-status');
+          if (badge) {
+            badge.textContent = hasAny ? 'Aktif' : 'Ayarla';
+            badge.className = hasAny 
+              ? 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs' 
+              : 'px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-xs';
+          }
+        }
+      } catch (err) {
+        console.error('Tracking settings load error:', err);
+      }
+    }
+
+    async function saveTrackingSettings() {
+      const payload = {
+        meta: {
+          enabled: document.getElementById('track-meta-enabled').checked,
+          pixelId: document.getElementById('track-meta-pixel-id').value,
+          capiToken: document.getElementById('track-meta-capi-token').value,
+          testEventCode: document.getElementById('track-meta-test-code').value
+        },
+        google: {
+          enabled: document.getElementById('track-google-enabled').checked,
+          gtmId: document.getElementById('track-google-gtm-id').value,
+          ga4Id: document.getElementById('track-google-ga4-id').value,
+          adsConversionId: document.getElementById('track-google-ads-id').value,
+          adsConversionLabel: document.getElementById('track-google-ads-label').value
+        },
+        tiktok: {
+          enabled: document.getElementById('track-tiktok-enabled').checked,
+          pixelId: document.getElementById('track-tiktok-pixel-id').value,
+          eventsApiToken: document.getElementById('track-tiktok-events-token').value
+        },
+        customScripts: {
+          headerScripts: document.getElementById('track-header-scripts').value,
+          footerScripts: document.getElementById('track-footer-scripts').value
+        }
+      };
+
+      try {
+        const res = await fetch('/api/settings/tracking', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showTrackingToast('Piksel ve Dönüşüm API ayarları başarıyla kaydedildi!');
+          loadTrackingSettings();
+        } else {
+          alert('Hata: ' + (data.error || 'Kaydedilemedi'));
+        }
+      } catch (err) {
+        alert('Kaydetme hatası: ' + err.message);
+      }
+    }
+
+    function testTrackingSettings() {
+      const metaPx = document.getElementById('track-meta-pixel-id').value.trim();
+      const gtm = document.getElementById('track-google-gtm-id').value.trim();
+      const ga4 = document.getElementById('track-google-ga4-id').value.trim();
+      const ttPx = document.getElementById('track-tiktok-pixel-id').value.trim();
+
+      let msg = 'Doğrulama Sonucu:\n';
+      msg += metaPx ? `✓ Meta Pixel ID tanımlı (${metaPx})\n` : '○ Meta Pixel henüz girilmemiş\n';
+      msg += gtm ? `✓ GTM ID tanımlı (${gtm})\n` : '○ GTM girilmemiş\n';
+      msg += ga4 ? `✓ GA4 ID tanımlı (${ga4})\n` : '○ GA4 girilmemiş\n';
+      msg += ttPx ? `✓ TikTok Pixel tanımlı (${ttPx})\n` : '○ TikTok Pixel girilmemiş\n';
+      alert(msg);
+    }
+
+    function showTrackingToast(text) {
+      const toast = document.getElementById('tracking-toast');
+      const msg = document.getElementById('tracking-toast-msg');
+      if (toast && msg) {
+        msg.textContent = text;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 4000);
+      }
+    }
+
+    function togglePasswordVisibility(inputId) {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.type = input.type === 'password' ? 'text' : 'password';
       }
     }
 
     function refreshData() {
       loadData();
+      loadTrackingSettings();
     }
 
-    document.addEventListener('DOMContentLoaded', loadData);
+    document.addEventListener('DOMContentLoaded', () => {
+      loadData();
+      loadTrackingSettings();
+    });
   </script>
 
 </body>

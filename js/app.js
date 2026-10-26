@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeadForm();
   initCallbackTriggers();
   updateCartBadge();
+  initTracking();
 });
 
 /* -------------------------------------------------------------
@@ -422,6 +423,17 @@ function addToCart(pkgId) {
   saveCartToStorage();
   openCartDrawer();
   showToast(`"${pkg.title}" sepete eklendi!`);
+
+  // Multi-Channel Tracking: AddToCart
+  if (window.trackConversionEvent) {
+    window.trackConversionEvent('AddToCart', {
+      content_name: pkg.title,
+      content_ids: [pkg.id],
+      content_type: 'product',
+      value: price,
+      currency: 'TRY'
+    });
+  }
 }
 
 function removeFromCart(index) {
@@ -699,6 +711,21 @@ function initCheckoutModal() {
 
       if (orderRefEl) orderRefEl.textContent = orderNumber;
 
+      // Multi-Channel Tracking: Purchase
+      if (window.trackConversionEvent) {
+        window.trackConversionEvent('Purchase', {
+          order_id: orderNumber,
+          value: grandTotal,
+          currency: 'TRY',
+          num_items: cart.length,
+          contents: cart.map(i => ({ id: i.id, name: i.title, quantity: i.qty, item_price: i.price }))
+        }, {
+          email: email,
+          phone: phone,
+          name: name
+        });
+      }
+
       if (waCompleteBtn) {
         const waText = encodeURIComponent(
           `Merhaba Entegre Shop,\n${orderNumber} numaralı siparişimi oluşturdum.\nFirma/Yetkili: ${name} (${company || '-'})\nTel: ${phone}\nTutar: ${grandTotal.toLocaleString('tr-TR')} ₺\nÖdeme ve başlangıç adımları için iletişime geçmenizi rica ederim.`
@@ -761,6 +788,19 @@ function initLeadForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, company, phone, website, budget, interest })
       });
+
+      // Multi-Channel Tracking: Lead
+      if (window.trackConversionEvent) {
+        window.trackConversionEvent('Lead', {
+          content_name: interest || 'Ücretsiz Büyüme Analizi',
+          currency: 'TRY',
+          value: 500
+        }, {
+          phone: phone,
+          name: name,
+          company: company
+        });
+      }
     } catch (e) {}
 
     form.classList.add('hidden');
@@ -814,3 +854,189 @@ function showToast(text) {
     toast.classList.add('translate-y-20', 'opacity-0');
   }, 2800);
 }
+
+/* -------------------------------------------------------------
+ * 11. Multi-Channel Tracking Engine (Meta CAPI, GA4, GTM, TikTok)
+ * ------------------------------------------------------------- */
+let activeTrackingSettings = null;
+
+async function initTracking() {
+  try {
+    const res = await fetch('/api/settings/tracking');
+    const data = await res.json();
+    if (!data.success || !data.settings) return;
+
+    activeTrackingSettings = data.settings;
+    const { meta, google, tiktok, customScripts } = activeTrackingSettings;
+
+    // 1. Google Tag Manager (GTM)
+    if (google?.enabled && google?.gtmId) {
+      const gtmScript = document.createElement('script');
+      gtmScript.innerHTML = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','${google.gtmId}');`;
+      document.head.appendChild(gtmScript);
+
+      const noscript = document.createElement('noscript');
+      noscript.innerHTML = `<iframe src="https://www.googletagmanager.com/ns.html?id=${google.gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`;
+      document.body.insertBefore(noscript, document.body.firstChild);
+    }
+
+    // 2. Google Analytics 4 (GA4) & Ads
+    if (google?.enabled && google?.ga4Id) {
+      const gaScript = document.createElement('script');
+      gaScript.async = true;
+      gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${google.ga4Id}`;
+      document.head.appendChild(gaScript);
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function() { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', google.ga4Id);
+
+      if (google.adsConversionId) {
+        window.gtag('config', google.adsConversionId);
+      }
+    }
+
+    // 3. Meta (Facebook & Instagram) Pixel
+    if (meta?.enabled && meta?.pixelId) {
+      !(function(f,b,e,v,n,t,s) {
+        if(f.fbq) return;
+        n=f.fbq=function() { n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments); };
+        if(!f._fbq) f._fbq=n;
+        n.push=n; n.loaded=!0; n.version='2.0';
+        n.queue=[];
+        t=b.createElement(e); t.async=!0;
+        t.src=v;
+        s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s);
+      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', meta.pixelId);
+      fbq('track', 'PageView');
+    }
+
+    // 4. TikTok Pixel
+    if (tiktok?.enabled && tiktok?.pixelId) {
+      !(function (w, d, t) {
+        w.TiktokAnalyticsObject = t;
+        var ttq = (w[t] = w[t] || []);
+        ttq.methods = [
+          "page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie"
+        ];
+        ttq.setAndDefer = function (t, e) {
+          t[e] = function () {
+            t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+          };
+        };
+        for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+        ttq.load = function (e, n) {
+          var r = "https://analytics.tiktok.com/i18n/pixel/events.js";
+          ttq._i = ttq._i || {};
+          ttq._i[e] = [];
+          ttq._i[e]._u = r;
+          ttq._t = ttq._t || {};
+          ttq._t[e] = +new Date();
+          ttq._o = ttq._o || {};
+          ttq._o[e] = n || {};
+          var o = document.createElement("script");
+          o.type = "text/javascript";
+          o.async = !0;
+          o.src = r + "?sdkid=" + e + "&lib=" + t;
+          var a = document.getElementsByTagName("script")[0];
+          a.parentNode.insertBefore(o, a);
+        };
+        ttq.load(tiktok.pixelId);
+        ttq.page();
+      })(window, document, "ttq");
+    }
+
+    // 5. Custom Scripts Injection
+    if (customScripts?.headerScripts) {
+      const container = document.createElement('div');
+      container.innerHTML = customScripts.headerScripts;
+      Array.from(container.querySelectorAll('script')).forEach(oldScript => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        document.head.appendChild(newScript);
+      });
+    }
+
+    if (customScripts?.footerScripts) {
+      const container = document.createElement('div');
+      container.innerHTML = customScripts.footerScripts;
+      Array.from(container.querySelectorAll('script')).forEach(oldScript => {
+        const newScript = document.createElement('script');
+        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        document.body.appendChild(newScript);
+      });
+    }
+
+  } catch (err) {
+    console.error('Tracking init error:', err);
+  }
+}
+
+window.trackConversionEvent = function(eventName, eventData = {}, userData = {}) {
+  const eventId = 'ent-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+
+  // 1. Meta Pixel (Browser)
+  if (window.fbq) {
+    try {
+      window.fbq('track', eventName, eventData, { eventID: eventId });
+    } catch (e) {}
+  }
+
+  // 2. Google Analytics 4 & Ads (Browser)
+  if (window.gtag) {
+    try {
+      window.gtag('event', eventName, eventData);
+      if (eventName === 'Purchase' && activeTrackingSettings?.google?.adsConversionId && activeTrackingSettings?.google?.adsConversionLabel) {
+        window.gtag('event', 'conversion', {
+          send_to: `${activeTrackingSettings.google.adsConversionId}/${activeTrackingSettings.google.adsConversionLabel}`,
+          value: eventData.value || 0,
+          currency: eventData.currency || 'TRY',
+          transaction_id: eventData.order_id || eventId
+        });
+      }
+    } catch (e) {}
+  }
+
+  // 3. Google Tag Manager DataLayer
+  if (window.dataLayer) {
+    try {
+      window.dataLayer.push({
+        event: eventName,
+        eventId: eventId,
+        ...eventData
+      });
+    } catch (e) {}
+  }
+
+  // 4. TikTok Pixel (Browser)
+  if (window.ttq) {
+    try {
+      window.ttq.track(eventName, eventData, { event_id: eventId });
+    } catch (e) {}
+  }
+
+  // 5. Server-Side Conversions API (Meta CAPI & TikTok Server Dispatch)
+  try {
+    fetch('/api/tracking/capi-event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName: eventName,
+        eventId: eventId,
+        eventSourceUrl: window.location.href,
+        userData: userData,
+        customData: eventData
+      })
+    }).catch(() => {});
+  } catch (e) {}
+};

@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "enabled": false,
+    "pixelId": "",
+    "capiToken": "",
+    "testEventCode": ""
+  },
+  "google": {
+    "enabled": false,
+    "gtmId": "",
+    "ga4Id": "",
+    "adsConversionId": "",
+    "adsConversionLabel": ""
+  },
+  "tiktok": {
+    "enabled": false,
+    "pixelId": "",
+    "eventsApiToken": ""
+  },
+  "customScripts": {
+    "headerScripts": "",
+    "footerScripts": ""
+  },
+  "updatedAt": "2026-10-26T18:50:00.000Z"
+}

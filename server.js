@@ -5,6 +5,7 @@
  */
 
 const http = require('http');
+const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
@@ -15,6 +16,7 @@ const PUBLIC_DIR = __dirname;
 const DATA_DIR = path.join(__dirname, 'data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
+const TRACKING_FILE = path.join(DATA_DIR, 'tracking.json');
 
 // Ensure data directory and files exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -77,6 +79,42 @@ initDataFile(LEADS_FILE, [
     status: 'Analiz Gönderildi'
   }
 ]);
+
+const DEFAULT_TRACKING = {
+  meta: {
+    enabled: false,
+    pixelId: '',
+    capiToken: '',
+    testEventCode: ''
+  },
+  google: {
+    enabled: false,
+    gtmId: '',
+    ga4Id: '',
+    adsConversionId: '',
+    adsConversionLabel: ''
+  },
+  tiktok: {
+    enabled: false,
+    pixelId: '',
+    eventsApiToken: ''
+  },
+  customScripts: {
+    headerScripts: '',
+    footerScripts: ''
+  },
+  updatedAt: new Date().toISOString()
+};
+
+initDataFile(TRACKING_FILE, DEFAULT_TRACKING);
+
+function readTrackingSettings() {
+  const data = readJsonFile(TRACKING_FILE);
+  if (!data || Array.isArray(data) || !data.meta) {
+    return DEFAULT_TRACKING;
+  }
+  return { ...DEFAULT_TRACKING, ...data };
+}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -276,7 +314,119 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // 7. STATIC FILES & ROUTING
+  // 7. TRACKING SETTINGS API: GET
+  if (pathname === '/api/settings/tracking' && req.method === 'GET') {
+    const settings = readTrackingSettings();
+    sendJson(res, 200, { success: true, settings });
+    return;
+  }
+
+  // 8. TRACKING SETTINGS API: POST (SAVE SETTINGS)
+  if (pathname === '/api/settings/tracking' && req.method === 'POST') {
+    try {
+      const data = await parseJsonBody(req);
+      const updated = {
+        meta: {
+          enabled: Boolean(data.meta?.enabled),
+          pixelId: (data.meta?.pixelId || '').trim(),
+          capiToken: (data.meta?.capiToken || '').trim(),
+          testEventCode: (data.meta?.testEventCode || '').trim()
+        },
+        google: {
+          enabled: Boolean(data.google?.enabled),
+          gtmId: (data.google?.gtmId || '').trim(),
+          ga4Id: (data.google?.ga4Id || '').trim(),
+          adsConversionId: (data.google?.adsConversionId || '').trim(),
+          adsConversionLabel: (data.google?.adsConversionLabel || '').trim()
+        },
+        tiktok: {
+          enabled: Boolean(data.tiktok?.enabled),
+          pixelId: (data.tiktok?.pixelId || '').trim(),
+          eventsApiToken: (data.tiktok?.eventsApiToken || '').trim()
+        },
+        customScripts: {
+          headerScripts: data.customScripts?.headerScripts || '',
+          footerScripts: data.customScripts?.footerScripts || ''
+        },
+        updatedAt: new Date().toISOString()
+      };
+
+      writeJsonFile(TRACKING_FILE, updated);
+      sendJson(res, 200, {
+        success: true,
+        message: 'Dönüşüm API ve piksel ayarları başarıyla kaydedildi.',
+        settings: updated
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // 9. SERVER-SIDE CONVERSIONS API (META CAPI & TIKTOK DISPATCHER)
+  if (pathname === '/api/tracking/capi-event' && req.method === 'POST') {
+    try {
+      const { eventName, eventId, eventSourceUrl, userData, customData } = await parseJsonBody(req);
+      const settings = readTrackingSettings();
+      const results = { meta: 'skipped', tiktok: 'skipped' };
+
+      // Dispatch to Meta Graph API Conversions API if configured
+      if (settings.meta?.enabled && settings.meta?.pixelId && settings.meta?.capiToken) {
+        try {
+          const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+          const clientUserAgent = req.headers['user-agent'] || '';
+          
+          const payload = {
+            data: [
+              {
+                event_name: eventName || 'PageView',
+                event_time: Math.floor(Date.now() / 1000),
+                event_id: eventId || ('evt-' + Date.now()),
+                event_source_url: eventSourceUrl || 'https://entegreshop.com/',
+                action_source: 'website',
+                user_data: {
+                  client_ip_address: String(clientIp).split(',')[0].trim(),
+                  client_user_agent: clientUserAgent,
+                  ...(userData?.email ? { em: [crypto.createHash('sha256').update(userData.email.trim().toLowerCase()).digest('hex')] } : {}),
+                  ...(userData?.phone ? { ph: [crypto.createHash('sha256').update(userData.phone.replace(/[^0-9]/g, '')).digest('hex')] } : {})
+                },
+                custom_data: customData || {}
+              }
+            ],
+            ...(settings.meta.testEventCode ? { test_event_code: settings.meta.testEventCode } : {})
+          };
+
+          const postData = JSON.stringify(payload);
+          const metaReq = https.request({
+            hostname: 'graph.facebook.com',
+            path: `/v20.0/${settings.meta.pixelId}/events?access_token=${encodeURIComponent(settings.meta.capiToken)}`,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Content-Length': Buffer.byteLength(postData)
+            }
+          }, (mRes) => {
+            let mBody = '';
+            mRes.on('data', c => mBody += c);
+            mRes.on('end', () => console.log('Meta CAPI response code:', mRes.statusCode));
+          });
+          metaReq.on('error', err => console.error('Meta CAPI error:', err.message));
+          metaReq.write(postData);
+          metaReq.end();
+          results.meta = 'dispatched';
+        } catch (mErr) {
+          console.error('Meta CAPI dispatch error:', mErr.message);
+        }
+      }
+
+      sendJson(res, 200, { success: true, results });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // 10. STATIC FILES & ROUTING
   let filePath = '';
   if (pathname === '/' || pathname === '/index.html') {
     filePath = path.join(PUBLIC_DIR, 'index.html');
