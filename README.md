@@ -1,6 +1,6 @@
 # Entegre Shop | Yazılım & Dijital Reklam Ajansı
 
-Entegre Shop için geliştirilmiş modern, dönüşüm odaklı (conversion-focused) ve **Medusa v2** altyapısıyla tam uyumlu web platformu.
+Entegre Shop için geliştirilmiş modern, dönüşüm odaklı (conversion-focused) ve **Entegre AI Studio** altyapısıyla tam uyumlu web platformu.
 
 ---
 
@@ -9,7 +9,7 @@ Entegre Shop için geliştirilmiş modern, dönüşüm odaklı (conversion-focus
 1. **Hero Bölümü:**
    - **Başlık:** *"Dijitalde Büyümenizi Hızlandırın: Yazılım, E-Ticaret ve Reklam Çözümleri"*
    - **Alt Başlık:** Meta, Google Ads, TikTok, OpenAI reklam yönetimi ve anahtar teslim e-ticaret/kurumsal web paketleri.
-   - **KPI Rozetleri:** 4.8x+ ROAS, < 0.8s Hız Skoru, %100 Medusa v2 Desteği.
+   - **KPI Rozetleri:** 10+ ROAS, < 0.8s Hız Skoru, %100 Entegre AI Studio Desteği.
    - **Görseller:** 3D cam panel reklam ve analitik hub illüstrasyonu (`/assets/images/hero-growth.jpg`).
 
 2. **Dijital Reklam Danışmanlığı Paketleri:**
@@ -23,14 +23,14 @@ Entegre Shop için geliştirilmiş modern, dönüşüm odaklı (conversion-focus
    - OnePage modern kurumsal web sitesi çözümü.
    - 72 saatte hızlı teslim, %100 mobil uyum, < 0.8s sayfa açılış hızı, WhatsApp & form motoru, 1 yıl bulut hosting ve SSL dahil (8.500 ₺ Tek Seferlik).
 
-4. **E-Ticaret Paketleri (Medusa v2 Uyumlu):**
+4. **E-Ticaret Paketleri (Entegre AI Studio Uyumlu):**
    - **OnePage E-Ticaret Paketi:** Tek ürün / viral satış hunisi, express checkout, iyzico/PayTR (14.500 ₺).
-   - **Standart E-Ticaret Paketi:** 1.000 ürün varyantı, Medusa v2 çekirdek, kargo takip (24.500 ₺).
+   - **Standart E-Ticaret Paketi:** 1.000 ürün varyantı, Entegre AI Studio çekirdek, kargo takip (24.500 ₺).
    - **Profesyonel E-Ticaret Paketi:** Next.js 14 Storefront, terk edilmiş sepet kurtarma, CAPI & DataLayer (38.500 ₺).
    - **Premium E-Ticaret Paketi (🌟 EN POPÜLER / ÖNERİLEN):** Global çoklu para birimi/dil, B2B bayi iskontosu, OpenAI ürün öneri motoru, 7/24 VIP destek (58.500 ₺).
 
 5. **Dönüşüm Araçları & İnteraktif Altyapı:**
-   - **Canlı Hizmet Sepeti (Cart Drawer):** LocalStorage tabanlı Medusa Cart simülasyonu, promosyon kodu (`ENTEGRE10` / `%10` indirim), KDV hesaplaması.
+   - **Canlı Hizmet Sepeti (Cart Drawer):** LocalStorage tabanlı Entegre AI Studio Cart simülasyonu, promosyon kodu (`ENTEGRE10` / `%10` indirim), KDV hesaplaması.
    - **Sipariş / Teklif Modalı (Checkout Modal):** Müşteri ve fatura bilgileriyle sipariş referansı üretimi (`ENT-ORD-XXXXXX`).
    - **WhatsApp Entegrasyonu:** Sepetteki paketleri tek tıkla WhatsApp mesajına dönüştürerek doğrudan sipariş başlatma.
    - **Ücretsiz Dijital Check-Up Formu:** Büyüme analizi ve potansiyel müşteri toplama motoru.

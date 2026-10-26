@@ -69,14 +69,14 @@ const PACKAGES_CATALOG = {
     category: 'E-Ticaret',
     oneTimePrice: 14500,
     badge: 'Tek Ürün Satış Hunisi',
-    desc: 'Tek ürün veya özel koleksiyon satışı için optimize edilmiş, tek tıkla ödeme (Express Checkout) destekli Medusa v2 altyapısı.'
+    desc: 'Tek ürün veya özel koleksiyon satışı için optimize edilmiş, tek tıkla ödeme (Express Checkout) destekli Entegre AI Studio altyapısı.'
   },
   'ecom-standard': {
     id: 'ecom-standard',
     title: 'Standart Çoklu Ürün E-Ticaret Paketi',
     category: 'E-Ticaret',
     oneTimePrice: 24500,
-    badge: 'Medusa v2 Çekirdek',
+    badge: 'Entegre AI Studio Çekirdek',
     desc: '1.000 ürüne kadar varyant yönetimi, iyzico/PayTR sanal pos entegrasyonu, kargo takip modülü ve yönetim paneli.'
   },
   'ecom-professional': {
@@ -84,7 +84,7 @@ const PACKAGES_CATALOG = {
     title: 'Profesyonel Çoklu Ürün E-Ticaret Paketi',
     category: 'E-Ticaret',
     oneTimePrice: 38500,
-    badge: 'Next.js 14 App Router + Medusa',
+    badge: 'Next.js 14 App Router + Entegre AI Studio',
     desc: 'Next.js 14 ultra hızlı Storefront, terk edilmiş sepet kurtarma botu, Meta CAPI & GA4 data layer tam entegrasyonu.'
   },
   'ecom-premium': {
@@ -180,8 +180,36 @@ function initFaqAccordion() {
 
 /* -------------------------------------------------------------
  * 3. Pricing Tab Filter (All | Reklam | E-Ticaret | Kurumsal)
+ * Each tab has its own dedicated URL hash:
+ * - #tum-paketler
+ * - #e-ticaret-paketleri
+ * - #kurumsal-web
+ * - #dijital-reklam
  * ------------------------------------------------------------- */
-window.setPricingTab = function(targetCategory) {
+const PRICING_TAB_HASH_MAP = {
+  'all': '#tum-paketler',
+  'ecom': '#e-ticaret-paketleri',
+  'web': '#kurumsal-web',
+  'ads': '#dijital-reklam'
+};
+
+const HASH_TO_PRICING_TAB = {
+  '#tum-paketler': 'all',
+  '#paketler': 'all',
+  '#paketler-fiyatlar': 'all',
+  '#fiyatlar': 'all',
+  '#e-ticaret-paketleri': 'ecom',
+  '#e-ticaret': 'ecom',
+  '#eticaret': 'ecom',
+  '#kurumsal-web': 'web',
+  '#kurumsal-web-paketleri': 'web',
+  '#kurumsal': 'web',
+  '#dijital-reklam': 'ads',
+  '#dijital-reklam-danismanligi': 'ads',
+  '#reklam': 'ads'
+};
+
+window.setPricingTab = function(targetCategory, updateUrl = true) {
   currentPricingTab = targetCategory;
 
   const tabBtns = document.querySelectorAll('.pricing-tab-btn');
@@ -226,7 +254,23 @@ window.setPricingTab = function(targetCategory) {
       billingWrapper.style.setProperty('display', 'flex', 'important');
     }
   }
+
+  // Update browser URL hash if requested (separate URL per tab)
+  if (updateUrl && PRICING_TAB_HASH_MAP[targetCategory]) {
+    const targetHash = PRICING_TAB_HASH_MAP[targetCategory];
+    if (window.location.hash !== targetHash) {
+      history.pushState({ pricingTab: targetCategory }, '', targetHash);
+    }
+  }
 };
+
+function parseHashForPricingTab() {
+  const hash = (window.location.hash || '').toLowerCase();
+  if (HASH_TO_PRICING_TAB[hash]) {
+    return HASH_TO_PRICING_TAB[hash];
+  }
+  return null;
+}
 
 function initPricingTabs() {
   const tabBtns = document.querySelectorAll('.pricing-tab-btn');
@@ -234,12 +278,35 @@ function initPricingTabs() {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const targetCategory = btn.getAttribute('data-tab');
-      window.setPricingTab(targetCategory);
+      window.setPricingTab(targetCategory, true);
     });
   });
 
-  // Run initial state
-  window.setPricingTab(currentPricingTab || 'all');
+  // Listen to browser navigation (back/forward or external hash link)
+  window.addEventListener('popstate', () => {
+    const cat = parseHashForPricingTab();
+    if (cat) {
+      window.setPricingTab(cat, false);
+    }
+  });
+  window.addEventListener('hashchange', () => {
+    const cat = parseHashForPricingTab();
+    if (cat) {
+      window.setPricingTab(cat, false);
+    }
+  });
+
+  // Check URL hash on page load
+  const initialFromHash = parseHashForPricingTab();
+  if (initialFromHash) {
+    window.setPricingTab(initialFromHash, false);
+    setTimeout(() => {
+      const section = document.getElementById('paketler-fiyatlar');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  } else {
+    window.setPricingTab(currentPricingTab || 'all', false);
+  }
 }
 
 /* -------------------------------------------------------------

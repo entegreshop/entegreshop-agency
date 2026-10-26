@@ -348,6 +348,6 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 ENTEGRE SHOP Agency Platform Live!`);
   console.log(`📡 URL: http://localhost:${PORT}`);
   console.log(`📊 Admin: http://localhost:${PORT}/admin`);
-  console.log(`⚡ Medusa v2 Ready | Port: ${PORT}`);
+  console.log(`⚡ Entegre AI Studio Ready | Port: ${PORT}`);
   console.log(`===================================================`);
 });
