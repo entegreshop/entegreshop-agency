@@ -52,7 +52,7 @@
   </script>
 
   <!-- Custom Styles (Qukasoft Aesthetic) -->
-  <link rel="stylesheet" href="/css/style.css?v=2.4.0">
+  <link rel="stylesheet" href="/css/style.css?v=2.5.0">
 </head>
 <body class="bg-[#f8fafc] text-slate-800 antialiased selection:bg-blue-600 selection:text-white relative">
 
@@ -615,14 +615,14 @@
           <button id="tab-btn-all" data-tab="all" onclick="setPricingTab('all')" class="pricing-tab-btn active px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
             Tüm Paketler
           </button>
-          <button id="tab-btn-ads" data-tab="ads" onclick="setPricingTab('ads')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
-            Dijital Reklam Danışmanlığı
-          </button>
           <button id="tab-btn-ecom" data-tab="ecom" onclick="setPricingTab('ecom')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
             E-Ticaret Paketleri
           </button>
           <button id="tab-btn-web" data-tab="web" onclick="setPricingTab('web')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
             Kurumsal Web
+          </button>
+          <button id="tab-btn-ads" data-tab="ads" onclick="setPricingTab('ads')" class="pricing-tab-btn px-5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all">
+            Dijital Reklam Danışmanlığı
           </button>
         </div>
 
@@ -644,149 +644,146 @@
       <!-- Packages Grid -->
       <div id="pricing-cards-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
 
-        <!-- 1. Meta Ads Danışmanlığı -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+        <!-- 1. OnePage E-Ticaret Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-mono font-bold">
-                Meta Ads
+              <span class="px-2.5 py-1 rounded-lg bg-cyan-100 text-cyan-800 text-xs font-mono font-bold">
+                Tek Ürün E-Ticaret
               </span>
-              <span class="text-[11px] font-mono text-slate-500">CAPI &amp; Advantage+</span>
+              <span class="text-[11px] font-mono text-cyan-700 font-bold">Express Checkout</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">Meta Ads Danışmanlığı</h3>
-            <p class="text-xs text-slate-500">Instagram ve Facebook üzerinden doğrudan satış odaklı reklam yönetimi.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">OnePage E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">Tek bir ürünü veya viral koleksiyonu patlatmak için tek tıkla sipariş hunisi.</p>
             
-            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-meta">
-              <div class="space-y-0.5">
-                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
-                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
-              </div>
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Tek Seferlik Kurulum</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">14.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Sıfır Komisyon)</span>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ Meta Conversions API (CAPI) Server-Side</li>
-              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Satışları</li>
-              <li class="flex items-center gap-2">✓ Haftalık Kreatif &amp; Kitle A/B Testleri</li>
-              <li class="flex items-center gap-2">✓ Retargeting &amp; Lookalike Kitleler</li>
+              <li class="flex items-center gap-2">✓ Tek Tıkla Ödeme (Express Checkout)</li>
+              <li class="flex items-center gap-2">✓ PayTR / iyzico &amp; Kapıda Ödeme</li>
+              <li class="flex items-center gap-2">✓ Meta Piksel &amp; TikTok Huni Entegre</li>
+              <li class="flex items-center gap-2">✓ Medusa v2 Süper Hızlı Altyapı</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ad-meta" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ecom-onepage" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ad-meta" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ecom-onepage" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 2. Google Ads Danışmanlığı -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+        <!-- 2. Standart Çoklu Ürün E-Ticaret -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-mono font-bold">
-                Google Ads
+              <span class="px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800 text-xs font-mono font-bold">
+                Standart E-Ticaret
               </span>
-              <span class="text-[11px] font-mono text-slate-500">Performance Max</span>
+              <span class="text-[11px] font-mono text-slate-500">Medusa v2</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">Google Ads Danışmanlığı</h3>
-            <p class="text-xs text-slate-500">Google Shopping, Search ve YouTube ile yüksek ROAS hedefli reklam masası.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Standart E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">1.000 ürüne kadar varyantlı stok yönetimi ve sanal pos entegrasyonu.</p>
             
-            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-google">
-              <div class="space-y-0.5">
-                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
-                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
-              </div>
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">24.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ Merchant Center &amp; Alışveriş Feed Kurulumu</li>
-              <li class="flex items-center gap-2">✓ Performance Max (PMax) Kampanyaları</li>
-              <li class="flex items-center gap-2">✓ Negatif Anahtar Kelime &amp; Bütçe Filtresi</li>
-              <li class="flex items-center gap-2">✓ GA4 Gelişmiş E-Ticaret Dönüşüm Kurulumu</li>
+              <li class="flex items-center gap-2">✓ Medusa v2 Çekirdek Altyapı</li>
+              <li class="flex items-center gap-2">✓ 1.000 Ürün Varyant &amp; Stok Yönetimi</li>
+              <li class="flex items-center gap-2">✓ PayTR / iyzico Sanal POS Entegrasyonu</li>
+              <li class="flex items-center gap-2">✓ Yurtiçi / MNG Kargo Takip Modülü</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ad-google" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ecom-standard" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ad-google" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ecom-standard" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 3. TikTok Ads Danışmanlığı -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
+        <!-- 3. Profesyonel E-Ticaret Paketi -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-pink-100 text-pink-700 text-xs font-mono font-bold">
-                TikTok Ads
+              <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-mono font-bold">
+                Profesyonel
               </span>
-              <span class="text-[11px] font-mono text-pink-600 font-bold">Spark &amp; Viral</span>
+              <span class="text-[11px] font-mono text-indigo-700 font-bold">Next.js 14</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">TikTok Ads Danışmanlığı</h3>
-            <p class="text-xs text-slate-500">Gen-Z ve dinamik video kurguları ile doğrudan sipariş odaklı reklam masası.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Profesyonel E-Ticaret</h3>
+            <p class="text-xs text-slate-500">Next.js 14 hızında, yüksek reklam trafiğini kaldıran modern headless mağaza.</p>
             
-            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-tiktok">
-              <div class="space-y-0.5">
-                <div class="text-3xl font-extrabold text-slate-900 font-mono">10.000 ₺</div>
-                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
-              </div>
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">38.500 ₺</div>
+              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ TikTok Pixel &amp; Events API Entegrasyonu</li>
-              <li class="flex items-center gap-2">✓ Spark Ads &amp; Trend Kurgu Rehberliği</li>
-              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Reklamları (DSA)</li>
-              <li class="flex items-center gap-2">✓ Haftalık Performans &amp; ROAS Raporlaması</li>
+              <li class="flex items-center gap-2">✓ Next.js 14 App Router + Medusa v2</li>
+              <li class="flex items-center gap-2">✓ Terk Edilmiş Sepet WhatsApp/SMS Botu</li>
+              <li class="flex items-center gap-2">✓ Meta CAPI + Google Data Layer Entegre</li>
+              <li class="flex items-center gap-2">✓ 3 Ay Ücretsiz Sunucu Yönetimi &amp; Destek</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ad-tiktok" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ecom-professional" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ad-tiktok" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ecom-professional" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 4. OpenAI Destekli Çok Kanallı Reklam (Full-Stack) -->
-        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ads">
-          <div class="space-y-4">
+        <!-- 4. Premium E-Ticaret Paketi (QUKASOFT SIGNATURE POPULAR) -->
+        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ecom">
+          
+          <div class="space-y-4 pt-1">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-mono font-bold">
-                OpenAI Full-Stack 🤖
+              <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-xs font-mono font-bold">
+                Global &amp; B2B Entegre
               </span>
-              <span class="text-[11px] font-mono text-emerald-700 font-bold">Öne Çıkan</span>
+              <span class="text-[11px] font-mono text-amber-700 font-extrabold">🌟 EN POPÜLER / ÖNERİLEN</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">OpenAI Çok Kanallı Reklam</h3>
-            <p class="text-xs text-slate-500">Meta + Google + TikTok reklamlarının tek merkezden AI robot ile yönetimi.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Premium E-Ticaret Paketi</h3>
+            <p class="text-xs text-slate-500">Özel Medusa v2 modülleri, B2B bayi ağı ve yapay zeka tavsiye motoru.</p>
             
-            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-openai-full">
-              <div class="space-y-0.5">
-                <div class="text-3xl font-extrabold text-slate-900 font-mono">24.500 ₺</div>
-                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
-              </div>
+            <div class="py-3 border-y border-slate-100">
+              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
+              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">58.500 ₺</div>
+              <span class="text-[11px] text-blue-600 font-mono font-bold">+ KDV (Sıfır Komisyon)</span>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-700 font-medium">
-              <li class="flex items-center gap-2">✓ 3 Kanal Entegre (Meta + Google + TikTok)</li>
-              <li class="flex items-center gap-2">✓ OpenAI GPT-4o Dinamik Metin &amp; Kanca Robotu</li>
-              <li class="flex items-center gap-2">✓ Haftalık Bütçe Dağıtım Algoritması</li>
-              <li class="flex items-center gap-2">✓ 7/24 WhatsApp Acil Hattı &amp; Büyüme Uzmanı</li>
+              <li class="flex items-center gap-2">✓ Çoklu Para Birimi (EUR, USD, TRY) &amp; Dil</li>
+              <li class="flex items-center gap-2">✓ B2B Bayi İskontosu &amp; Cari Yönetim</li>
+              <li class="flex items-center gap-2">✓ OpenAI Ürün Öneri ve Arama Motoru</li>
+              <li class="flex items-center gap-2">✓ 7/24 VIP Destek &amp; 6 Ay Sunucu Bakımı Dahil</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ad-openai-full" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ecom-premium" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle (Önerilen)</span>
             </button>
-            <button data-pkg="ad-openai-full" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ecom-premium" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
@@ -864,146 +861,149 @@
           </div>
         </div>
 
-        <!-- 5. OnePage E-Ticaret Paketi -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+        <!-- 7. Meta Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-cyan-100 text-cyan-800 text-xs font-mono font-bold">
-                Tek Ürün E-Ticaret
+              <span class="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-mono font-bold">
+                Meta Ads
               </span>
-              <span class="text-[11px] font-mono text-cyan-700 font-bold">Express Checkout</span>
+              <span class="text-[11px] font-mono text-slate-500">CAPI &amp; Advantage+</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">OnePage E-Ticaret Paketi</h3>
-            <p class="text-xs text-slate-500">Tek bir ürünü veya viral koleksiyonu patlatmak için tek tıkla sipariş hunisi.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Meta Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Instagram ve Facebook üzerinden doğrudan satış odaklı reklam yönetimi.</p>
             
-            <div class="py-3 border-y border-slate-100">
-              <span class="text-xs font-mono text-slate-400 block">Tek Seferlik Kurulum</span>
-              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">14.500 ₺</div>
-              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Sıfır Komisyon)</span>
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-meta">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ Tek Tıkla Ödeme (Express Checkout)</li>
-              <li class="flex items-center gap-2">✓ PayTR / iyzico &amp; Kapıda Ödeme</li>
-              <li class="flex items-center gap-2">✓ Meta Piksel &amp; TikTok Huni Entegre</li>
-              <li class="flex items-center gap-2">✓ Medusa v2 Süper Hızlı Altyapı</li>
+              <li class="flex items-center gap-2">✓ Meta Conversions API (CAPI) Server-Side</li>
+              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Satışları</li>
+              <li class="flex items-center gap-2">✓ Haftalık Kreatif &amp; Kitle A/B Testleri</li>
+              <li class="flex items-center gap-2">✓ Retargeting &amp; Lookalike Kitleler</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ecom-onepage" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ad-meta" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ecom-onepage" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ad-meta" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 6. Standart Çoklu Ürün E-Ticaret -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+        <!-- 8. Google Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-slate-200 text-slate-800 text-xs font-mono font-bold">
-                Standart E-Ticaret
+              <span class="px-2.5 py-1 rounded-lg bg-red-100 text-red-700 text-xs font-mono font-bold">
+                Google Ads
               </span>
-              <span class="text-[11px] font-mono text-slate-500">Medusa v2</span>
+              <span class="text-[11px] font-mono text-slate-500">Performance Max</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">Standart E-Ticaret Paketi</h3>
-            <p class="text-xs text-slate-500">1.000 ürüne kadar varyantlı stok yönetimi ve sanal pos entegrasyonu.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">Google Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Google Shopping, Search ve YouTube ile yüksek ROAS hedefli reklam masası.</p>
             
-            <div class="py-3 border-y border-slate-100">
-              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
-              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">24.500 ₺</div>
-              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-google">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">12.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ Medusa v2 Çekirdek Altyapı</li>
-              <li class="flex items-center gap-2">✓ 1.000 Ürün Varyant &amp; Stok Yönetimi</li>
-              <li class="flex items-center gap-2">✓ PayTR / iyzico Sanal POS Entegrasyonu</li>
-              <li class="flex items-center gap-2">✓ Yurtiçi / MNG Kargo Takip Modülü</li>
+              <li class="flex items-center gap-2">✓ Merchant Center &amp; Alışveriş Feed Kurulumu</li>
+              <li class="flex items-center gap-2">✓ Performance Max (PMax) Kampanyaları</li>
+              <li class="flex items-center gap-2">✓ Negatif Anahtar Kelime &amp; Bütçe Filtresi</li>
+              <li class="flex items-center gap-2">✓ GA4 Gelişmiş E-Ticaret Dönüşüm Kurulumu</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ecom-standard" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ad-google" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ecom-standard" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ad-google" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 7. Profesyonel E-Ticaret Paketi -->
-        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ecom">
+        <!-- 9. TikTok Ads Danışmanlığı -->
+        <div class="pricing-card-item qk-card p-8 flex flex-col justify-between" data-category="ads">
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-indigo-100 text-indigo-700 text-xs font-mono font-bold">
-                Profesyonel
+              <span class="px-2.5 py-1 rounded-lg bg-pink-100 text-pink-700 text-xs font-mono font-bold">
+                TikTok Ads
               </span>
-              <span class="text-[11px] font-mono text-indigo-700 font-bold">Next.js 14</span>
+              <span class="text-[11px] font-mono text-pink-600 font-bold">Spark &amp; Viral</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">Profesyonel E-Ticaret</h3>
-            <p class="text-xs text-slate-500">Next.js 14 hızında, yüksek reklam trafiğini kaldıran modern headless mağaza.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">TikTok Ads Danışmanlığı</h3>
+            <p class="text-xs text-slate-500">Gen-Z ve dinamik video kurguları ile doğrudan sipariş odaklı reklam masası.</p>
             
-            <div class="py-3 border-y border-slate-100">
-              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
-              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">38.500 ₺</div>
-              <span class="text-[11px] text-slate-500 font-mono">+ KDV (Tek Seferlik)</span>
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-tiktok">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">10.000 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-600">
-              <li class="flex items-center gap-2">✓ Next.js 14 App Router + Medusa v2</li>
-              <li class="flex items-center gap-2">✓ Terk Edilmiş Sepet WhatsApp/SMS Botu</li>
-              <li class="flex items-center gap-2">✓ Meta CAPI + Google Data Layer Entegre</li>
-              <li class="flex items-center gap-2">✓ 3 Ay Ücretsiz Sunucu Yönetimi &amp; Destek</li>
+              <li class="flex items-center gap-2">✓ TikTok Pixel &amp; Events API Entegrasyonu</li>
+              <li class="flex items-center gap-2">✓ Spark Ads &amp; Trend Kurgu Rehberliği</li>
+              <li class="flex items-center gap-2">✓ Dinamik E-Ticaret Katalog Reklamları (DSA)</li>
+              <li class="flex items-center gap-2">✓ Haftalık Performans &amp; ROAS Raporlaması</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ecom-professional" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ad-tiktok" class="btn-add-to-cart w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle</span>
             </button>
-            <button data-pkg="ecom-professional" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ad-tiktok" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
         </div>
 
-        <!-- 8. Premium E-Ticaret Paketi (QUKASOFT SIGNATURE POPULAR) -->
-        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ecom">
-          
-          <div class="space-y-4 pt-1">
+        <!-- 10. OpenAI Destekli Çok Kanallı Reklam (Full-Stack) -->
+        <div class="pricing-card-item featured-pricing-card qk-card p-8 flex flex-col justify-between" data-category="ads">
+          <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <span class="px-2.5 py-1 rounded-lg bg-amber-100 text-amber-800 text-xs font-mono font-bold">
-                Global &amp; B2B Entegre
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-700 text-xs font-mono font-bold">
+                OpenAI Full-Stack 🤖
               </span>
-              <span class="text-[11px] font-mono text-amber-700 font-extrabold">🌟 EN POPÜLER / ÖNERİLEN</span>
+              <span class="text-[11px] font-mono text-emerald-700 font-bold">Öne Çıkan</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 font-heading">Premium E-Ticaret Paketi</h3>
-            <p class="text-xs text-slate-500">Özel Medusa v2 modülleri, B2B bayi ağı ve yapay zeka tavsiye motoru.</p>
+            <h3 class="text-xl font-bold text-slate-900 font-heading">OpenAI Çok Kanallı Reklam</h3>
+            <p class="text-xs text-slate-500">Meta + Google + TikTok reklamlarının tek merkezden AI robot ile yönetimi.</p>
             
-            <div class="py-3 border-y border-slate-100">
-              <span class="text-xs font-mono text-slate-400 block">Kurulum Bedeli</span>
-              <div class="text-3xl font-extrabold text-slate-900 font-mono mt-1">58.500 ₺</div>
-              <span class="text-[11px] text-blue-600 font-mono font-bold">+ KDV (Sıfır Komisyon)</span>
+            <div class="ad-pkg-price py-3 border-y border-slate-100" data-pkg-id="ad-openai-full">
+              <div class="space-y-0.5">
+                <div class="text-3xl font-extrabold text-slate-900 font-mono">24.500 ₺</div>
+                <span class="text-[11px] text-slate-500 font-mono">/ Ay</span>
+              </div>
             </div>
 
             <ul class="space-y-2.5 text-xs text-slate-700 font-medium">
-              <li class="flex items-center gap-2">✓ Çoklu Para Birimi (EUR, USD, TRY) &amp; Dil</li>
-              <li class="flex items-center gap-2">✓ B2B Bayi İskontosu &amp; Cari Yönetim</li>
-              <li class="flex items-center gap-2">✓ OpenAI Ürün Öneri ve Arama Motoru</li>
-              <li class="flex items-center gap-2">✓ 7/24 VIP Destek &amp; 6 Ay Sunucu Bakımı Dahil</li>
+              <li class="flex items-center gap-2">✓ 3 Kanal Entegre (Meta + Google + TikTok)</li>
+              <li class="flex items-center gap-2">✓ OpenAI GPT-4o Dinamik Metin &amp; Kanca Robotu</li>
+              <li class="flex items-center gap-2">✓ Haftalık Bütçe Dağıtım Algoritması</li>
+              <li class="flex items-center gap-2">✓ 7/24 WhatsApp Acil Hattı &amp; Büyüme Uzmanı</li>
             </ul>
           </div>
 
           <div class="pt-8 space-y-2">
-            <button data-pkg="ecom-premium" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
+            <button data-pkg="ad-openai-full" class="btn-add-to-cart shimmer-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:opacity-95 text-white font-extrabold text-xs shadow-lg transition-all flex items-center justify-center gap-2">
               <span>Sepete Ekle (Önerilen)</span>
             </button>
-            <button data-pkg="ecom-premium" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
+            <button data-pkg="ad-openai-full" class="btn-direct-buy w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-all">
               Hemen Satın Al
             </button>
           </div>
@@ -1540,7 +1540,7 @@
   </div>
 
   <!-- Scripts -->
-  <script src="/js/app.js?v=2.4.0"></script>
+  <script src="/js/app.js?v=2.5.0"></script>
 
 </body>
 </html>
