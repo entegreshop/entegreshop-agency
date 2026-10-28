@@ -433,3 +433,210 @@ h1, h2, h3, h4, .font-heading {
     left: 140%;
   }
 }
+
+/* =========================================================
+   SHOPIFY-STYLE INFINITE REFERENCE LOGO MARQUEE BAND
+   ========================================================= */
+.shopify-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 12px 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.shopify-marquee-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 28px;
+  animation: shopifyMarqueeScroll var(--marquee-duration, 32s) linear infinite;
+  will-change: transform;
+}
+
+.shopify-marquee-wrapper.pause-on-hover:hover .shopify-marquee-track {
+  animation-play-state: paused;
+}
+
+.shopify-logo-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 190px;
+  height: 74px;
+  padding: 10px 24px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.shopify-logo-item:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.08);
+}
+
+.shopify-logo-item img {
+  max-height: 44px;
+  max-width: 175px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.shopify-marquee-wrapper.grayscale-mode .shopify-logo-item img {
+  filter: grayscale(100%) contrast(1.08);
+  opacity: 0.72;
+}
+
+.shopify-marquee-wrapper.grayscale-mode .shopify-logo-item:hover img {
+  filter: grayscale(0%) contrast(1);
+  opacity: 1;
+}
+
+.shopify-logo-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  white-space: nowrap;
+}
+
+@keyframes shopifyMarqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ==========================================================================
+   11. IKAS-STYLE FILTERABLE REFERENCE SHOWCASE CARDS
+   ========================================================================== */
+.ikas-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: 0.65rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  color: #334155;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ikas-filter-pill:hover {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.ikas-filter-pill.active {
+  background-color: #ffffff;
+  border-color: #0f172a;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.ikas-ref-card {
+  position: relative;
+  height: 410px;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: #0f172a;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.14);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.ikas-ref-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px -8px rgba(15, 23, 42, 0.26);
+}
+
+.ikas-ref-card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ikas-ref-card:hover .ikas-ref-card-bg {
+  transform: scale(1.06);
+}
+
+.ikas-ref-card-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 13, 26, 0.25) 0%,
+    rgba(8, 13, 26, 0.45) 48%,
+    rgba(8, 13, 26, 0.93) 100%
+  );
+  transition: background 0.35s ease;
+}
+
+.ikas-ref-card:hover .ikas-ref-card-shade {
+  background: linear-gradient(
+    180deg,
+    rgba(8, 13, 26, 0.18) 0%,
+    rgba(8, 13, 26, 0.40) 45%,
+    rgba(8, 13, 26, 0.95) 100%
+  );
+}
+
+.ikas-ref-center-brand {
+  position: relative;
+  z-index: 10;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0 1.25rem;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 1.65rem;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.75);
+}
+
+.ikas-ref-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.32rem 0.78rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 600;
+}

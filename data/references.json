@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "enabled": true,
+    "title": "Her sektörden işletme için Yeni Nesil E-Ticaret & Web Altyapısı",
+    "subtitle": "E-ticaret, Kurumsal Web ve Onepage satış sistemlerimizle dijitalde büyüyen mutlu müşterilerimiz",
+    "speed": 32,
+    "pauseOnHover": true,
+    "grayscaleEffect": true,
+    "showBadges": true
+  },
+  "categories": [
+    { "id": "eticaret", "name": "E-Ticaret", "icon": "🛒" },
+    { "id": "kurumsal-web", "name": "Kurumsal Web", "icon": "🏢" },
+    { "id": "onepage", "name": "Onepage", "icon": "⚡" },
+    { "id": "tekstil", "name": "Tekstil & Giyim", "icon": "👗" },
+    { "id": "otomotiv", "name": "Otomotiv & Yedek Parça", "icon": "🚗" },
+    { "id": "muhendislik", "name": "Mühendislik & İklimlendirme", "icon": "❄️" },
+    { "id": "ayakkabi", "name": "Ayakkabı & Aksesuar", "icon": "👟" },
+    { "id": "kozmetik", "name": "Kozmetik & Bakım", "icon": "💄" }
+  ],
+  "items": [
+    {
+      "id": "ref-cizgi-butik",
+      "name": "Çizgi Butik",
+      "category": "eticaret",
+      "website": "https://cizgibutik.com",
+      "screenshotUrl": "https://iad.microlink.io/BFidQKmS04PlUdlau2lVSNMly1ZinSoFGohFXvwpl96h9PKH3GkDl_BB2FJ_CnMBTKuIIe5GCR1qHGIyPlak8w.png",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20220%2060'%3E%3Crect%20x%3D'10'%20y%3D'15'%20width%3D'30'%20height%3D'30'%20rx%3D'8'%20fill%3D'%230f172a'/%3E%3Cpath%20d%3D'M19%2030h12M25%2024v12'%20stroke%3D'%2338bdf8'%20stroke-width%3D'3'%20stroke-linecap%3D'round'/%3E%3Ctext%20x%3D'50'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'22'%20font-weight%3D'800'%20letter-spacing%3D'1.5'%20fill%3D'%230f172a'%3E%C3%87%C4%B0ZG%C4%B0%20BUT%C4%B0K%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "Medusa V2 + Meta CAPI",
+      "description": "Entegre Shop Hızı ve Meta CAPI Sayesinde Dönüşüm Oranlarını %140 Artırdı!",
+      "active": true,
+      "order": 1
+    },
+    {
+      "id": "ref-ayaz-muhendislik",
+      "name": "Ayaz Mühendislik",
+      "category": "kurumsal-web",
+      "website": "https://ayazmuhendislik.net",
+      "screenshotUrl": "https://iad.microlink.io/RdYEVDe4n8mxRkUdx9kIboR3xT0cn27ypt-aoWc9rnw4wXNrWmIbpwJowl7T0ktMpQxDrXqSHgb7tIO60ve_Rw.png",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20260%2060'%3E%3Crect%20x%3D'10'%20y%3D'15'%20width%3D'30'%20height%3D'30'%20rx%3D'6'%20fill%3D'%230284c7'/%3E%3Cpath%20d%3D'M18%2036l7-14%207%2014'%20stroke%3D'%23fff'%20stroke-width%3D'2.5'%20fill%3D'none'/%3E%3Ctext%20x%3D'48'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'19'%20font-weight%3D'800'%20letter-spacing%3D'1'%20fill%3D'%230f172a'%3EAYAZ%20M%C3%9CHEND%C4%B0SL%C4%B0K%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "Kurumsal Web + Google Ads",
+      "description": "Yeni Nesil Kurumsal Web ve Keşif Otomasyonu ile Teklif Taleplerini 4 Katına Çıkardı!",
+      "active": true,
+      "order": 2
+    },
+    {
+      "id": "ref-sila-butik",
+      "name": "Sıla Butik",
+      "category": "onepage",
+      "website": "https://silabutik.com",
+      "screenshotUrl": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20220%2060'%3E%3Ccircle%20cx%3D'25'%20cy%3D'30'%20r%3D'15'%20fill%3D'%234f46e5'/%3E%3Ctext%20x%3D'25'%20y%3D'35'%20text-anchor%3D'middle'%20font-family%3D'Arial'%20font-size%3D'15'%20font-weight%3D'900'%20fill%3D'%23fff'%3ES%3C%2Ftext%3E%3Ctext%20x%3D'48'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'22'%20font-weight%3D'800'%20letter-spacing%3D'2'%20fill%3D'%231e1b4b'%3ESILA%20BUT%C4%B0K%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "5.5x ROAS",
+      "description": "Yüksek Dönüşümlü Onepage Satış Sayfası ve Meta AI Reklamları ile 5.5x ROAS Yakaladı!",
+      "active": true,
+      "order": 3
+    },
+    {
+      "id": "ref-bodykit-merkezi",
+      "name": "Bodykit Merkezi",
+      "category": "otomotiv",
+      "website": "https://bodykitmerkezi.com",
+      "screenshotUrl": "https://iad.microlink.io/vrVzywi4QFSRLpNDt1a00hVYnH1PboUey9tYzxlgBptD_h0-aiu8KtLM_qK5z2mw9jn9co8JoXlQWrUKYWy7aA.png",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20250%2060'%3E%3Crect%20x%3D'8'%20y%3D'16'%20width%3D'28'%20height%3D'28'%20rx%3D'6'%20fill%3D'%23e11d48'/%3E%3Ctext%20x%3D'22'%20y%3D'35'%20text-anchor%3D'middle'%20font-family%3D'Arial'%20font-size%3D'15'%20font-weight%3D'900'%20fill%3D'%23fff'%3EB%3C%2Ftext%3E%3Ctext%20x%3D'44'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'19'%20font-weight%3D'800'%20letter-spacing%3D'1'%20fill%3D'%230f172a'%3EBODYK%C4%B0T%20MERKEZ%C4%B0%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "B2B & B2C Otomotiv",
+      "description": "Araç Uyumluluk Filtreli E-Ticaret Altyapısı ile Yurt İçi ve İhracat Satışlarını Katladı!",
+      "active": true,
+      "order": 4
+    },
+    {
+      "id": "ref-kombingo",
+      "name": "KOMBINGO",
+      "category": "tekstil",
+      "website": "https://kombingo.com",
+      "screenshotUrl": "https://iad.microlink.io/-bA2poVG-J9AFzpevO6_iRfh_4DdOvPulVlDLfcPtgo-0J7pOQNdsm8Dt-t_Qr6FmtXo6CHLHvZGtiK2Lvx-YQ.png",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20220%2060'%3E%3Cpolygon%20points%3D'24%2C14%2038%2C30%2024%2C46%2010%2C30'%20fill%3D'%23059669'/%3E%3Ctext%20x%3D'46'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'22'%20font-weight%3D'900'%20letter-spacing%3D'2.5'%20fill%3D'%23064e3b'%3EKOMBINGO%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "E-Ticaret + AI",
+      "description": "Entegre AI Studio Kombin Öneri Motoru ile Sepet Ortalamasını %65 Büyüttü!",
+      "active": true,
+      "order": 5
+    },
+    {
+      "id": "ref-bueno-shoes",
+      "name": "Bueno Shoes",
+      "category": "ayakkabi",
+      "website": "https://buenoshoes.com.tr",
+      "screenshotUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20230%2060'%3E%3Crect%20x%3D'12'%20y%3D'16'%20width%3D'28'%20height%3D'28'%20rx%3D'14'%20fill%3D'%23d97706'/%3E%3Ctext%20x%3D'48'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'21'%20font-weight%3D'800'%20letter-spacing%3D'1.5'%20fill%3D'%230f172a'%3EBUENO%20SHOES%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "Global E-İhracat",
+      "description": "Çoklu Dil ve Çoklu Para Birimi Altyapısı ile 30+ Ülkeye Mikro İhracat Yapıyor!",
+      "active": true,
+      "order": 6
+    },
+    {
+      "id": "ref-nevermore",
+      "name": "Nevermore",
+      "category": "eticaret",
+      "website": "",
+      "screenshotUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=900&q=80",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20220%2060'%3E%3Ctext%20x%3D'110'%20y%3D'37'%20text-anchor%3D'middle'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'23'%20font-weight%3D'900'%20letter-spacing%3D'3.5'%20fill%3D'%230f172a'%3ENEVERMORE%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "4.8x ROAS",
+      "description": "Yazılım Bilgisi Gerekmeden E-Ticaret Sitesini Kurdu ve İlk Aydan 4.8x ROAS Elde Etti!",
+      "active": true,
+      "order": 7
+    },
+    {
+      "id": "ref-demir-iklimlendirme",
+      "name": "Demir İklimlendirme",
+      "category": "kurumsal-web",
+      "website": "",
+      "screenshotUrl": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80",
+      "logoUrl": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20240%2060'%3E%3Crect%20x%3D'12'%20y%3D'16'%20width%3D'28'%20height%3D'28'%20rx%3D'7'%20fill%3D'%230891b2'/%3E%3Ctext%20x%3D'26'%20y%3D'35'%20text-anchor%3D'middle'%20font-family%3D'Arial'%20font-size%3D'15'%20font-weight%3D'900'%20fill%3D'%23fff'%3ED%3C%2Ftext%3E%3Ctext%20x%3D'48'%20y%3D'37'%20font-family%3D'Space%20Grotesk%2C%20Arial%2C%20sans-serif'%20font-size%3D'19'%20font-weight%3D'800'%20letter-spacing%3D'1.5'%20fill%3D'%230f172a'%3EDEM%C4%B0R%20KL%C4%B0MA%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "badge": "Kurumsal Web + Lead",
+      "description": "Kurumsal Web ve Bölgesel Google Ads Stratejisiyle Montaj Taleplerini %210 Artırdı!",
+      "active": true,
+      "order": 8
+    }
+  ]
+}

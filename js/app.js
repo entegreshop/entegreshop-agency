@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLeadForm();
   initCallbackTriggers();
   updateCartBadge();
+  initReferencesMarquee();
   initTracking();
 });
 
@@ -1131,3 +1132,195 @@ window.trackConversionEvent = function(eventName, eventData = {}, userData = {})
     }).catch(() => {});
   } catch (e) {}
 };
+
+/* -------------------------------------------------------------
+ * 12. Shopify-Style Infinite Marquee + ikas-Style Categorized Showcase
+ * ------------------------------------------------------------- */
+let allReferenceItems = [];
+let allReferenceCategories = [];
+let activeReferenceCategory = 'all';
+
+async function initReferencesMarquee() {
+  const sectionEl = document.getElementById('referanslar');
+  const wrapperEl = document.getElementById('references-marquee-wrapper');
+  const trackEl = document.getElementById('references-marquee-track');
+  const titleEl = document.getElementById('references-title');
+  const subtitleEl = document.getElementById('references-subtitle');
+  const pillsEl = document.getElementById('references-category-pills');
+  const gridEl = document.getElementById('references-showcase-grid');
+
+  if (!sectionEl) return;
+
+  try {
+    const res = await fetch('/api/references');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.success) return;
+
+    const settings = data.settings || {};
+    const items = (data.items || []).filter(item => item.active !== false);
+    allReferenceItems = items;
+    allReferenceCategories = Array.isArray(data.categories) ? data.categories : [];
+
+    if (settings.enabled === false || items.length === 0) {
+      sectionEl.classList.add('hidden');
+      return;
+    }
+    sectionEl.classList.remove('hidden');
+
+    if (titleEl && settings.title) titleEl.textContent = settings.title;
+    if (subtitleEl && settings.subtitle) subtitleEl.textContent = settings.subtitle;
+
+    // 1. Render Shopify Marquee Band
+    if (wrapperEl && trackEl) {
+      const speed = Number(settings.speed) || 32;
+      trackEl.style.setProperty('--marquee-duration', `${speed}s`);
+
+      if (settings.pauseOnHover !== false) wrapperEl.classList.add('pause-on-hover');
+      else wrapperEl.classList.remove('pause-on-hover');
+
+      if (settings.grayscaleEffect !== false) wrapperEl.classList.add('grayscale-mode');
+      else wrapperEl.classList.remove('grayscale-mode');
+
+      const showBadges = settings.showBadges !== false;
+      let baseList = [...items];
+      while (baseList.length < 8) {
+        baseList = baseList.concat(items);
+      }
+      const loopItems = [...baseList, ...baseList];
+
+      trackEl.innerHTML = loopItems.map(item => {
+        const safeName = (item.name || 'Marka').replace(/"/g, '&quot;');
+        const badgeHtml = (showBadges && item.badge)
+          ? `<span class="shopify-logo-badge">${item.badge}</span>`
+          : '';
+        const imgHtml = item.logoUrl
+          ? `<img src="${item.logoUrl}" alt="${safeName}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+             <span style="display:none;" class="font-heading font-extrabold text-sm text-slate-800 tracking-wider">${safeName}</span>`
+          : `<span class="font-heading font-extrabold text-sm text-slate-800 tracking-wider">${safeName}</span>`;
+
+        if (item.website && item.website.trim() !== '') {
+          return `<a href="${item.website}" target="_blank" rel="noopener noreferrer" class="shopify-logo-item" title="${safeName}">
+            ${imgHtml}
+            ${badgeHtml}
+          </a>`;
+        }
+        return `<div class="shopify-logo-item" title="${safeName}">
+          ${imgHtml}
+          ${badgeHtml}
+        </div>`;
+      }).join('');
+    }
+
+    // 2. Render ikas-Style Category Filter Pills
+    if (pillsEl) {
+      const pillsHtml = [
+        `<button type="button" class="ikas-filter-pill ${activeReferenceCategory === 'all' ? 'active' : ''}" data-category="all">Tümü</button>`,
+        ...allReferenceCategories.map(cat => `
+          <button type="button" class="ikas-filter-pill ${activeReferenceCategory === cat.id ? 'active' : ''}" data-category="${cat.id}">
+            <span>${cat.icon || '🏷️'}</span>
+            <span>${cat.name}</span>
+          </button>
+        `)
+      ].join('');
+      pillsEl.innerHTML = pillsHtml;
+
+      pillsEl.querySelectorAll('.ikas-filter-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeReferenceCategory = btn.getAttribute('data-category') || 'all';
+          pillsEl.querySelectorAll('.ikas-filter-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderIkasShowcaseGrid(gridEl);
+        });
+      });
+    }
+
+    // 3. Render ikas-Style 4-Column Screenshot Cards Grid
+    if (gridEl) {
+      renderIkasShowcaseGrid(gridEl);
+    }
+
+    // If URL path is /referanslar, scroll directly to #referanslar
+    if (window.location.pathname === '/referanslar') {
+      setTimeout(() => {
+        sectionEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 250);
+    }
+  } catch (err) {
+    // Keep static fallback if network fails
+  }
+}
+
+function renderIkasShowcaseGrid(gridEl) {
+  if (!gridEl) return;
+
+  const filtered = activeReferenceCategory === 'all'
+    ? allReferenceItems
+    : allReferenceItems.filter(item => (item.category || 'eticaret') === activeReferenceCategory);
+
+  if (filtered.length === 0) {
+    gridEl.innerHTML = `
+      <div class="col-span-full py-12 px-6 text-center rounded-2xl border border-dashed border-slate-300 bg-slate-50">
+        <p class="text-sm font-semibold text-slate-600">Bu kategoride henüz vitrin referansı bulunmuyor.</p>
+        <button type="button" onclick="document.querySelector('.ikas-filter-pill[data-category=all]')?.click()" class="mt-3 px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-mono font-bold hover:bg-blue-600 transition-colors">
+          Tüm Referansları Göster
+        </button>
+      </div>
+    `;
+    return;
+  }
+
+  const catMap = {};
+  allReferenceCategories.forEach(c => {
+    catMap[c.id] = c;
+  });
+
+  gridEl.innerHTML = filtered.map(item => {
+    const safeName = (item.name || 'Marka').replace(/"/g, '&quot;');
+    const catObj = catMap[item.category] || { name: 'E-Ticaret', icon: '🛒' };
+    const fallbackShot = item.website
+      ? `https://s0.wp.com/mshots/v1/${encodeURIComponent(item.website)}?w=900&h=1100`
+      : 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80';
+    const bgUrl = item.screenshotUrl || fallbackShot;
+    const descText = item.description || `${safeName}, Entegre Shop Altyapısı Sayesinde Dönüşüm Oranlarını Artırdı!`;
+    const tag = item.website ? 'a' : 'div';
+    const hrefAttr = item.website ? `href="${item.website}" target="_blank" rel="noopener noreferrer"` : '';
+
+    return `
+      <${tag} ${hrefAttr} class="ikas-ref-card group">
+        <img src="${bgUrl}" alt="${safeName}" loading="lazy" class="ikas-ref-card-bg" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80'">
+        <div class="ikas-ref-card-shade"></div>
+
+        <!-- Top Right Visit Pill -->
+        <div class="relative z-10 p-4 flex items-center justify-between">
+          ${item.badge
+            ? `<span class="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-emerald-300">${item.badge}</span>`
+            : `<span></span>`
+          }
+          ${item.website
+            ? `<span class="px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-[10px] font-mono font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity">Siteyi İncele ↗</span>`
+            : ''
+          }
+        </div>
+
+        <!-- Center Brand Title (ikas style bold white mark) -->
+        <div class="ikas-ref-center-brand">
+          ${safeName}
+        </div>
+
+        <!-- Bottom Category Pill & Success Story -->
+        <div class="relative z-10 p-5 pt-0 space-y-2.5">
+          <div>
+            <span class="ikas-ref-category-pill">
+              <span>${catObj.icon || '🏷️'}</span>
+              <span>${catObj.name}</span>
+            </span>
+          </div>
+          <p class="text-white/95 text-[13px] leading-snug line-clamp-3">
+            <strong class="font-extrabold text-white">${safeName}</strong> ${descText}
+          </p>
+        </div>
+      </${tag}>
+    `;
+  }).join('');
+}

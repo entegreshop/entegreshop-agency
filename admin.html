@@ -118,6 +118,11 @@
         <span>PayTR Sanal POS</span>
         <span id="badge-payment-status" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 text-xs">Ayarla</span>
       </button>
+      <button id="tab-references-btn" onclick="switchTab('references')" class="px-4 py-3 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-2 whitespace-nowrap transition-all">
+        <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        <span>Referans Logoları &amp; Bant</span>
+        <span id="badge-references-count" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs">12</span>
+      </button>
     </div>
 
     <!-- TAB CONTENT: MÜŞTERİ BÜYÜME & SATIŞ MASASI (CLIENT HUB) -->
@@ -1001,6 +1006,263 @@
         <button type="button" onclick="savePaymentSettings()" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold font-mono text-xs shadow-lg shadow-emerald-500/30 transition-all flex items-center gap-2">
           <span>💾 PayTR Ayarlarını Kaydet</span>
         </button>
+      </div>
+
+    </div>
+
+    <!-- TAB CONTENT: REFERANS VİTRİNİ (İKAS TARZI EKRAN GÖRÜNTÜLÜ) & KAYAN BANT YÖNETİMİ -->
+    <div id="tab-references-section" class="hidden space-y-6">
+
+      <!-- Info Banner -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-950/60 via-slate-900 to-indigo-950/60 border border-amber-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0 mt-0.5 font-bold">
+            🏆
+          </div>
+          <div>
+            <h2 class="font-bold font-heading text-white text-base">Referans Vitrini (Otomatik Site Ekran Görüntüsü + Kategori) &amp; Kayan Bant Yönetimi</h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              Sayfa URL'sini ve firma adını girin; sistem sitenin canlı ekran görüntüsünü otomatik çeker. E-Ticaret, Kurumsal Web, Onepage gibi kategoriler ekleyip filtreleyebilirsiniz.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="/#referanslar" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-mono text-xs transition-all">
+            🌐 Referanslar Sayfasını Gör ↗
+          </a>
+          <button type="button" onclick="saveReferencesSettings()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs shadow-lg shadow-amber-500/20 transition-all">
+            💾 Ayarları Kaydet
+          </button>
+        </div>
+      </div>
+
+      <!-- Toast Message -->
+      <div id="references-toast" class="hidden p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-mono flex items-center justify-between">
+        <span id="references-toast-msg">Referans vitrini güncellendi!</span>
+        <button onclick="document.getElementById('references-toast').classList.add('hidden')" class="text-emerald-400 hover:text-white">&times;</button>
+      </div>
+
+      <!-- ADD NEW REFERENCE (URL -> AUTO SCREENSHOT) + LIVE IKAS CARD PREVIEW -->
+      <div class="grid lg:grid-cols-12 gap-6">
+
+        <!-- Left 8 Cols: URL -> Auto Screenshot + Category Form -->
+        <div class="lg:col-span-8 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div>
+              <h3 class="font-bold text-white text-base font-heading flex items-center gap-2">
+                <span class="text-amber-400">➕</span> Yeni Referans Ekle (URL'den Otomatik Ekran Görüntüsü)
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">Web sitesi adresini yazdığınızda sitenin ekran görüntüsü otomatik çekilir ve sağdaki vitrin kartında önizlenir.</p>
+            </div>
+          </div>
+
+          <!-- Row 1: Website URL + Auto Screenshot Button -->
+          <div>
+            <label class="block text-xs font-mono text-amber-300 mb-1.5 font-bold">1. Referans Sayfasının URL Adresi <span class="text-slate-400 font-normal">(URL girince ekran görüntüsü otomatik gelir)</span></label>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="text" id="new-ref-website" onchange="autoCaptureUrlScreenshot()" placeholder="Örn: https://cizgibutik.com veya ayazmuhendislik.net" class="flex-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+              <button type="button" id="btn-capture-screenshot" onclick="autoCaptureUrlScreenshot(true)" class="px-4 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-mono font-bold text-xs transition-all flex items-center justify-center gap-2 shrink-0">
+                <span id="capture-btn-icon">📸</span>
+                <span id="capture-btn-text">Ekran Görüntüsü Getir</span>
+              </button>
+            </div>
+            <span id="capture-status-text" class="text-[11px] font-mono text-slate-500 mt-1 block">URL adresini yazıp Enter'a basın veya "Ekran Görüntüsü Getir" butonuna tıklayın.</span>
+          </div>
+
+          <!-- Row 2: Company Name + Category Selection -->
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">2. Firma / Marka Adı <span class="text-rose-400">*</span></label>
+              <input type="text" id="new-ref-name" oninput="updateLiveCardPreviewText()" placeholder="Örn: Çizgi Butik" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-slate-300 mb-1">3. Kategori Seçin <span class="text-rose-400">*</span></label>
+              <select id="new-ref-category" onchange="updateLiveCardPreviewText()" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+                <option value="eticaret">🛒 E-Ticaret</option>
+                <option value="kurumsal-web">🏢 Kurumsal Web</option>
+                <option value="onepage">⚡ Onepage</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 3: Description + ROAS Badge -->
+          <div class="grid sm:grid-cols-12 gap-4">
+            <div class="sm:col-span-8">
+              <label class="block text-xs font-mono text-slate-300 mb-1">4. Vitrin Kartı Başarı Metni <span class="text-slate-500">(Boş bırakılırsa otomatik yazılır)</span></label>
+              <input type="text" id="new-ref-description" oninput="updateLiveCardPreviewText()" placeholder="Örn: Entegre Shop Hızı Sayesinde Dönüşüm Oranlarını %140 Artırdı!" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+            </div>
+            <div class="sm:col-span-4">
+              <label class="block text-xs font-mono text-slate-300 mb-1">Üst Rozet (Opsiyonel)</label>
+              <input type="text" id="new-ref-badge" oninput="updateLiveCardPreviewText()" placeholder="Örn: 5.5x ROAS" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+            </div>
+          </div>
+
+          <!-- Row 4: Optional Custom Screenshot Upload or Direct Image URL -->
+          <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 grid sm:grid-cols-2 gap-4 items-center">
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Ekran Görüntüsü URL (Otomatik Dolar veya Manuel Girin)</label>
+              <input type="text" id="new-ref-screenshot-url" oninput="updateLiveCardPreviewText()" placeholder="URL girince otomatik dolar..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 text-xs font-mono focus:outline-none focus:border-amber-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Veya Bilgisayardan Özel Kapak / Logo Yükle (Opsiyonel)</label>
+              <div class="flex items-center gap-2">
+                <label for="new-ref-shot-file" class="flex-1 py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-[11px] font-mono cursor-pointer text-center truncate">
+                  🖼 Kapak Görseli Seç
+                  <input id="new-ref-shot-file" type="file" accept="image/*" class="hidden" onchange="handleReferenceScreenshotUpload(event)">
+                </label>
+                <label for="new-ref-file" class="py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-[11px] font-mono cursor-pointer text-center truncate">
+                  🏷 Bant Logosu Seç
+                  <input id="new-ref-file" type="file" accept="image/*" class="hidden" onchange="handleReferenceLogoUpload(event)">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+            <span class="text-[11px] text-slate-400 font-mono">✨ Eklediğiniz referans hem **ikas tarzı vitrin kartlarına** hem de **Shopify tarzı kayan banda** eklenir.</span>
+            <button type="button" onclick="addNewReferenceItem()" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold font-mono text-xs shadow-lg shadow-indigo-500/30 transition-all flex items-center gap-2 shrink-0">
+              <span>➕ Referansı Vitrine Ekle</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 4 Cols: Live ikas Showcase Card Preview -->
+        <div class="lg:col-span-4 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <div>
+              <h3 class="font-bold text-white text-sm font-heading">👁 Canlı Vitrin Kartı Önizlemesi</h3>
+              <p class="text-[11px] text-slate-400">Sitede görünecek ikas tarzı referans kartı</p>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono">Canlı</span>
+          </div>
+
+          <!-- The Live Card -->
+          <div class="ikas-ref-card mx-auto w-full max-w-[290px]" style="height: 360px;">
+            <img id="preview-card-bg" src="https://iad.microlink.io/BFidQKmS04PlUdlau2lVSNMly1ZinSoFGohFXvwpl96h9PKH3GkDl_BB2FJ_CnMBTKuIIe5GCR1qHGIyPlak8w.png" alt="Önizleme" class="ikas-ref-card-bg">
+            <div class="ikas-ref-card-shade"></div>
+
+            <div class="relative z-10 p-3.5 flex items-center justify-between">
+              <span id="preview-card-badge" class="px-2.5 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-emerald-300">Medusa V2 + Meta CAPI</span>
+              <span class="px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-md border border-white/30 text-[10px] font-mono text-white">Siteyi İncele ↗</span>
+            </div>
+
+            <div id="preview-card-brand" class="ikas-ref-center-brand text-xl">
+              ÇİZGİ BUTİK
+            </div>
+
+            <div class="relative z-10 p-4 pt-0 space-y-2">
+              <div>
+                <span id="preview-card-cat" class="ikas-ref-category-pill">
+                  <span>🛒</span>
+                  <span>E-Ticaret</span>
+                </span>
+              </div>
+              <p class="text-white/95 text-xs leading-snug">
+                <strong id="preview-card-bold-name" class="font-extrabold text-white">Çizgi Butik</strong>
+                <span id="preview-card-desc">Entegre Shop Hızı Sayesinde Dönüşüm Oranlarını %140 Artırdı!</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CATEGORY MANAGER (E-TİCARET, KURUMSAL WEB, ONEPAGE VB.) + MARQUEE SETTINGS -->
+      <div class="grid lg:grid-cols-12 gap-6">
+
+        <!-- Left 7 Cols: Category Management -->
+        <div class="lg:col-span-7 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div>
+              <h3 class="font-bold text-white text-sm font-heading">🏷️ Referans Kategorileri Yönetimi (E-Ticaret, Kurumsal Web, Onepage vb.)</h3>
+              <p class="text-[11px] text-slate-400 mt-0.5">Referanslar sayfasındaki filtre butonlarını buradan ekleyip çıkarabilirsiniz.</p>
+            </div>
+          </div>
+
+          <!-- Existing Categories Pills -->
+          <div id="admin-categories-list" class="flex flex-wrap gap-2 py-1">
+            <!-- Populated dynamically -->
+          </div>
+
+          <!-- Add New Category Form -->
+          <div class="pt-3 border-t border-slate-800 flex flex-col sm:flex-row gap-2">
+            <input type="text" id="new-cat-icon" placeholder="İkon (Örn: ⚡)" value="🏷️" class="w-full sm:w-24 px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono text-center focus:outline-none focus:border-amber-500">
+            <input type="text" id="new-cat-name" placeholder="Yeni Kategori Adı (Örn: E-Ticaret, Kurumsal Web, Onepage, Tekstil...)" class="flex-1 px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+            <button type="button" onclick="addReferenceCategory()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold font-mono text-xs transition-all shrink-0">
+              + Kategori Ekle
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Section Heading & Marquee Speed Settings -->
+        <div class="lg:col-span-5 p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+            <h3 class="font-bold text-white text-sm font-heading">⚙ Vitrin Başlığı &amp; Kayan Bant Hızı</h3>
+            <label class="relative inline-flex items-center cursor-pointer" title="Referans Bölümünü Göster / Gizle">
+              <input type="checkbox" id="ref-setting-enabled" class="sr-only peer" checked>
+              <div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+            </label>
+          </div>
+
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">Vitrin Ana Başlığı</label>
+            <input type="text" id="ref-setting-title" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs font-mono text-slate-300 mb-1">Alt Açıklama</label>
+            <input type="text" id="ref-setting-subtitle" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+          </div>
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <div>
+              <label class="block text-[11px] font-mono text-slate-400 mb-1">Üst Bant Kayma Hızı</label>
+              <select id="ref-setting-speed" onchange="saveReferencesSettings()" class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs font-mono">
+                <option value="18">⚡ 18sn (Çok Hızlı)</option>
+                <option value="25">🚀 25sn (Hızlı)</option>
+                <option value="32" selected>✨ 32sn (Standart)</option>
+                <option value="45">🐢 45sn (Yavaş)</option>
+              </select>
+            </div>
+            <div class="flex flex-col justify-end space-y-1">
+              <label class="flex items-center gap-2 cursor-pointer text-[11px] text-slate-300 font-mono">
+                <input type="checkbox" id="ref-setting-pause" onchange="saveReferencesSettings()" checked class="rounded accent-amber-500"> Hover'da Durdur
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer text-[11px] text-slate-300 font-mono">
+                <input type="checkbox" id="ref-setting-grayscale" onchange="saveReferencesSettings()" checked class="rounded accent-amber-500"> Gri Tonlama Efekti
+              </label>
+              <input type="checkbox" id="ref-setting-badges" checked class="hidden">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- LIVE MARQUEE PREVIEW CARD -->
+      <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-lg space-y-2 overflow-hidden">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span class="text-[11px] font-mono font-bold text-slate-700 uppercase tracking-wider">Üst Kayan Logo Bandı Önizlemesi</span>
+          </div>
+          <span id="admin-preview-speed-badge" class="text-[11px] font-mono text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full">Hız: 32sn / Tur</span>
+        </div>
+        <div id="admin-references-marquee-wrapper" class="shopify-marquee-wrapper pause-on-hover grayscale-mode py-1.5">
+          <div id="admin-references-marquee-track" class="shopify-marquee-track" style="--marquee-duration: 32s;"></div>
+        </div>
+      </div>
+
+      <!-- CURRENT REFERENCE CARDS LIST / GRID -->
+      <div class="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+          <div>
+            <h3 class="font-bold text-white text-base font-heading">Ekli Referans Vitrin Kartları &amp; Siteler</h3>
+            <p class="text-xs text-slate-400">Her kartın ekran görüntüsünü tek tıkla yenileyebilir, kategorisini değiştirebilir, sıralayabilir veya silebilirsiniz.</p>
+          </div>
+          <span id="references-list-summary" class="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">Yükleniyor...</span>
+        </div>
+
+        <div id="references-items-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <!-- Populated dynamically by loadReferencesAdmin() -->
+        </div>
       </div>
 
     </div>
@@ -2793,12 +3055,14 @@
       const leadsSec = document.getElementById('tab-leads-section');
       const trackingSec = document.getElementById('tab-tracking-section');
       const paymentSec = document.getElementById('tab-payment-section');
+      const referencesSec = document.getElementById('tab-references-section');
 
       const clientsBtn = document.getElementById('tab-clients-btn');
       const ordersBtn = document.getElementById('tab-orders-btn');
       const leadsBtn = document.getElementById('tab-leads-btn');
       const trackingBtn = document.getElementById('tab-tracking-btn');
       const paymentBtn = document.getElementById('tab-payment-btn');
+      const referencesBtn = document.getElementById('tab-references-btn');
 
       // Hide all
       if (clientsSec) clientsSec.classList.add('hidden');
@@ -2806,6 +3070,7 @@
       if (leadsSec) leadsSec.classList.add('hidden');
       if (trackingSec) trackingSec.classList.add('hidden');
       if (paymentSec) paymentSec.classList.add('hidden');
+      if (referencesSec) referencesSec.classList.add('hidden');
 
       if (clientsBtn) {
         clientsBtn.classList.remove('border-indigo-500', 'text-white');
@@ -2826,6 +3091,10 @@
       if (paymentBtn) {
         paymentBtn.classList.remove('border-emerald-500', 'text-white');
         paymentBtn.classList.add('border-transparent', 'text-slate-400');
+      }
+      if (referencesBtn) {
+        referencesBtn.classList.remove('border-amber-500', 'text-white');
+        referencesBtn.classList.add('border-transparent', 'text-slate-400');
       }
 
       if (tab === 'clients') {
@@ -2861,6 +3130,13 @@
           paymentBtn.classList.remove('border-transparent', 'text-slate-400');
         }
         loadPaymentSettings();
+      } else if (tab === 'references') {
+        if (referencesSec) referencesSec.classList.remove('hidden');
+        if (referencesBtn) {
+          referencesBtn.classList.add('border-amber-500', 'text-white');
+          referencesBtn.classList.remove('border-transparent', 'text-slate-400');
+        }
+        loadReferencesAdmin();
       }
 
       if (!tab.startsWith('client-detail')) {
@@ -2952,11 +3228,564 @@
       }
     }
 
+    /* =========================================================================
+     * REFERANS VİTRİNİ (OTOMATİK EKRAN GÖRÜNTÜSÜ + KATEGORİ) & BANT YÖNETİMİ
+     * ========================================================================= */
+    let currentRefUploadBase64 = '';
+    let currentRefScreenshotBase64 = '';
+    let currentReferencesCache = [];
+    let currentCategoriesCache = [];
+
+    function showReferencesToast(text) {
+      const toast = document.getElementById('references-toast');
+      const msg = document.getElementById('references-toast-msg');
+      if (toast && msg) {
+        msg.textContent = text;
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 4000);
+      }
+    }
+
+    function handleReferenceLogoUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (file.size > 6 * 1024 * 1024) {
+        alert('Lütfen 6MB altında bir logo görseli seçin.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        currentRefUploadBase64 = e.target.result;
+        showReferencesToast(`Logo seçildi: ${file.name}`);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleReferenceScreenshotUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (file.size > 8 * 1024 * 1024) {
+        alert('Lütfen 8MB altında bir ekran görüntüsü/kapak görseli seçin.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        currentRefScreenshotBase64 = e.target.result;
+        const previewBg = document.getElementById('preview-card-bg');
+        if (previewBg) previewBg.src = currentRefScreenshotBase64;
+        showReferencesToast(`Özel kapak görseli seçildi: ${file.name}`);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function autoCaptureUrlScreenshot(forceAlert = false) {
+      const urlInput = document.getElementById('new-ref-website');
+      const rawUrl = (urlInput?.value || '').trim();
+      if (!rawUrl) {
+        if (forceAlert) alert('Lütfen ekran görüntüsü alınacak sayfanın URL adresini girin.');
+        return;
+      }
+
+      const btnIcon = document.getElementById('capture-btn-icon');
+      const btnText = document.getElementById('capture-btn-text');
+      const statusText = document.getElementById('capture-status-text');
+      const shotInput = document.getElementById('new-ref-screenshot-url');
+      const nameInput = document.getElementById('new-ref-name');
+
+      if (btnIcon) btnIcon.textContent = '⏳';
+      if (btnText) btnText.textContent = 'Ekran Görüntüsü Çekiliyor...';
+      if (statusText) {
+        statusText.textContent = 'Siteye bağlanılıyor ve canlı ekran görüntüsü alınıyor, lütfen birkaç saniye bekleyin...';
+        statusText.className = 'text-[11px] font-mono text-amber-400 mt-1 block';
+      }
+
+      try {
+        const res = await fetch('/api/references/capture-screenshot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: rawUrl })
+        });
+        const data = await res.json();
+        if (data.success && data.screenshotUrl) {
+          if (urlInput) urlInput.value = data.url || rawUrl;
+          if (shotInput) shotInput.value = data.screenshotUrl;
+          currentRefScreenshotBase64 = '';
+
+          // Auto-fill company name from site title if empty
+          if (nameInput && !nameInput.value.trim() && data.title) {
+            const cleanTitle = data.title.split(/[|\-–—]/)[0].trim();
+            if (cleanTitle) nameInput.value = cleanTitle;
+          }
+
+          updateLiveCardPreviewText();
+          if (statusText) {
+            statusText.textContent = '✓ Sayfanın canlı ekran görüntüsü başarıyla çekildi ve sağdaki karta yerleştirildi!';
+            statusText.className = 'text-[11px] font-mono text-emerald-400 mt-1 block';
+          }
+          showReferencesToast('Sayfanın ekran görüntüsü otomatik çekildi!');
+        } else {
+          if (statusText) {
+            statusText.textContent = '⚠ Ekran görüntüsü alınamadı: ' + (data.error || 'Bilinmeyen hata');
+            statusText.className = 'text-[11px] font-mono text-rose-400 mt-1 block';
+          }
+        }
+      } catch (err) {
+        if (statusText) {
+          statusText.textContent = '⚠ Bağlantı hatası: ' + err.message;
+          statusText.className = 'text-[11px] font-mono text-rose-400 mt-1 block';
+        }
+      } finally {
+        if (btnIcon) btnIcon.textContent = '📸';
+        if (btnText) btnText.textContent = 'Ekran Görüntüsü Getir';
+      }
+    }
+
+    function updateLiveCardPreviewText() {
+      const name = (document.getElementById('new-ref-name')?.value || '').trim() || 'ÖRNEK FİRMA';
+      const catId = document.getElementById('new-ref-category')?.value || 'eticaret';
+      const desc = (document.getElementById('new-ref-description')?.value || '').trim() || 'Entegre Shop Altyapısı Sayesinde Dönüşüm ve Satış Oranlarını Artırdı!';
+      const badge = (document.getElementById('new-ref-badge')?.value || '').trim() || 'Yeni Nesil Altyapı';
+      const shotUrl = (document.getElementById('new-ref-screenshot-url')?.value || '').trim();
+
+      const brandEl = document.getElementById('preview-card-brand');
+      const boldNameEl = document.getElementById('preview-card-bold-name');
+      const descEl = document.getElementById('preview-card-desc');
+      const badgeEl = document.getElementById('preview-card-badge');
+      const catEl = document.getElementById('preview-card-cat');
+      const bgEl = document.getElementById('preview-card-bg');
+
+      if (brandEl) brandEl.textContent = name.toUpperCase();
+      if (boldNameEl) boldNameEl.textContent = name;
+      if (descEl) descEl.textContent = desc;
+      if (badgeEl) badgeEl.textContent = badge;
+
+      const catObj = currentCategoriesCache.find(c => c.id === catId) || { name: 'E-Ticaret', icon: '🛒' };
+      if (catEl) {
+        catEl.innerHTML = `<span>${catObj.icon || '🏷️'}</span><span>${catObj.name}</span>`;
+      }
+
+      if (bgEl && !currentRefScreenshotBase64 && shotUrl) {
+        bgEl.src = shotUrl;
+      }
+    }
+
+    async function addReferenceCategory() {
+      const iconInput = document.getElementById('new-cat-icon');
+      const nameInput = document.getElementById('new-cat-name');
+      const name = (nameInput?.value || '').trim();
+      const icon = (iconInput?.value || '🏷️').trim() || '🏷️';
+
+      if (!name) {
+        alert('Lütfen eklenecek kategori adını yazın (Örn: E-Ticaret, Kurumsal Web, Onepage).');
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/references/categories', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, icon })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (nameInput) nameInput.value = '';
+          showReferencesToast(`"${name}" kategorisi eklendi!`);
+          await loadReferencesAdmin();
+        } else {
+          alert('Hata: ' + (data.error || 'Kategori eklenemedi'));
+        }
+      } catch (err) {
+        alert('Hata: ' + err.message);
+      }
+    }
+
+    async function deleteReferenceCategory(catId, catName) {
+      if (!confirm(`"${catName}" kategorisini silmek istediğinize emin misiniz?`)) return;
+      try {
+        const res = await fetch(`/api/references/categories/${catId}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          showReferencesToast(`"${catName}" kategorisi kaldırıldı.`);
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Hata: ' + err.message);
+      }
+    }
+
+    async function loadReferencesAdmin() {
+      try {
+        const res = await fetch('/api/references');
+        const data = await res.json();
+        if (!data.success) return;
+
+        const settings = data.settings || {};
+        const items = data.items || [];
+        const categories = data.categories || [];
+        currentReferencesCache = items;
+        currentCategoriesCache = categories;
+
+        // Populate Category Select & Category Pills
+        const catSelect = document.getElementById('new-ref-category');
+        if (catSelect) {
+          const currentVal = catSelect.value || 'eticaret';
+          catSelect.innerHTML = categories.map(c => `<option value="${c.id}">${c.icon || '🏷️'} ${c.name}</option>`).join('');
+          if (categories.some(c => c.id === currentVal)) catSelect.value = currentVal;
+        }
+
+        const catListEl = document.getElementById('admin-categories-list');
+        if (catListEl) {
+          catListEl.innerHTML = categories.map(c => `
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-slate-200">
+              <span>${c.icon || '🏷️'}</span>
+              <span>${c.name}</span>
+              <button type="button" onclick="deleteReferenceCategory('${c.id}', '${c.name.replace(/'/g, "\\'")}')" class="text-slate-500 hover:text-rose-400 font-bold ml-1" title="Kategoriyi Sil">&times;</button>
+            </div>
+          `).join('');
+        }
+
+        // Update nav badge
+        const activeCount = items.filter(i => i.active !== false).length;
+        const navBadge = document.getElementById('badge-references-count');
+        if (navBadge) navBadge.textContent = String(activeCount);
+
+        const summaryBadge = document.getElementById('references-list-summary');
+        if (summaryBadge) {
+          summaryBadge.textContent = `${activeCount} Aktif / Toplam ${items.length} Vitrin Referansı`;
+        }
+
+        // Populate settings inputs
+        const enabledEl = document.getElementById('ref-setting-enabled');
+        const titleEl = document.getElementById('ref-setting-title');
+        const subtitleEl = document.getElementById('ref-setting-subtitle');
+        const speedEl = document.getElementById('ref-setting-speed');
+        const pauseEl = document.getElementById('ref-setting-pause');
+        const grayEl = document.getElementById('ref-setting-grayscale');
+        const badgesEl = document.getElementById('ref-setting-badges');
+
+        if (enabledEl) enabledEl.checked = settings.enabled !== false;
+        if (titleEl) titleEl.value = settings.title || '';
+        if (subtitleEl) subtitleEl.value = settings.subtitle || '';
+        if (speedEl) speedEl.value = String(settings.speed || 32);
+        if (pauseEl) pauseEl.checked = settings.pauseOnHover !== false;
+        if (grayEl) grayEl.checked = settings.grayscaleEffect !== false;
+        if (badgesEl) badgesEl.checked = settings.showBadges !== false;
+
+        // Render Live Admin Marquee Preview
+        renderAdminMarqueePreview(settings, items);
+
+        // Render Management Grid (ikas-style cards in admin)
+        const gridEl = document.getElementById('references-items-grid');
+        if (!gridEl) return;
+
+        if (items.length === 0) {
+          gridEl.innerHTML = `<div class="col-span-full p-8 text-center text-slate-400 font-mono text-xs border border-dashed border-slate-800 rounded-2xl">
+            Henüz referans eklenmemiş. Yukarıdaki formdan sayfa URL'sini ve firma adını girerek ekleyebilirsiniz.
+          </div>`;
+          return;
+        }
+
+        const catMap = {};
+        categories.forEach(c => { catMap[c.id] = c; });
+
+        gridEl.innerHTML = items.map((item, idx) => {
+          const isActive = item.active !== false;
+          const safeName = (item.name || 'Marka').replace(/"/g, '&quot;');
+          const catObj = catMap[item.category] || { name: 'E-Ticaret', icon: '🛒' };
+          const shotSrc = item.screenshotUrl || (item.website ? `https://s0.wp.com/mshots/v1/${encodeURIComponent(item.website)}?w=800&h=1000` : 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80');
+
+          return `
+            <div class="p-3.5 rounded-2xl border ${isActive ? 'bg-slate-950/90 border-slate-800 hover:border-amber-500/40' : 'bg-slate-950/40 border-slate-900 opacity-60'} transition-all flex flex-col justify-between gap-3">
+              <div>
+                <!-- Top Control Bar -->
+                <div class="flex items-center justify-between gap-2 mb-2.5">
+                  <span class="text-[11px] font-mono text-slate-400">${catObj.icon || '🏷️'} ${catObj.name}</span>
+                  <div class="flex items-center gap-1">
+                    <button type="button" onclick="moveReferenceItem('${item.id}', 'up')" title="Öne Taşı" class="p-1 rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white text-xs">◀</button>
+                    <button type="button" onclick="moveReferenceItem('${item.id}', 'down')" title="Arkaya Taşı" class="p-1 rounded bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white text-xs">▶</button>
+                    <button type="button" onclick="toggleReferenceActive('${item.id}', ${!isActive})" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold ${isActive ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'}">
+                      ${isActive ? 'Aktif' : 'Gizli'}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Mini ikas Card Visual Preview -->
+                <div class="relative h-52 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex flex-col justify-between p-3">
+                  <img src="${shotSrc}" alt="${safeName}" class="absolute inset-0 w-full h-full object-cover object-top" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80'">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/25"></div>
+                  <div class="relative z-10 flex justify-between items-center">
+                    <span class="text-[10px] font-mono text-emerald-300 bg-black/50 px-2 py-0.5 rounded-full">${item.badge || '#' + (idx + 1)}</span>
+                    ${item.website ? `<button type="button" onclick="refreshSingleReferenceScreenshot('${item.id}', '${item.website.replace(/'/g, "\\'")}')" title="URL'den Ekran Görüntüsünü Yenile" class="text-[10px] font-mono bg-white/20 hover:bg-amber-500 hover:text-slate-950 text-white px-2 py-0.5 rounded-full backdrop-blur-sm transition-colors">📸 Yenile</button>` : ''}
+                  </div>
+                  <div class="relative z-10 text-center font-heading font-black text-white text-lg tracking-wider uppercase drop-shadow">
+                    ${safeName}
+                  </div>
+                  <div class="relative z-10">
+                    <p class="text-[11px] text-white/90 line-clamp-2 leading-tight">
+                      <strong class="text-white">${safeName}</strong> ${item.description || ''}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-2.5 flex items-center justify-between text-[11px] font-mono">
+                  ${item.website
+                    ? `<a href="${item.website}" target="_blank" class="text-cyan-400 hover:underline truncate max-w-[200px]">${item.website} ↗</a>`
+                    : `<span class="text-slate-600">URL girilmemiş</span>`
+                  }
+                </div>
+              </div>
+
+              <div class="pt-2.5 border-t border-slate-900 flex items-center justify-between gap-2">
+                <button type="button" onclick="promptEditReference('${item.id}')" class="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 hover:text-white text-[11px] font-mono transition-all">
+                  ✏ Düzenle / Kategori
+                </button>
+                <button type="button" onclick="deleteReferenceItem('${item.id}', '${safeName.replace(/'/g, "\\'")}')" class="py-1.5 px-3 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 hover:text-rose-300 text-[11px] font-mono transition-all">
+                  🗑 Çıkar
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        console.error('References load error:', err);
+      }
+    }
+
+    async function refreshSingleReferenceScreenshot(id, websiteUrl) {
+      if (!websiteUrl) return;
+      showReferencesToast(`"${websiteUrl}" için yeni ekran görüntüsü çekiliyor...`);
+      try {
+        const capRes = await fetch('/api/references/capture-screenshot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: websiteUrl })
+        });
+        const capData = await capRes.json();
+        if (capData.success && capData.screenshotUrl) {
+          await fetch(`/api/references/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ screenshotUrl: capData.screenshotUrl })
+          });
+          showReferencesToast('Ekran görüntüsü başarıyla yenilendi!');
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Ekran görüntüsü yenilenemedi: ' + err.message);
+      }
+    }
+
+    function renderAdminMarqueePreview(settings, allItems) {
+      const wrapperEl = document.getElementById('admin-references-marquee-wrapper');
+      const trackEl = document.getElementById('admin-references-marquee-track');
+      const speedBadge = document.getElementById('admin-preview-speed-badge');
+      if (!wrapperEl || !trackEl) return;
+
+      const activeItems = (allItems || []).filter(i => i.active !== false);
+      const speed = Number(settings.speed) || 32;
+      trackEl.style.setProperty('--marquee-duration', `${speed}s`);
+      if (speedBadge) speedBadge.textContent = `Hız: ${speed}sn / Tur (${activeItems.length} Aktif Marka)`;
+
+      if (settings.pauseOnHover !== false) wrapperEl.classList.add('pause-on-hover');
+      else wrapperEl.classList.remove('pause-on-hover');
+
+      if (settings.grayscaleEffect !== false) wrapperEl.classList.add('grayscale-mode');
+      else wrapperEl.classList.remove('grayscale-mode');
+
+      if (activeItems.length === 0) {
+        trackEl.innerHTML = `<div class="py-4 px-8 text-xs font-mono text-slate-400">Aktif referans bulunmuyor.</div>`;
+        return;
+      }
+
+      let baseList = [...activeItems];
+      while (baseList.length < 8) {
+        baseList = baseList.concat(activeItems);
+      }
+      const loopItems = [...baseList, ...baseList];
+      const showBadges = settings.showBadges !== false;
+
+      trackEl.innerHTML = loopItems.map(item => {
+        const safeName = (item.name || 'Marka').replace(/"/g, '&quot;');
+        const badgeHtml = (showBadges && item.badge) ? `<span class="shopify-logo-badge">${item.badge}</span>` : '';
+        return `<div class="shopify-logo-item">
+          <img src="${item.logoUrl}" alt="${safeName}">
+          ${badgeHtml}
+        </div>`;
+      }).join('');
+    }
+
+    async function addNewReferenceItem() {
+      const nameInput = document.getElementById('new-ref-name');
+      const categoryInput = document.getElementById('new-ref-category');
+      const descInput = document.getElementById('new-ref-description');
+      const badgeInput = document.getElementById('new-ref-badge');
+      const websiteInput = document.getElementById('new-ref-website');
+      const shotUrlInput = document.getElementById('new-ref-screenshot-url');
+
+      const name = (nameInput?.value || '').trim();
+      if (!name) {
+        alert('Lütfen firma / marka adını girin.');
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      const payload = {
+        name,
+        category: categoryInput?.value || 'eticaret',
+        description: (descInput?.value || '').trim(),
+        badge: (badgeInput?.value || '').trim(),
+        website: (websiteInput?.value || '').trim(),
+        screenshotUrl: (shotUrlInput?.value || '').trim(),
+        screenshotBase64: currentRefScreenshotBase64 || '',
+        logoBase64: currentRefUploadBase64 || '',
+        active: true
+      };
+
+      try {
+        showReferencesToast(`"${name}" kaydediliyor (URL ekran görüntüsü kontrol ediliyor)...`);
+        const res = await fetch('/api/references', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (nameInput) nameInput.value = '';
+          if (descInput) descInput.value = '';
+          if (badgeInput) badgeInput.value = '';
+          if (websiteInput) websiteInput.value = '';
+          if (shotUrlInput) shotUrlInput.value = '';
+          currentRefUploadBase64 = '';
+          currentRefScreenshotBase64 = '';
+          showReferencesToast(`"${name}" referans vitrinine ve kayan banda eklendi!`);
+          await loadReferencesAdmin();
+        } else {
+          alert('Hata: ' + (data.error || 'Referans eklenemedi'));
+        }
+      } catch (err) {
+        alert('Bağlantı hatası: ' + err.message);
+      }
+    }
+
+    async function saveReferencesSettings() {
+      const payload = {
+        enabled: document.getElementById('ref-setting-enabled')?.checked !== false,
+        title: (document.getElementById('ref-setting-title')?.value || '').trim(),
+        subtitle: (document.getElementById('ref-setting-subtitle')?.value || '').trim(),
+        speed: Number(document.getElementById('ref-setting-speed')?.value) || 32,
+        pauseOnHover: document.getElementById('ref-setting-pause')?.checked !== false,
+        grayscaleEffect: document.getElementById('ref-setting-grayscale')?.checked !== false,
+        showBadges: document.getElementById('ref-setting-badges')?.checked !== false
+      };
+
+      try {
+        const res = await fetch('/api/references/settings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.success) {
+          showReferencesToast('Referans vitrini ve bant ayarları kaydedildi!');
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Ayarlar kaydedilemedi: ' + err.message);
+      }
+    }
+
+    async function toggleReferenceActive(id, newActiveState) {
+      try {
+        const res = await fetch(`/api/references/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ active: newActiveState })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showReferencesToast(newActiveState ? 'Referans vitrinde aktif edildi.' : 'Referans vitrinden gizlendi.');
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Hata: ' + err.message);
+      }
+    }
+
+    async function moveReferenceItem(id, direction) {
+      try {
+        const res = await fetch('/api/references/reorder', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, direction })
+        });
+        const data = await res.json();
+        if (data.success) {
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        console.error('Reorder error:', err);
+      }
+    }
+
+    async function promptEditReference(id) {
+      const item = currentReferencesCache.find(i => i.id === id);
+      if (!item) return;
+
+      const catOptions = currentCategoriesCache.map(c => `${c.id} (${c.name})`).join(', ');
+      const newName = prompt('Firma / Marka Adı:', item.name || '');
+      if (newName === null) return;
+      const newCategory = prompt(`Kategori Kodu [${catOptions}]:`, item.category || 'eticaret');
+      if (newCategory === null) return;
+      const newWebsite = prompt('Sayfa URL Adresi:', item.website || '');
+      if (newWebsite === null) return;
+      const newDesc = prompt('Vitrin Başarı Açıklaması:', item.description || '');
+      if (newDesc === null) return;
+      const newBadge = prompt('Üst Rozet (Örn: 5.5x ROAS):', item.badge || '');
+      if (newBadge === null) return;
+
+      try {
+        const res = await fetch(`/api/references/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: newName.trim() || item.name,
+            category: newCategory.trim() || item.category || 'eticaret',
+            website: newWebsite.trim(),
+            description: newDesc.trim(),
+            badge: newBadge.trim()
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showReferencesToast('Referans bilgileri güncellendi!');
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Güncellenemedi: ' + err.message);
+      }
+    }
+
+    async function deleteReferenceItem(id, name) {
+      if (!confirm(`"${name}" markasını referans vitrininden çıkarmak istediğinize emin misiniz?`)) return;
+      try {
+        const res = await fetch(`/api/references/${id}`, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          showReferencesToast(`"${name}" referans vitrininden çıkarıldı.`);
+          await loadReferencesAdmin();
+        }
+      } catch (err) {
+        alert('Silinemedi: ' + err.message);
+      }
+    }
+
     function refreshData() {
       loadClientsData();
       loadData();
       loadTrackingSettings();
       loadPaymentSettings();
+      loadReferencesAdmin();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -2964,13 +3793,14 @@
       loadData();
       loadTrackingSettings();
       loadPaymentSettings();
+      loadReferencesAdmin();
 
       const rawHash = window.location.hash.replace('#', '');
       if (rawHash.startsWith('client-detail/')) {
         const cId = rawHash.replace('client-detail/', '');
         switchTab('clients');
         setTimeout(() => openClientDetail(cId), 250);
-      } else if (['clients', 'orders', 'leads', 'tracking', 'payment'].includes(rawHash)) {
+      } else if (['clients', 'orders', 'leads', 'tracking', 'payment', 'references'].includes(rawHash)) {
         switchTab(rawHash);
       } else {
         switchTab('clients');
@@ -2983,7 +3813,7 @@
         const cId = rawHash.replace('client-detail/', '');
         switchTab('clients');
         openClientDetail(cId);
-      } else if (['clients', 'orders', 'leads', 'tracking', 'payment'].includes(rawHash)) {
+      } else if (['clients', 'orders', 'leads', 'tracking', 'payment', 'references'].includes(rawHash)) {
         switchTab(rawHash);
       }
     });

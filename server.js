@@ -20,10 +20,15 @@ const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const TRACKING_FILE = path.join(DATA_DIR, 'tracking.json');
 const PAYMENT_FILE = path.join(DATA_DIR, 'payment.json');
 const CLIENTS_FILE = path.join(DATA_DIR, 'clients.json');
+const REFERENCES_FILE = path.join(DATA_DIR, 'references.json');
+const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
 
-// Ensure data directory and files exist
+// Ensure data and uploads directories exist
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+if (!fs.existsSync(UPLOADS_DIR)) {
+  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 }
 
 function initDataFile(filePath, defaultData = []) {
@@ -283,8 +288,8 @@ function parseJsonBody(req) {
     let body = '';
     req.on('data', chunk => {
       body += chunk.toString();
-      if (body.length > 2 * 1024 * 1024) {
-        // Limit to 2MB
+      if (body.length > 10 * 1024 * 1024) {
+        // Limit to 10MB for logo/banner uploads
         reject(new Error('Payload too large'));
       }
     });
@@ -1187,6 +1192,474 @@ const server = http.createServer(async (req, res) => {
         success: true,
         message: `${client.name} için Meta, Google, TikTok ve OpenAI API verileri başarıyla senkronize edildi.`,
         client
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // =========================================================================
+  // 18.b REFERENCES MARQUEE, IKAS SHOWCASE & AUTO SCREENSHOT API (/api/references)
+  // =========================================================================
+  const DEFAULT_CATEGORIES = [
+    { id: 'eticaret', name: 'E-Ticaret', icon: '🛒' },
+    { id: 'kurumsal-web', name: 'Kurumsal Web', icon: '🏢' },
+    { id: 'onepage', name: 'Onepage', icon: '⚡' },
+    { id: 'tekstil', name: 'Tekstil & Giyim', icon: '👗' },
+    { id: 'otomotiv', name: 'Otomotiv & Yedek Parça', icon: '🚗' },
+    { id: 'muhendislik', name: 'Mühendislik & İklimlendirme', icon: '❄️' },
+    { id: 'ayakkabi', name: 'Ayakkabı & Aksesuar', icon: '👟' },
+    { id: 'kozmetik', name: 'Kozmetik & Bakım', icon: '💄' }
+  ];
+
+  const DEFAULT_REFERENCES_DATA = {
+    settings: {
+      enabled: true,
+      title: "Her sektörden işletme için Yeni Nesil E-Ticaret & Web Altyapısı",
+      subtitle: "E-ticaret, Kurumsal Web ve Onepage satış sistemlerimizle dijitalde büyüyen mutlu müşterilerimiz",
+      speed: 32,
+      pauseOnHover: true,
+      grayscaleEffect: true,
+      showBadges: true
+    },
+    categories: DEFAULT_CATEGORIES,
+    items: []
+  };
+
+  function readReferencesData() {
+    if (!fs.existsSync(REFERENCES_FILE)) {
+      writeJsonFile(REFERENCES_FILE, DEFAULT_REFERENCES_DATA);
+      return DEFAULT_REFERENCES_DATA;
+    }
+    try {
+      const raw = fs.readFileSync(REFERENCES_FILE, 'utf-8');
+      const parsed = JSON.parse(raw);
+      return {
+        settings: { ...DEFAULT_REFERENCES_DATA.settings, ...(parsed.settings || {}) },
+        categories: Array.isArray(parsed.categories) && parsed.categories.length > 0 ? parsed.categories : DEFAULT_CATEGORIES,
+        items: Array.isArray(parsed.items) ? parsed.items : []
+      };
+    } catch (e) {
+      return DEFAULT_REFERENCES_DATA;
+    }
+  }
+
+  function buildGeneratedSvgLogo(brandName) {
+    const safeName = String(brandName || 'MARKA').replace(/[<>&"']/g, '').toUpperCase();
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 60'><rect x='14' y='17' width='26' height='26' rx='7' fill='#0f172a'/><text x='27' y='35' text-anchor='middle' font-family='Space Grotesk, Arial, sans-serif' font-size='14' font-weight='900' fill='#38bdf8'>${safeName.charAt(0) || 'E'}</text><text x='50' y='37' font-family='Space Grotesk, Arial, sans-serif' font-size='21' font-weight='800' letter-spacing='1.8' fill='#0f172a'>${safeName.substring(0, 16)}</text></svg>`;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  }
+
+  function saveUploadedBannerFile(base64Str, prefix = 'ref') {
+    if (!base64Str || typeof base64Str !== 'string') return '';
+    const match = base64Str.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
+    if (!match) return base64Str;
+
+    const mime = match[1];
+    const b64Data = match[2];
+    let ext = 'png';
+    if (mime.includes('svg')) ext = 'svg';
+    else if (mime.includes('jpeg') || mime.includes('jpg')) ext = 'jpg';
+    else if (mime.includes('webp')) ext = 'webp';
+    else if (mime.includes('gif')) ext = 'gif';
+
+    const filename = `${prefix}-${Date.now()}-${Math.floor(100 + Math.random() * 900)}.${ext}`;
+    const fullPath = path.join(UPLOADS_DIR, filename);
+    fs.writeFileSync(fullPath, Buffer.from(b64Data, 'base64'));
+    return `/api/references/media/${filename}`;
+  }
+
+  function normalizeWebsiteUrl(rawUrl) {
+    let urlStr = String(rawUrl || '').trim();
+    if (!urlStr) return '';
+    if (!/^https?:\/\//i.test(urlStr)) {
+      urlStr = 'https://' + urlStr;
+    }
+    return urlStr;
+  }
+
+  function downloadBinaryFile(remoteUrl, destPath) {
+    return new Promise((resolve) => {
+      try {
+        const client = remoteUrl.startsWith('https') ? https : http;
+        client.get(remoteUrl, (res) => {
+          if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+            return downloadBinaryFile(res.headers.location, destPath).then(resolve);
+          }
+          if (res.statusCode !== 200) {
+            res.resume();
+            return resolve(false);
+          }
+          const chunks = [];
+          res.on('data', c => chunks.push(c));
+          res.on('end', () => {
+            try {
+              const buf = Buffer.concat(chunks);
+              if (buf.length > 1000) {
+                fs.writeFileSync(destPath, buf);
+                resolve(true);
+              } else {
+                resolve(false);
+              }
+            } catch (e) {
+              resolve(false);
+            }
+          });
+        }).on('error', () => resolve(false));
+      } catch (e) {
+        resolve(false);
+      }
+    });
+  }
+
+  async function captureWebsiteScreenshotAndMeta(rawUrl) {
+    const targetUrl = normalizeWebsiteUrl(rawUrl);
+    if (!targetUrl) {
+      throw new Error('Geçerli bir web sitesi URL adresi giriniz.');
+    }
+
+    const apiEndpoint = `https://api.microlink.io/?url=${encodeURIComponent(targetUrl)}&screenshot=true&meta=true&viewport.width=1280&viewport.height=1024`;
+    const metaResult = await new Promise((resolve) => {
+      const reqApi = https.get(apiEndpoint, { timeout: 12000 }, (resApi) => {
+        let body = '';
+        resApi.on('data', d => body += d);
+        resApi.on('end', () => {
+          try {
+            const parsed = JSON.parse(body);
+            resolve(parsed);
+          } catch (e) {
+            resolve(null);
+          }
+        });
+      });
+      reqApi.on('error', () => resolve(null));
+      reqApi.on('timeout', () => {
+        reqApi.destroy();
+        resolve(null);
+      });
+    });
+
+    let remoteShotUrl = metaResult?.data?.screenshot?.url || '';
+    const extractedTitle = metaResult?.data?.title || '';
+    const extractedDesc = metaResult?.data?.description || '';
+
+    // Save locally to data/uploads if remoteShotUrl exists so it never expires
+    if (remoteShotUrl) {
+      let hostSlug = 'site';
+      try {
+        hostSlug = slugifyClientName(new URL(targetUrl).hostname.replace(/^www\./, ''));
+      } catch (e) {}
+      const filename = `shot-${hostSlug}-${Date.now()}.png`;
+      const fullPath = path.join(UPLOADS_DIR, filename);
+      const saved = await downloadBinaryFile(remoteShotUrl, fullPath);
+      if (saved) {
+        remoteShotUrl = `/api/references/media/${filename}`;
+      }
+    } else {
+      // Fallback to WordPress mShots service
+      remoteShotUrl = `https://s0.wp.com/mshots/v1/${encodeURIComponent(targetUrl)}?w=900&h=1100`;
+    }
+
+    return {
+      targetUrl,
+      screenshotUrl: remoteShotUrl,
+      title: extractedTitle,
+      description: extractedDesc
+    };
+  }
+
+  // Serve uploaded reference banner/screenshot images
+  const refMediaMatch = pathname.match(/^\/api\/references\/media\/([a-zA-Z0-9_.-]+)$/);
+  if (refMediaMatch && req.method === 'GET') {
+    const filename = path.basename(refMediaMatch[1]);
+    const mediaPath = path.join(UPLOADS_DIR, filename);
+    if (!fs.existsSync(mediaPath)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      return res.end('Media not found');
+    }
+    const ext = path.extname(filename).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Cache-Control': 'public, max-age=86400'
+    });
+    fs.createReadStream(mediaPath).pipe(res);
+    return;
+  }
+
+  // POST /api/references/capture-screenshot (Live URL -> Auto Screenshot + Meta)
+  if (pathname === '/api/references/capture-screenshot' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const urlInput = String(body.url || '').trim();
+      if (!urlInput) {
+        return sendJson(res, 400, { success: false, error: 'Lütfen sayfa URL adresini girin.' });
+      }
+      const captured = await captureWebsiteScreenshotAndMeta(urlInput);
+      sendJson(res, 200, {
+        success: true,
+        url: captured.targetUrl,
+        screenshotUrl: captured.screenshotUrl,
+        title: captured.title,
+        description: captured.description
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // POST /api/references/categories (Add new category)
+  if (pathname === '/api/references/categories' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const name = String(body.name || '').trim();
+      const icon = String(body.icon || '🏷️').trim() || '🏷️';
+      if (!name) {
+        return sendJson(res, 400, { success: false, error: 'Kategori adı zorunludur.' });
+      }
+      const refData = readReferencesData();
+      const id = slugifyClientName(name);
+      if (refData.categories.some(c => c.id === id)) {
+        return sendJson(res, 400, { success: false, error: 'Bu kategori zaten mevcut.' });
+      }
+      const newCat = { id, name, icon };
+      refData.categories.push(newCat);
+      writeJsonFile(REFERENCES_FILE, refData);
+      sendJson(res, 201, {
+        success: true,
+        category: newCat,
+        categories: refData.categories
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // DELETE /api/references/categories/:id
+  const refCatDelMatch = pathname.match(/^\/api\/references\/categories\/([a-zA-Z0-9_-]+)$/);
+  if (refCatDelMatch && req.method === 'DELETE') {
+    try {
+      const catId = refCatDelMatch[1];
+      const refData = readReferencesData();
+      refData.categories = refData.categories.filter(c => c.id !== catId);
+      writeJsonFile(REFERENCES_FILE, refData);
+      sendJson(res, 200, {
+        success: true,
+        categories: refData.categories
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // GET /api/references
+  if (pathname === '/api/references' && req.method === 'GET') {
+    const refData = readReferencesData();
+    const sorted = [...refData.items].sort((a, b) => (a.order || 999) - (b.order || 999));
+    sendJson(res, 200, {
+      success: true,
+      settings: refData.settings,
+      categories: refData.categories,
+      items: sorted
+    });
+    return;
+  }
+
+  // POST /api/references (Add new reference showcase card & marquee logo)
+  if (pathname === '/api/references' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const name = String(body.name || '').trim();
+      if (!name) {
+        return sendJson(res, 400, { success: false, error: 'Referans firma adı zorunludur.' });
+      }
+
+      const refData = readReferencesData();
+      const website = normalizeWebsiteUrl(body.website || '');
+      const category = String(body.category || 'eticaret').trim() || 'eticaret';
+
+      // 1. Logo URL
+      let finalLogoUrl = String(body.logoUrl || '').trim();
+      if (body.logoBase64 && String(body.logoBase64).startsWith('data:image/')) {
+        finalLogoUrl = saveUploadedBannerFile(body.logoBase64, 'logo-' + slugifyClientName(name));
+      } else if (!finalLogoUrl) {
+        finalLogoUrl = buildGeneratedSvgLogo(name);
+      }
+
+      // 2. Website Screenshot URL (if screenshotBase64 uploaded, or screenshotUrl provided, or auto-capture from website URL)
+      let finalScreenshotUrl = String(body.screenshotUrl || '').trim();
+      if (body.screenshotBase64 && String(body.screenshotBase64).startsWith('data:image/')) {
+        finalScreenshotUrl = saveUploadedBannerFile(body.screenshotBase64, 'shot-' + slugifyClientName(name));
+      } else if (!finalScreenshotUrl && website) {
+        try {
+          const captured = await captureWebsiteScreenshotAndMeta(website);
+          finalScreenshotUrl = captured.screenshotUrl;
+        } catch (e) {
+          finalScreenshotUrl = `https://s0.wp.com/mshots/v1/${encodeURIComponent(website)}?w=900&h=1100`;
+        }
+      }
+
+      const defaultDesc = `${name} Entegre Shop Altyapısı Sayesinde Dönüşüm ve Satış Oranlarını Artırdı!`;
+      const description = String(body.description || '').trim() || defaultDesc;
+
+      const maxOrder = refData.items.reduce((max, item) => Math.max(max, Number(item.order || 0)), 0);
+      const newItem = {
+        id: 'ref-' + slugifyClientName(name) + '-' + Math.floor(100 + Math.random() * 900),
+        name,
+        category,
+        website,
+        screenshotUrl: finalScreenshotUrl,
+        logoUrl: finalLogoUrl,
+        badge: String(body.badge || '').trim(),
+        description,
+        active: body.active !== false,
+        order: maxOrder + 1,
+        createdAt: new Date().toISOString()
+      };
+
+      refData.items.push(newItem);
+      refData.updatedAt = new Date().toISOString();
+      writeJsonFile(REFERENCES_FILE, refData);
+
+      sendJson(res, 201, {
+        success: true,
+        message: `${name} referans vitrinine ve bandına eklendi.`,
+        item: newItem,
+        items: refData.items
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // POST /api/references/settings (Update marquee & showcase settings)
+  if (pathname === '/api/references/settings' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const refData = readReferencesData();
+      refData.settings = {
+        ...refData.settings,
+        enabled: body.enabled !== undefined ? Boolean(body.enabled) : refData.settings.enabled,
+        title: body.title !== undefined ? String(body.title).trim() : refData.settings.title,
+        subtitle: body.subtitle !== undefined ? String(body.subtitle).trim() : refData.settings.subtitle,
+        speed: body.speed !== undefined ? Math.max(8, Math.min(120, Number(body.speed) || 32)) : refData.settings.speed,
+        pauseOnHover: body.pauseOnHover !== undefined ? Boolean(body.pauseOnHover) : refData.settings.pauseOnHover,
+        grayscaleEffect: body.grayscaleEffect !== undefined ? Boolean(body.grayscaleEffect) : refData.settings.grayscaleEffect,
+        showBadges: body.showBadges !== undefined ? Boolean(body.showBadges) : refData.settings.showBadges
+      };
+      refData.updatedAt = new Date().toISOString();
+      writeJsonFile(REFERENCES_FILE, refData);
+
+      sendJson(res, 200, {
+        success: true,
+        message: 'Referans vitrini ve bant ayarları güncellendi.',
+        settings: refData.settings
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // POST /api/references/reorder (Move reference up/down)
+  if (pathname === '/api/references/reorder' && req.method === 'POST') {
+    try {
+      const { id, direction } = await parseJsonBody(req);
+      const refData = readReferencesData();
+      refData.items.sort((a, b) => (a.order || 999) - (b.order || 999));
+
+      const idx = refData.items.findIndex(i => i.id === id);
+      if (idx === -1) {
+        return sendJson(res, 404, { success: false, error: 'Referans bulunamadı.' });
+      }
+      const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+      if (targetIdx >= 0 && targetIdx < refData.items.length) {
+        const temp = refData.items[idx];
+        refData.items[idx] = refData.items[targetIdx];
+        refData.items[targetIdx] = temp;
+        refData.items.forEach((item, index) => {
+          item.order = index + 1;
+        });
+        writeJsonFile(REFERENCES_FILE, refData);
+      }
+      sendJson(res, 200, { success: true, items: refData.items });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  // PUT & DELETE /api/references/:id
+  const refDetailMatch = pathname.match(/^\/api\/references\/([a-zA-Z0-9_-]+)$/);
+  if (refDetailMatch && req.method === 'PUT') {
+    try {
+      const refId = refDetailMatch[1];
+      const body = await parseJsonBody(req);
+      const refData = readReferencesData();
+      const idx = refData.items.findIndex(i => i.id === refId);
+      if (idx === -1) {
+        return sendJson(res, 404, { success: false, error: 'Referans bulunamadı.' });
+      }
+
+      const current = refData.items[idx];
+      let updatedLogoUrl = body.logoUrl !== undefined ? String(body.logoUrl).trim() : current.logoUrl;
+      if (body.logoBase64 && String(body.logoBase64).startsWith('data:image/')) {
+        updatedLogoUrl = saveUploadedBannerFile(body.logoBase64, 'logo-' + slugifyClientName(body.name || current.name));
+      } else if (!updatedLogoUrl) {
+        updatedLogoUrl = buildGeneratedSvgLogo(body.name || current.name);
+      }
+
+      let updatedScreenshotUrl = body.screenshotUrl !== undefined ? String(body.screenshotUrl).trim() : (current.screenshotUrl || '');
+      if (body.screenshotBase64 && String(body.screenshotBase64).startsWith('data:image/')) {
+        updatedScreenshotUrl = saveUploadedBannerFile(body.screenshotBase64, 'shot-' + slugifyClientName(body.name || current.name));
+      }
+
+      refData.items[idx] = {
+        ...current,
+        name: body.name !== undefined ? String(body.name).trim() : current.name,
+        category: body.category !== undefined ? String(body.category).trim() : (current.category || 'eticaret'),
+        website: body.website !== undefined ? normalizeWebsiteUrl(body.website) : current.website,
+        screenshotUrl: updatedScreenshotUrl,
+        logoUrl: updatedLogoUrl,
+        badge: body.badge !== undefined ? String(body.badge).trim() : current.badge,
+        description: body.description !== undefined ? String(body.description).trim() : (current.description || ''),
+        active: body.active !== undefined ? Boolean(body.active) : current.active,
+        order: body.order !== undefined ? Number(body.order) : current.order,
+        updatedAt: new Date().toISOString()
+      };
+
+      writeJsonFile(REFERENCES_FILE, refData);
+      sendJson(res, 200, {
+        success: true,
+        message: 'Referans güncellendi.',
+        item: refData.items[idx],
+        items: refData.items
+      });
+    } catch (e) {
+      sendJson(res, 400, { success: false, error: e.message });
+    }
+    return;
+  }
+
+  if (refDetailMatch && req.method === 'DELETE') {
+    try {
+      const refId = refDetailMatch[1];
+      const refData = readReferencesData();
+      const idx = refData.items.findIndex(i => i.id === refId);
+      if (idx === -1) {
+        return sendJson(res, 404, { success: false, error: 'Referans bulunamadı.' });
+      }
+      const removed = refData.items.splice(idx, 1)[0];
+      writeJsonFile(REFERENCES_FILE, refData);
+      sendJson(res, 200, {
+        success: true,
+        message: `${removed.name} referans bandından çıkarıldı.`,
+        items: refData.items
       });
     } catch (e) {
       sendJson(res, 400, { success: false, error: e.message });
