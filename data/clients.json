@@ -1,0 +1,915 @@
+[
+  {
+    "id": "client-sila-butik",
+    "name": "Sıla Butik",
+    "category": "Kadın Giyim & E-Ticaret",
+    "website": "https://silabutik.com",
+    "contact": {
+      "name": "Sıla Şahin",
+      "phone": "0532 111 22 33",
+      "email": "iletisim@silabutik.com"
+    },
+    "package": "Entegre AI Studio Pro + Meta CAPI & Google Ads Masası",
+    "status": "Canlı Satış & ROAS Zirvede",
+    "statusBadge": "Ölçekleniyor 🚀",
+    "apis": {
+      "meta": {
+        "enabled": true,
+        "adAccountId": "act_849201948",
+        "pixelId": "94820194819",
+        "capiStatus": "Active (100% Match)",
+        "todaySpend": 950,
+        "lastSync": "Şimdi senkronize edildi (Meta Graph v20.0 CAPI OK)"
+      },
+      "google": {
+        "enabled": true,
+        "customerId": "849-291-0492",
+        "conversionId": "AW-928419",
+        "status": "Active (Shopping & P-Max)",
+        "todaySpend": 450,
+        "lastSync": "Google Ads API v16 OK"
+      },
+      "tiktok": {
+        "enabled": true,
+        "advertiserId": "TT-ADV-49102",
+        "pixelId": "C948291038",
+        "status": "Active (Spark Ads)",
+        "todaySpend": 250,
+        "lastSync": "TikTok Marketing API OK"
+      },
+      "openai": {
+        "enabled": true,
+        "engine": "GPT-4o Auto-Bid Engine",
+        "status": "Akıllı Bütçe Dağıtım Devrede",
+        "action": "En karlı Meta setine +%15 bütçe aktarıldı",
+        "lastSync": "GPT-4o Bütçe Optimizatörü Aktif"
+      }
+    },
+    "periods": {
+      "realtime": {
+        "revenue": 18450,
+        "adSpend": 1650,
+        "orders": 14,
+        "roas": 11.18,
+        "aov": 1317,
+        "channels": {
+          "meta": {
+            "spend": 950,
+            "revenue": 11200,
+            "roas": 11.78,
+            "orders": 8
+          },
+          "google": {
+            "spend": 450,
+            "revenue": 4900,
+            "roas": 10.88,
+            "orders": 4
+          },
+          "tiktok": {
+            "spend": 250,
+            "revenue": 2350,
+            "roas": 9.4,
+            "orders": 2
+          },
+          "openai": {
+            "label": "GPT-4o Dinamik Bütçe",
+            "note": "Meta Advantage+ setine öncelik verildi"
+          }
+        }
+      },
+      "daily": {
+        "revenue": 46800,
+        "adSpend": 4250,
+        "orders": 38,
+        "roas": 11.01,
+        "aov": 1231,
+        "channels": {
+          "meta": {
+            "spend": 2400,
+            "revenue": 27800,
+            "roas": 11.58,
+            "orders": 22
+          },
+          "google": {
+            "spend": 1250,
+            "revenue": 13500,
+            "roas": 10.8,
+            "orders": 11
+          },
+          "tiktok": {
+            "spend": 600,
+            "revenue": 5500,
+            "roas": 9.16,
+            "orders": 5
+          },
+          "openai": {
+            "label": "GPT-4o Optimizasyon",
+            "note": "Dönüşüm başı maliyet 111 TL'de sabitlendi"
+          }
+        }
+      },
+      "weekly": {
+        "revenue": 312500,
+        "adSpend": 28400,
+        "orders": 245,
+        "roas": 11,
+        "aov": 1275,
+        "channels": {
+          "meta": {
+            "spend": 16200,
+            "revenue": 186300,
+            "roas": 11.5,
+            "orders": 148
+          },
+          "google": {
+            "spend": 8100,
+            "revenue": 89100,
+            "roas": 11,
+            "orders": 68
+          },
+          "tiktok": {
+            "spend": 4100,
+            "revenue": 37100,
+            "roas": 9.04,
+            "orders": 29
+          },
+          "openai": {
+            "label": "Haftalık AI Raporu",
+            "note": "Haftalık ROAS %11 artış kaydetti"
+          }
+        }
+      },
+      "monthly": {
+        "revenue": 1385000,
+        "adSpend": 124500,
+        "orders": 1090,
+        "roas": 11.12,
+        "aov": 1270,
+        "channels": {
+          "meta": {
+            "spend": 72000,
+            "revenue": 828000,
+            "roas": 11.5,
+            "orders": 660
+          },
+          "google": {
+            "spend": 36500,
+            "revenue": 412500,
+            "roas": 11.3,
+            "orders": 315
+          },
+          "tiktok": {
+            "spend": 16000,
+            "revenue": 144500,
+            "roas": 9.03,
+            "orders": 115
+          },
+          "openai": {
+            "label": "Aylık AI Konsolidasyonu",
+            "note": "Aylık 1.3M+ ciro hedefi başarıyla aşıldı"
+          }
+        }
+      },
+      "allTime": {
+        "revenue": 4850000,
+        "adSpend": 435000,
+        "orders": 3820,
+        "roas": 11.14,
+        "aov": 1269,
+        "channels": {
+          "meta": {
+            "spend": 255000,
+            "revenue": 2932500,
+            "roas": 11.5,
+            "orders": 2320
+          },
+          "google": {
+            "spend": 128000,
+            "revenue": 1446400,
+            "roas": 11.3,
+            "orders": 1110
+          },
+          "tiktok": {
+            "spend": 52000,
+            "revenue": 471100,
+            "roas": 9.05,
+            "orders": 390
+          },
+          "openai": {
+            "label": "Tüm Zamanlar AI Çarpanı",
+            "note": "Kümülatif 11.14x ROAS ile marka ölçeklendi"
+          }
+        }
+      }
+    },
+    "recentSales": [
+      {
+        "id": "ORD-SILA-9824",
+        "time": "3 dakika önce",
+        "customer": "Zeynep T.",
+        "city": "İstanbul",
+        "product": "Keten İkili Takım (Toprak - S)",
+        "amount": 2150,
+        "channel": "Meta Ads CAPI (Instagram Reels)",
+        "payment": "PayTR 3D Secure (Kredi Kartı)"
+      },
+      {
+        "id": "ORD-SILA-9823",
+        "time": "14 dakika önce",
+        "customer": "Burcu D.",
+        "city": "Ankara",
+        "product": "Oversize Triko Hırka (Krem)",
+        "amount": 1450,
+        "channel": "Google Shopping (Alışveriş)",
+        "payment": "PayTR 3D Secure (Tek Çekim)"
+      },
+      {
+        "id": "ORD-SILA-9822",
+        "time": "28 dakika önce",
+        "customer": "Selin M.",
+        "city": "Bursa",
+        "product": "Deri Garnili Ceket + Pantolon Seti",
+        "amount": 3400,
+        "channel": "OpenAI Smart Routing (Meta Retargeting)",
+        "payment": "PayTR 3D Secure (3 Taksit)"
+      },
+      {
+        "id": "ORD-SILA-9821",
+        "time": "42 dakika önce",
+        "customer": "Aylin K.",
+        "city": "İzmir",
+        "product": "Drape Detaylı Maxi Elbise",
+        "amount": 1850,
+        "channel": "TikTok Spark Ads",
+        "payment": "PayTR 3D Secure (Kredi Kartı)"
+      }
+    ],
+    "lastSyncAt": "2026-10-26T22:12:13.515Z"
+  },
+  {
+    "id": "client-kaya-moda",
+    "name": "Kaya Moda Butik",
+    "category": "Moda & Aksesuar",
+    "website": "https://kayamoda.com",
+    "contact": {
+      "name": "Merve Kaya",
+      "phone": "0532 999 88 77",
+      "email": "merve@kayamoda.com"
+    },
+    "package": "Entegre AI Studio Standart + Meta Ads & CAPI",
+    "status": "Canlı Satış & ROAS Zirvede",
+    "statusBadge": "Yüksek ROAS 🔥",
+    "apis": {
+      "meta": {
+        "enabled": true,
+        "adAccountId": "act_38492019",
+        "pixelId": "7482910481",
+        "capiStatus": "Active (98% Match)",
+        "todaySpend": 820
+      },
+      "google": {
+        "enabled": true,
+        "customerId": "392-104-9281",
+        "conversionId": "AW-739201",
+        "status": "Active (Search & Shopping)",
+        "todaySpend": 380
+      },
+      "tiktok": {
+        "enabled": false,
+        "advertiserId": "",
+        "pixelId": "",
+        "status": "Yapılandırılmadı",
+        "todaySpend": 0
+      },
+      "openai": {
+        "enabled": true,
+        "engine": "GPT-4o Creative Optimization",
+        "status": "Aktif Reklam Metni Yenileme",
+        "action": "Kreatif yorgunluğu tespit edilip yeni varyasyon açıldı"
+      }
+    },
+    "periods": {
+      "realtime": {
+        "revenue": 13400,
+        "adSpend": 1200,
+        "orders": 9,
+        "roas": 11.16,
+        "aov": 1488,
+        "channels": {
+          "meta": {
+            "spend": 820,
+            "revenue": 9400,
+            "roas": 11.46,
+            "orders": 6
+          },
+          "google": {
+            "spend": 380,
+            "revenue": 4000,
+            "roas": 10.52,
+            "orders": 3
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "GPT-4o Meta Odak",
+            "note": "Hafta sonu koleksiyon metinleri optimize edildi"
+          }
+        }
+      },
+      "daily": {
+        "revenue": 34500,
+        "adSpend": 3100,
+        "orders": 24,
+        "roas": 11.12,
+        "aov": 1437,
+        "channels": {
+          "meta": {
+            "spend": 2100,
+            "revenue": 24100,
+            "roas": 11.47,
+            "orders": 16
+          },
+          "google": {
+            "spend": 1000,
+            "revenue": 10400,
+            "roas": 10.4,
+            "orders": 8
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Günlük Hedef",
+            "note": "Dönüşüm hunisi ROAS 11x üzerinde seyrediyor"
+          }
+        }
+      },
+      "weekly": {
+        "revenue": 238000,
+        "adSpend": 21500,
+        "orders": 168,
+        "roas": 11.06,
+        "aov": 1416,
+        "channels": {
+          "meta": {
+            "spend": 14800,
+            "revenue": 168500,
+            "roas": 11.38,
+            "orders": 118
+          },
+          "google": {
+            "spend": 6700,
+            "revenue": 69500,
+            "roas": 10.37,
+            "orders": 50
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Haftalık Rapor",
+            "note": "A/B testi kazananı Instagram Hikaye reklamları"
+          }
+        }
+      },
+      "monthly": {
+        "revenue": 980000,
+        "adSpend": 88000,
+        "orders": 690,
+        "roas": 11.13,
+        "aov": 1420,
+        "channels": {
+          "meta": {
+            "spend": 60000,
+            "revenue": 684000,
+            "roas": 11.4,
+            "orders": 480
+          },
+          "google": {
+            "spend": 28000,
+            "revenue": 296000,
+            "roas": 10.57,
+            "orders": 210
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Aylık Büyüme",
+            "note": "Organik ve ücretli dönüşüm uyumu yakalandı"
+          }
+        }
+      },
+      "allTime": {
+        "revenue": 3200000,
+        "adSpend": 288000,
+        "orders": 2260,
+        "roas": 11.11,
+        "aov": 1415,
+        "channels": {
+          "meta": {
+            "spend": 196000,
+            "revenue": 2234000,
+            "roas": 11.39,
+            "orders": 1580
+          },
+          "google": {
+            "spend": 92000,
+            "revenue": 966000,
+            "roas": 10.5,
+            "orders": 680
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Marka Karnesi",
+            "note": "Toplamda 3.2M ₺ ciro, 11.1x ROAS üretildi"
+          }
+        }
+      }
+    },
+    "recentSales": [
+      {
+        "id": "ORD-KAYA-5512",
+        "time": "8 dakika önce",
+        "customer": "Gizem A.",
+        "city": "Antalya",
+        "product": "Süet Trençkot & Eşarp Kombini",
+        "amount": 2850,
+        "channel": "Meta CAPI (Instagram Advantage+)",
+        "payment": "PayTR 3D Secure (Kredi Kartı)"
+      },
+      {
+        "id": "ORD-KAYA-5511",
+        "time": "25 dakika önce",
+        "customer": "Meltem S.",
+        "city": "Adana",
+        "product": "İpek Karışımlı Tunik Takım",
+        "amount": 1650,
+        "channel": "Google Shopping",
+        "payment": "PayTR 3D Secure (Tek Çekim)"
+      }
+    ]
+  },
+  {
+    "id": "client-demir-iklim",
+    "name": "Demir İklimlendirme",
+    "category": "İklimlendirme & B2B/B2C Cihaz Satışı",
+    "website": "https://demirhavalandirma.com",
+    "contact": {
+      "name": "Serkan Demir",
+      "phone": "0544 555 12 34",
+      "email": "serkan@demirhavalandirma.com"
+    },
+    "package": "Entegre AI Studio OnePage + Google Ads & Meta Danışmanlığı",
+    "status": "Canlı Satış & ROAS Zirvede",
+    "statusBadge": "Yüksek Bilet Satış 💎",
+    "apis": {
+      "meta": {
+        "enabled": true,
+        "adAccountId": "act_91048291",
+        "pixelId": "849201948",
+        "capiStatus": "Active",
+        "todaySpend": 600
+      },
+      "google": {
+        "enabled": true,
+        "customerId": "910-482-9102",
+        "conversionId": "AW-849102",
+        "status": "Active (Google Search & Call Ads)",
+        "todaySpend": 1200
+      },
+      "tiktok": {
+        "enabled": false,
+        "advertiserId": "",
+        "pixelId": "",
+        "status": "Pasif",
+        "todaySpend": 0
+      },
+      "openai": {
+        "enabled": true,
+        "engine": "GPT-4o B2B Lead Qualifier",
+        "status": "Otomatik Talep & Satış Filtresi",
+        "action": "Yüksek bütçeli teklif talepleri anında CRM'e aktarıldı"
+      }
+    },
+    "periods": {
+      "realtime": {
+        "revenue": 21500,
+        "adSpend": 1800,
+        "orders": 3,
+        "roas": 11.94,
+        "aov": 7166,
+        "channels": {
+          "meta": {
+            "spend": 600,
+            "revenue": 6800,
+            "roas": 11.33,
+            "orders": 1
+          },
+          "google": {
+            "spend": 1200,
+            "revenue": 14700,
+            "roas": 12.25,
+            "orders": 2
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Google Arama Odak",
+            "note": "Yüksek niyetli VRF klima aramalarından satış"
+          }
+        }
+      },
+      "daily": {
+        "revenue": 48500,
+        "adSpend": 4100,
+        "orders": 6,
+        "roas": 11.82,
+        "aov": 8083,
+        "channels": {
+          "meta": {
+            "spend": 1400,
+            "revenue": 16200,
+            "roas": 11.57,
+            "orders": 2
+          },
+          "google": {
+            "spend": 2700,
+            "revenue": 32300,
+            "roas": 11.96,
+            "orders": 4
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "B2B Satış Motoru",
+            "note": "Ortalama sipariş tutarı 8.000 TL üzerinde"
+          }
+        }
+      },
+      "weekly": {
+        "revenue": 325000,
+        "adSpend": 28000,
+        "orders": 39,
+        "roas": 11.6,
+        "aov": 8333,
+        "channels": {
+          "meta": {
+            "spend": 9800,
+            "revenue": 112000,
+            "roas": 11.42,
+            "orders": 14
+          },
+          "google": {
+            "spend": 18200,
+            "revenue": 213000,
+            "roas": 11.7,
+            "orders": 25
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Haftalık B2B Raporu",
+            "note": "Kurumsal klima siparişleri haftalık zirve yaptı"
+          }
+        }
+      },
+      "monthly": {
+        "revenue": 1420000,
+        "adSpend": 122000,
+        "orders": 172,
+        "roas": 11.63,
+        "aov": 8255,
+        "channels": {
+          "meta": {
+            "spend": 43000,
+            "revenue": 490000,
+            "roas": 11.39,
+            "orders": 60
+          },
+          "google": {
+            "spend": 79000,
+            "revenue": 930000,
+            "roas": 11.77,
+            "orders": 112
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "Aylık Çarpan",
+            "note": "1.42M ₺ toplam ciroda 11.6x ROAS korundu"
+          }
+        }
+      },
+      "allTime": {
+        "revenue": 5100000,
+        "adSpend": 440000,
+        "orders": 618,
+        "roas": 11.59,
+        "aov": 8252,
+        "channels": {
+          "meta": {
+            "spend": 154000,
+            "revenue": 1755000,
+            "roas": 11.39,
+            "orders": 215
+          },
+          "google": {
+            "spend": 286000,
+            "revenue": 3345000,
+            "roas": 11.69,
+            "orders": 403
+          },
+          "tiktok": {
+            "spend": 0,
+            "revenue": 0,
+            "roas": 0,
+            "orders": 0
+          },
+          "openai": {
+            "label": "B2B Başarı Hikayesi",
+            "note": "Toplamda 5.1M ₺ kurumsal e-ticaret hacmi"
+          }
+        }
+      }
+    },
+    "recentSales": [
+      {
+        "id": "ORD-DMR-1084",
+        "time": "12 dakika önce",
+        "customer": "Cemil B. (Sanayi Tesisi)",
+        "city": "Kocaeli",
+        "product": "Endüstriyel Havalandırma Santrali + Filtre Ünitesi",
+        "amount": 14700,
+        "channel": "Google Search Ads (B2B)",
+        "payment": "Havale / EFT & PayTR Güvenli Ödeme"
+      },
+      {
+        "id": "ORD-DMR-1083",
+        "time": "49 dakika önce",
+        "customer": "Orhan V.",
+        "city": "İstanbul",
+        "product": "İnverter Çoklu Split Klima Sistemi",
+        "amount": 6800,
+        "channel": "Meta CAPI Advantage+",
+        "payment": "PayTR 3D Secure (6 Taksit)"
+      }
+    ]
+  },
+  {
+    "id": "client-ayaz-muh",
+    "name": "Ayaz Mühendislik",
+    "category": "Akıllı Bina & Otomasyon Sistemleri",
+    "website": "https://ayazmuhendislik.com",
+    "contact": {
+      "name": "Murat Ayaz",
+      "phone": "0533 444 33 22",
+      "email": "murat@ayazmuhendislik.com"
+    },
+    "package": "Entegre AI Studio Kurumsal Web + Google Ads & Meta Danışmanlığı",
+    "status": "Canlı Satış & ROAS Zirvede",
+    "statusBadge": "İnovatif Büyüme ⚡",
+    "apis": {
+      "meta": {
+        "enabled": true,
+        "adAccountId": "act_73910294",
+        "pixelId": "910294819",
+        "capiStatus": "Active (100% Match)",
+        "todaySpend": 500
+      },
+      "google": {
+        "enabled": true,
+        "customerId": "739-102-9481",
+        "conversionId": "AW-710294",
+        "status": "Active (P-Max & Search)",
+        "todaySpend": 950
+      },
+      "tiktok": {
+        "enabled": true,
+        "advertiserId": "TT-ADV-19028",
+        "pixelId": "C719284102",
+        "status": "Active (Proje Tanıtım)",
+        "todaySpend": 200
+      },
+      "openai": {
+        "enabled": true,
+        "engine": "GPT-4o Smart Tech Lead Assistant",
+        "status": "7/24 Proje Fiyatlandırma Robotu",
+        "action": "Otomasyon taleplerine anında teknik ön maliyet sunuldu"
+      }
+    },
+    "periods": {
+      "realtime": {
+        "revenue": 19200,
+        "adSpend": 1650,
+        "orders": 4,
+        "roas": 11.63,
+        "aov": 4800,
+        "channels": {
+          "meta": {
+            "spend": 500,
+            "revenue": 5600,
+            "roas": 11.2,
+            "orders": 1
+          },
+          "google": {
+            "spend": 950,
+            "revenue": 11800,
+            "roas": 12.42,
+            "orders": 2
+          },
+          "tiktok": {
+            "spend": 200,
+            "revenue": 1800,
+            "roas": 9,
+            "orders": 1
+          },
+          "openai": {
+            "label": "Çok Kanallı Entegrasyon",
+            "note": "Meta + Google + TikTok tam sinerji sağlandı"
+          }
+        }
+      },
+      "daily": {
+        "revenue": 42000,
+        "adSpend": 3600,
+        "orders": 8,
+        "roas": 11.66,
+        "aov": 5250,
+        "channels": {
+          "meta": {
+            "spend": 1100,
+            "revenue": 12400,
+            "roas": 11.27,
+            "orders": 2
+          },
+          "google": {
+            "spend": 2100,
+            "revenue": 25800,
+            "roas": 12.28,
+            "orders": 5
+          },
+          "tiktok": {
+            "spend": 400,
+            "revenue": 3800,
+            "roas": 9.5,
+            "orders": 1
+          },
+          "openai": {
+            "label": "Günlük Performans",
+            "note": "Google P-Max yüksek değerli proje üretti"
+          }
+        }
+      },
+      "weekly": {
+        "revenue": 285000,
+        "adSpend": 24500,
+        "orders": 56,
+        "roas": 11.63,
+        "aov": 5089,
+        "channels": {
+          "meta": {
+            "spend": 7400,
+            "revenue": 83500,
+            "roas": 11.28,
+            "orders": 16
+          },
+          "google": {
+            "spend": 14500,
+            "revenue": 176500,
+            "roas": 12.17,
+            "orders": 34
+          },
+          "tiktok": {
+            "spend": 2600,
+            "revenue": 25000,
+            "roas": 9.61,
+            "orders": 6
+          },
+          "openai": {
+            "label": "Haftalık Mühendislik Raporu",
+            "note": "Haftalık 285.000 TL otomasyon satışı gerçekleşti"
+          }
+        }
+      },
+      "monthly": {
+        "revenue": 1220000,
+        "adSpend": 105000,
+        "orders": 242,
+        "roas": 11.61,
+        "aov": 5041,
+        "channels": {
+          "meta": {
+            "spend": 32000,
+            "revenue": 361000,
+            "roas": 11.28,
+            "orders": 71
+          },
+          "google": {
+            "spend": 62000,
+            "revenue": 756000,
+            "roas": 12.19,
+            "orders": 148
+          },
+          "tiktok": {
+            "spend": 11000,
+            "revenue": 103000,
+            "roas": 9.36,
+            "orders": 23
+          },
+          "openai": {
+            "label": "Aylık Ölçekleme",
+            "note": "Ortalama 11.6x ROAS ile aylık hedef tamamlandı"
+          }
+        }
+      },
+      "allTime": {
+        "revenue": 4200000,
+        "adSpend": 362000,
+        "orders": 830,
+        "roas": 11.6,
+        "aov": 5060,
+        "channels": {
+          "meta": {
+            "spend": 110000,
+            "revenue": 1242000,
+            "roas": 11.29,
+            "orders": 245
+          },
+          "google": {
+            "spend": 214000,
+            "revenue": 2606000,
+            "roas": 12.17,
+            "orders": 510
+          },
+          "tiktok": {
+            "spend": 38000,
+            "revenue": 352000,
+            "roas": 9.26,
+            "orders": 75
+          },
+          "openai": {
+            "label": "Yıllık Büyüme Hacmi",
+            "note": "Toplamda 4.2M ₺ ciro, 830 proje siparişi"
+          }
+        }
+      }
+    },
+    "recentSales": [
+      {
+        "id": "ORD-AYAZ-3021",
+        "time": "18 dakika önce",
+        "customer": "Kaan R. (Villa Projesi)",
+        "city": "Muğla / Bodrum",
+        "product": "Akıllı Ev Otomasyonu Çekirdek Paketi",
+        "amount": 11800,
+        "channel": "Google Ads Performance Max",
+        "payment": "PayTR 3D Secure (Kredi Kartı)"
+      },
+      {
+        "id": "ORD-AYAZ-3020",
+        "time": "36 dakika önce",
+        "customer": "Turgut Y.",
+        "city": "İstanbul",
+        "product": "Merkezi Aydınlatma & İklim Otomasyon Modülü",
+        "amount": 5600,
+        "channel": "Meta Ads CAPI (Instagram)",
+        "payment": "PayTR 3D Secure (Tek Çekim)"
+      }
+    ]
+  }
+]

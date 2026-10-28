@@ -1,0 +1,13 @@
+{
+  "paytr": {
+    "enabled": false,
+    "testMode": true,
+    "merchantId": "",
+    "merchantKey": "",
+    "merchantSalt": "",
+    "maxInstallment": 12,
+    "successUrl": "https://entegreshop.com/#siparis-basarili",
+    "failUrl": "https://entegreshop.com/#siparis-hatali"
+  },
+  "updatedAt": "2026-10-26T19:00:00.000Z"
+}

@@ -660,6 +660,36 @@ function initCheckoutModal() {
 
   window.openCheckoutModal = openCheckoutModal;
 
+  const frameBackBtn = document.getElementById('paytr-frame-back-btn');
+  if (frameBackBtn) {
+    frameBackBtn.addEventListener('click', () => {
+      document.getElementById('checkout-paytr-frame-box')?.classList.add('hidden');
+      form.classList.remove('hidden');
+    });
+  }
+
+  // Payment method radio style updater
+  const methodRadios = document.querySelectorAll('input[name="orderPaymentMethod"]');
+  methodRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.payment-method-label').forEach(label => {
+        label.classList.remove('border-emerald-500/80', 'border-emerald-400');
+        label.classList.add('border-slate-800');
+      });
+      const activeLabel = radio.closest('.payment-method-label');
+      if (activeLabel) {
+        activeLabel.classList.remove('border-slate-800');
+        activeLabel.classList.add('border-emerald-500/80');
+      }
+      const submitText = document.querySelector('#checkout-submit-btn span');
+      if (submitText) {
+        submitText.textContent = radio.value === 'paytr' 
+          ? 'Siparişi Onayla & Güvenli Ödemeye Geç' 
+          : 'Siparişi Onayla & WhatsApp ile Başla';
+      }
+    });
+  });
+
   if (form) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -671,11 +701,12 @@ function initCheckoutModal() {
       const taxId = document.getElementById('order-tax')?.value.trim() || 'Belirtilmedi';
       const address = document.getElementById('order-address')?.value.trim() || 'Belirtilmedi';
       const notes = document.getElementById('order-notes')?.value.trim() || '';
+      const paymentMethod = document.querySelector('input[name="orderPaymentMethod"]:checked')?.value || 'paytr';
 
       const submitBtn = form.querySelector('button[type="submit"]');
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Sipariş İşleniyor...</span>`;
+        submitBtn.innerHTML = `<span>İşlem Hazırlanıyor...</span>`;
       }
 
       const rawSubtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
@@ -685,6 +716,66 @@ function initCheckoutModal() {
 
       let orderNumber = 'ENT-ORD-' + Math.floor(100000 + Math.random() * 900000);
 
+      // PAYTR TOKEN CHECKOUT FLOW
+      if (paymentMethod === 'paytr') {
+        try {
+          if (submitBtn) submitBtn.innerHTML = `<span>PayTR 3D Secure Başlatılıyor...</span>`;
+          const paytrRes = await fetch('/api/paytr/create-token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: orderNumber,
+              customer: { name, company, phone, email, taxId, address, notes },
+              items: cart,
+              total: grandTotal
+            })
+          });
+          const paytrData = await paytrRes.json();
+          if (paytrData.success && paytrData.iframeUrl) {
+            // Save pending order record in backend
+            fetch('/api/cart/checkout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                customer: { name, company, phone, email, taxId, address, notes },
+                items: cart,
+                discountPercent: appliedDiscountPercent,
+                total: grandTotal,
+                orderId: paytrData.orderId,
+                paymentStatus: 'PayTR 3D Secure Bekleniyor'
+              })
+            }).catch(() => {});
+
+            // Multi-channel tracking
+            if (window.trackConversionEvent) {
+              window.trackConversionEvent('InitiateCheckout', {
+                order_id: paytrData.orderId,
+                value: grandTotal,
+                currency: 'TRY',
+                num_items: cart.length
+              }, { email, phone, name });
+            }
+
+            // Display PayTR secure iFrame
+            form.classList.add('hidden');
+            const frameBox = document.getElementById('checkout-paytr-frame-box');
+            const frameWrapper = document.getElementById('paytr-iframe-wrapper');
+            if (frameBox && frameWrapper) {
+              frameWrapper.innerHTML = `<iframe src="${paytrData.iframeUrl}" id="paytriframe" frameborder="0" scrolling="no" style="width: 100%; min-height: 580px; border: 0;"></iframe>`;
+              frameBox.classList.remove('hidden');
+            }
+            clearCart();
+            return;
+          } else {
+            console.warn('PayTR token fallback:', paytrData.error);
+            alert('Bilgi: ' + (paytrData.error || 'Sanal POS bilgileri tamamlanmadığı için siparişiniz oluşturularak danışman hattına yönlendiriliyorsunuz.'));
+          }
+        } catch (err) {
+          console.warn('PayTR request fallback:', err);
+        }
+      }
+
+      // STANDARD ORDER / WHATSAPP FALLBACK FLOW
       try {
         const res = await fetch('/api/cart/checkout', {
           method: 'POST',
@@ -705,7 +796,7 @@ function initCheckoutModal() {
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = `<span>Siparişi Onayla & Fatura Oluştur</span>`;
+          submitBtn.innerHTML = `<span>Siparişi Onayla & Güvenli Ödemeye Geç</span>`;
         }
       }
 
