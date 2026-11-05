@@ -33,6 +33,75 @@
 </head>
 <body class="bg-[#060913] text-slate-100 min-h-screen antialiased">
 
+  <!-- ADMIN LOGIN SCREEN (YETKİLİ GİRİŞ PANELİ) -->
+  <div id="es-admin-login-view" class="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-[#060913] via-[#090f24] to-[#060913]">
+    <div class="w-full max-w-md rounded-3xl bg-slate-900/95 border border-slate-800 p-8 shadow-2xl space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-600 to-cyan-500 flex items-center justify-center mx-auto shadow-lg shadow-indigo-600/30 font-black text-xl text-white font-heading">
+          ES
+        </div>
+        <h1 class="text-2xl font-black text-white font-heading">Entegre Shop Control Center</h1>
+        <p class="text-xs text-slate-400">Ajans yönetim paneline erişmek için yetkili kullanıcı adı ve şifrenizi girin.</p>
+      </div>
+
+      <form id="es-admin-login-form" onsubmit="handleEsAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider font-mono">Kullanıcı Adı</label>
+          <input type="text" id="es-login-username" required autocomplete="username" placeholder="entegreshop" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white font-mono focus:outline-none focus:border-indigo-500 transition-colors">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5 uppercase tracking-wider font-mono">Yönetici Şifresi</label>
+          <input type="password" id="es-login-password" required autocomplete="current-password" placeholder="••••••••••••" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white font-mono focus:outline-none focus:border-indigo-500 transition-colors">
+        </div>
+
+        <div id="es-login-error" class="hidden p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-400 font-semibold text-center">
+          Kullanıcı adı veya şifre hatalı!
+        </div>
+
+        <button type="submit" id="es-login-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 transition-all">
+          🔒 Yönetim Paneline Giriş Yap
+        </button>
+      </form>
+
+      <div class="pt-4 border-t border-slate-800/80 text-center">
+        <a href="/" class="text-xs text-slate-500 hover:text-slate-300 transition-colors font-mono">← Ana Sayfaya Dön</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: YÖNETİCİ KULLANICI ADI & ŞİFRE DEĞİŞTİRME -->
+  <div id="es-admin-creds-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 text-amber-400 flex items-center justify-center font-bold">🔑</div>
+          <div>
+            <h3 class="font-bold text-white text-sm font-heading">Yönetici Giriş Bilgilerini Güncelle</h3>
+            <p class="text-[11px] text-slate-400">Admin kullanıcı adı ve şifrenizi değiştirin</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeEsCredsModal()" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-lg">&times;</button>
+      </div>
+      <form onsubmit="saveEsAdminCredentials(event)" class="p-6 space-y-4 text-xs font-mono">
+        <div>
+          <label class="block text-slate-300 mb-1 font-bold">Yeni Kullanıcı Adı</label>
+          <input type="text" id="es-cred-username" required placeholder="entegreshop" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1 font-bold">Yeni Yönetici Şifresi</label>
+          <input type="password" id="es-cred-password" required placeholder="Yeni şifrenizi girin (en az 4 karakter)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div class="pt-2 flex items-center justify-end gap-2">
+          <button type="button" onclick="closeEsCredsModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300">İptal</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold shadow-lg shadow-amber-600/25">💾 Şifreyi Güncelle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- PROTECTED ADMIN DASHBOARD -->
+  <div id="es-admin-dashboard-view" class="hidden">
+
   <!-- Header -->
   <header class="border-b border-slate-800 bg-[#080d1a]/90 backdrop-blur-xl sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -48,13 +117,19 @@
         </span>
       </div>
 
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <a href="/" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-slate-300 hover:text-white transition-colors">
           ← Web Sitesine Dön
         </a>
+        <button onclick="openEsCredsModal()" class="px-3 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-xs font-mono text-amber-300 font-bold transition-colors">
+          🔑 Şifre Değiştir
+        </button>
         <button onclick="refreshData()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-mono text-white font-bold transition-colors flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
           <span>Yenile</span>
+        </button>
+        <button onclick="logoutEsAdmin()" class="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-xs font-mono text-red-400 font-bold transition-colors">
+          🚪 Çıkış Yap
         </button>
       </div>
     </div>
@@ -1920,8 +1995,131 @@
     </div>
 
   </main>
+  </div><!-- /#es-admin-dashboard-view -->
 
   <script>
+    let esAdminToken = localStorage.getItem('es_admin_token') || '';
+    const _nativeFetch = window.fetch.bind(window);
+
+    window.fetch = async function(resource, config = {}) {
+      const urlStr = typeof resource === 'string' ? resource : (resource?.url || '');
+      if (urlStr.startsWith('/api/') && !urlStr.startsWith('/api/admin/login')) {
+        const headers = new Headers(config.headers || {});
+        if (esAdminToken && !headers.has('Authorization')) {
+          headers.set('Authorization', 'Bearer ' + esAdminToken);
+        }
+        config = { ...config, headers };
+      }
+      const response = await _nativeFetch(resource, config);
+      if (response.status === 401 && !urlStr.startsWith('/api/admin/login')) {
+        esAdminToken = '';
+        localStorage.removeItem('es_admin_token');
+        showEsLoginScreen();
+      }
+      return response;
+    };
+
+    function showEsLoginScreen() {
+      document.getElementById('es-admin-login-view')?.classList.remove('hidden');
+      document.getElementById('es-admin-dashboard-view')?.classList.add('hidden');
+    }
+
+    function showEsDashboardScreen() {
+      document.getElementById('es-admin-login-view')?.classList.add('hidden');
+      document.getElementById('es-admin-dashboard-view')?.classList.remove('hidden');
+    }
+
+    async function handleEsAdminLogin(e) {
+      e.preventDefault();
+      const username = document.getElementById('es-login-username').value.trim();
+      const password = document.getElementById('es-login-password').value;
+      const errBox = document.getElementById('es-login-error');
+      const btn = document.getElementById('es-login-btn');
+
+      errBox.classList.add('hidden');
+      btn.disabled = true;
+      btn.textContent = 'Kontrol ediliyor...';
+
+      try {
+        const res = await _nativeFetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.success && data.token) {
+          esAdminToken = data.token;
+          localStorage.setItem('es_admin_token', esAdminToken);
+          localStorage.setItem('es_admin_username', data.username || username);
+          document.getElementById('es-login-password').value = '';
+          showEsDashboardScreen();
+          refreshData();
+        } else {
+          errBox.textContent = data.error || 'Kullanıcı adı veya şifre hatalı!';
+          errBox.classList.remove('hidden');
+        }
+      } catch (err) {
+        errBox.textContent = 'Bağlantı hatası oluştu.';
+        errBox.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔒 Yönetim Paneline Giriş Yap';
+      }
+    }
+
+    async function logoutEsAdmin() {
+      try {
+        await fetch('/api/admin/logout', { method: 'POST' });
+      } catch (e) {}
+      esAdminToken = '';
+      localStorage.removeItem('es_admin_token');
+      showEsLoginScreen();
+    }
+
+    function openEsCredsModal() {
+      const savedUser = localStorage.getItem('es_admin_username') || 'entegreshop';
+      document.getElementById('es-cred-username').value = savedUser;
+      document.getElementById('es-cred-password').value = '';
+      document.getElementById('es-admin-creds-modal').classList.remove('hidden');
+    }
+
+    function closeEsCredsModal() {
+      document.getElementById('es-admin-creds-modal').classList.add('hidden');
+    }
+
+    async function saveEsAdminCredentials(e) {
+      e.preventDefault();
+      const username = document.getElementById('es-cred-username').value.trim();
+      const newPassword = document.getElementById('es-cred-password').value.trim();
+      if (!newPassword || newPassword.length < 4) {
+        alert('Yeni şifre en az 4 karakter olmalıdır.');
+        return;
+      }
+      try {
+        const res = await fetch('/api/admin/credentials', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, newPassword })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          if (data.token) {
+            esAdminToken = data.token;
+            localStorage.setItem('es_admin_token', esAdminToken);
+          }
+          if (data.username) {
+            localStorage.setItem('es_admin_username', data.username);
+          }
+          closeEsCredsModal();
+          alert('✅ Yönetici kullanıcı adı ve şifreniz başarıyla güncellendi!');
+        } else {
+          alert(data.error || 'Güncellenemedi.');
+        }
+      } catch (err) {
+        alert('Bağlantı hatası: ' + err.message);
+      }
+    }
+
     let globalOrders = [];
     let globalLeads = [];
 
@@ -3788,13 +3986,7 @@
       loadReferencesAdmin();
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      loadClientsData();
-      loadData();
-      loadTrackingSettings();
-      loadPaymentSettings();
-      loadReferencesAdmin();
-
+    async function initEsAdminSession() {
       const rawHash = window.location.hash.replace('#', '');
       if (rawHash.startsWith('client-detail/')) {
         const cId = rawHash.replace('client-detail/', '');
@@ -3805,6 +3997,27 @@
       } else {
         switchTab('clients');
       }
+
+      if (!esAdminToken) {
+        showEsLoginScreen();
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/orders');
+        if (res.ok) {
+          showEsDashboardScreen();
+          refreshData();
+        } else {
+          showEsLoginScreen();
+        }
+      } catch (e) {
+        showEsLoginScreen();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initEsAdminSession();
     });
 
     window.addEventListener('hashchange', () => {

@@ -21,7 +21,9 @@ const TRACKING_FILE = path.join(DATA_DIR, 'tracking.json');
 const PAYMENT_FILE = path.join(DATA_DIR, 'payment.json');
 const CLIENTS_FILE = path.join(DATA_DIR, 'clients.json');
 const REFERENCES_FILE = path.join(DATA_DIR, 'references.json');
+const ADMIN_AUTH_FILE = path.join(DATA_DIR, 'admin-auth.json');
 const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
+const activeAdminTokens = new Set();
 
 // Ensure data and uploads directories exist
 if (!fs.existsSync(DATA_DIR)) {
@@ -35,6 +37,41 @@ function initDataFile(filePath, defaultData = []) {
   if (!fs.existsSync(filePath)) {
     fs.writeFileSync(filePath, JSON.stringify(defaultData, null, 2), 'utf-8');
   }
+}
+
+initDataFile(ADMIN_AUTH_FILE, {
+  username: process.env.ADMIN_USERNAME || 'entegreshop',
+  password: process.env.ADMIN_PASSWORD || 'Es2026!Ajans',
+  updatedAt: new Date().toISOString()
+});
+
+function getAdminCredentials() {
+  try {
+    if (fs.existsSync(ADMIN_AUTH_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(ADMIN_AUTH_FILE, 'utf-8'));
+      if (parsed && parsed.username && parsed.password) {
+        return {
+          username: String(parsed.username).trim(),
+          password: String(parsed.password)
+        };
+      }
+    }
+  } catch (e) {}
+  return {
+    username: process.env.ADMIN_USERNAME || 'entegreshop',
+    password: process.env.ADMIN_PASSWORD || 'Es2026!Ajans'
+  };
+}
+
+function verifyAdmin(req) {
+  const authHeader = req.headers['authorization'] || '';
+  const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+  if (!token) return false;
+  const creds = getAdminCredentials();
+  if (activeAdminTokens.has(token) || token === creds.password) {
+    return true;
+  }
+  return false;
 }
 
 initDataFile(ORDERS_FILE, [
@@ -264,6 +301,8 @@ function sendJson(res, statusCode, data) {
   res.writeHead(statusCode, {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Cache-Control': 'no-cache, no-store, must-revalidate'
   });
   res.end(JSON.stringify(data));
@@ -397,8 +436,83 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // 3.b ADMIN AUTH API: LOGIN, LOGOUT, CREDENTIALS
+  if (pathname === '/api/admin/login' && req.method === 'POST') {
+    try {
+      const body = await parseJsonBody(req);
+      const inputUser = String(body.username || '').trim();
+      const inputPass = String(body.password || '');
+      const creds = getAdminCredentials();
+
+      const userMatch =
+        inputUser.toLowerCase() === creds.username.toLowerCase() ||
+        inputUser.toLowerCase() === 'admin';
+
+      if (userMatch && inputPass === creds.password) {
+        const token = crypto.randomBytes(24).toString('hex');
+        activeAdminTokens.add(token);
+        return sendJson(res, 200, {
+          success: true,
+          token,
+          username: creds.username
+        });
+      }
+      return sendJson(res, 401, {
+        success: false,
+        error: 'Kullanıcı adı veya şifre hatalı!'
+      });
+    } catch (e) {
+      return sendJson(res, 400, { success: false, error: 'Geçersiz giriş isteği.' });
+    }
+  }
+
+  if (pathname === '/api/admin/logout' && req.method === 'POST') {
+    const authHeader = req.headers['authorization'] || '';
+    const token = authHeader.replace(/^Bearer\s+/i, '').trim();
+    if (token) activeAdminTokens.delete(token);
+    return sendJson(res, 200, { success: true });
+  }
+
+  if (pathname === '/api/admin/credentials' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
+    try {
+      const body = await parseJsonBody(req);
+      const currentCreds = getAdminCredentials();
+      const newUsername = String(body.username || currentCreds.username).trim() || currentCreds.username;
+      const newPassword = String(body.newPassword || '').trim() || currentCreds.password;
+
+      if (newPassword.length < 4) {
+        return sendJson(res, 400, { success: false, error: 'Yeni şifre en az 4 karakter olmalıdır.' });
+      }
+
+      writeJsonFile(ADMIN_AUTH_FILE, {
+        username: newUsername,
+        password: newPassword,
+        updatedAt: new Date().toISOString()
+      });
+
+      const newToken = crypto.randomBytes(24).toString('hex');
+      activeAdminTokens.clear();
+      activeAdminTokens.add(newToken);
+
+      return sendJson(res, 200, {
+        success: true,
+        username: newUsername,
+        token: newToken,
+        message: 'Yönetici giriş bilgileri başarıyla güncellendi.'
+      });
+    } catch (e) {
+      return sendJson(res, 400, { success: false, error: e.message });
+    }
+  }
+
   // 4. ADMIN API: GET ORDERS
   if (pathname === '/api/admin/orders' && req.method === 'GET') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     const orders = readJsonFile(ORDERS_FILE);
     sendJson(res, 200, { success: true, count: orders.length, orders });
     return;
@@ -406,6 +520,9 @@ const server = http.createServer(async (req, res) => {
 
   // 5. ADMIN API: GET LEADS
   if (pathname === '/api/admin/leads' && req.method === 'GET') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     const leads = readJsonFile(LEADS_FILE);
     sendJson(res, 200, { success: true, count: leads.length, leads });
     return;
@@ -413,6 +530,9 @@ const server = http.createServer(async (req, res) => {
 
   // 6. ADMIN API: UPDATE ORDER / LEAD STATUS
   if (pathname === '/api/admin/status' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const { type, id, status } = await parseJsonBody(req);
       if (type === 'order') {
@@ -442,12 +562,29 @@ const server = http.createServer(async (req, res) => {
   // 7. TRACKING SETTINGS API: GET
   if (pathname === '/api/settings/tracking' && req.method === 'GET') {
     const settings = readTrackingSettings();
+    if (!verifyAdmin(req)) {
+      const safeSettings = {
+        ...settings,
+        meta: {
+          ...(settings.meta || {}),
+          capiToken: ''
+        },
+        tiktok: {
+          ...(settings.tiktok || {}),
+          eventsApiToken: ''
+        }
+      };
+      return sendJson(res, 200, { success: true, settings: safeSettings });
+    }
     sendJson(res, 200, { success: true, settings });
     return;
   }
 
   // 8. TRACKING SETTINGS API: POST (SAVE SETTINGS)
   if (pathname === '/api/settings/tracking' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const data = await parseJsonBody(req);
       const updated = {
@@ -553,6 +690,9 @@ const server = http.createServer(async (req, res) => {
 
   // 10. PAYMENT SETTINGS API: GET
   if (pathname === '/api/settings/payment' && req.method === 'GET') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     const settings = readPaymentSettings();
     sendJson(res, 200, { success: true, settings });
     return;
@@ -560,6 +700,9 @@ const server = http.createServer(async (req, res) => {
 
   // 11. PAYMENT SETTINGS API: POST (ADMIN SAVE)
   if (pathname === '/api/settings/payment' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const data = await parseJsonBody(req);
       const updated = {
@@ -743,6 +886,9 @@ const server = http.createServer(async (req, res) => {
 
   // 14. CLIENT DASHBOARD & REAL-TIME ANALYTICS API: LIST & CONSOLIDATED SUMMARY
   if (pathname === '/api/clients' && req.method === 'GET') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     const clients = readClients();
     const summary = calculateConsolidatedSummary(clients);
     const liveFeed = getCombinedLiveFeed(clients);
@@ -765,6 +911,9 @@ const server = http.createServer(async (req, res) => {
 
   // 14.b CLIENT CREATION API: POST /api/clients
   if (pathname === '/api/clients' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const data = await parseJsonBody(req);
       const clients = readClients();
@@ -1036,6 +1185,9 @@ const server = http.createServer(async (req, res) => {
   // 15. CLIENT DETAIL API: GET SINGLE CLIENT
   const clientDetailMatch = pathname.match(/^\/api\/clients\/([a-zA-Z0-9_-]+)$/);
   if (clientDetailMatch && req.method === 'GET') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     const clientId = clientDetailMatch[1];
     const clients = readClients();
     const client = clients.find(c => c.id === clientId);
@@ -1048,6 +1200,9 @@ const server = http.createServer(async (req, res) => {
 
   // 16. CLIENT UPDATE API: PUT /api/clients/:id
   if (clientDetailMatch && req.method === 'PUT') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const clientId = clientDetailMatch[1];
       const data = await parseJsonBody(req);
@@ -1102,6 +1257,9 @@ const server = http.createServer(async (req, res) => {
 
   // 16.b CLIENT DELETE API: DELETE /api/clients/:id
   if (clientDetailMatch && req.method === 'DELETE') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const clientId = clientDetailMatch[1];
       const clients = readClients();
@@ -1125,6 +1283,9 @@ const server = http.createServer(async (req, res) => {
   // 17. CLIENT LIVE SALE INGESTION (WEBHOOK / SIMULATION)
   const clientSaleMatch = pathname.match(/^\/api\/clients\/([a-zA-Z0-9_-]+)\/sales$/);
   if (clientSaleMatch && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const clientId = clientSaleMatch[1];
       const data = await parseJsonBody(req);
@@ -1172,6 +1333,9 @@ const server = http.createServer(async (req, res) => {
   // 18. CLIENT API SYNC (META, GOOGLE, TIKTOK, OPENAI)
   const clientSyncMatch = pathname.match(/^\/api\/clients\/([a-zA-Z0-9_-]+)\/sync$/);
   if (clientSyncMatch && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const clientId = clientSyncMatch[1];
       const clients = readClients();
@@ -1390,6 +1554,9 @@ const server = http.createServer(async (req, res) => {
 
   // POST /api/references/capture-screenshot (Live URL -> Auto Screenshot + Meta)
   if (pathname === '/api/references/capture-screenshot' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const body = await parseJsonBody(req);
       const urlInput = String(body.url || '').trim();
@@ -1412,6 +1579,9 @@ const server = http.createServer(async (req, res) => {
 
   // POST /api/references/categories (Add new category)
   if (pathname === '/api/references/categories' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const body = await parseJsonBody(req);
       const name = String(body.name || '').trim();
@@ -1441,6 +1611,9 @@ const server = http.createServer(async (req, res) => {
   // DELETE /api/references/categories/:id
   const refCatDelMatch = pathname.match(/^\/api\/references\/categories\/([a-zA-Z0-9_-]+)$/);
   if (refCatDelMatch && req.method === 'DELETE') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const catId = refCatDelMatch[1];
       const refData = readReferencesData();
@@ -1471,6 +1644,9 @@ const server = http.createServer(async (req, res) => {
 
   // POST /api/references (Add new reference showcase card & marquee logo)
   if (pathname === '/api/references' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const body = await parseJsonBody(req);
       const name = String(body.name || '').trim();
@@ -1539,6 +1715,9 @@ const server = http.createServer(async (req, res) => {
 
   // POST /api/references/settings (Update marquee & showcase settings)
   if (pathname === '/api/references/settings' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const body = await parseJsonBody(req);
       const refData = readReferencesData();
@@ -1568,6 +1747,9 @@ const server = http.createServer(async (req, res) => {
 
   // POST /api/references/reorder (Move reference up/down)
   if (pathname === '/api/references/reorder' && req.method === 'POST') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const { id, direction } = await parseJsonBody(req);
       const refData = readReferencesData();
@@ -1597,6 +1779,9 @@ const server = http.createServer(async (req, res) => {
   // PUT & DELETE /api/references/:id
   const refDetailMatch = pathname.match(/^\/api\/references\/([a-zA-Z0-9_-]+)$/);
   if (refDetailMatch && req.method === 'PUT') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const refId = refDetailMatch[1];
       const body = await parseJsonBody(req);
@@ -1647,6 +1832,9 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (refDetailMatch && req.method === 'DELETE') {
+    if (!verifyAdmin(req)) {
+      return sendJson(res, 401, { success: false, error: 'Yetkisiz erişim.' });
+    }
     try {
       const refId = refDetailMatch[1];
       const refData = readReferencesData();
